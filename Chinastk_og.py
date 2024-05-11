@@ -7,7 +7,7 @@ pygame.init()
 
 
 #music import/play
-mixer.music.load("2f2f.mp3")
+mixer.music.load("music/2f2f.mp3")
 mixer.music.set_volume(0.5)
 mixer.music.play(-1)
 
