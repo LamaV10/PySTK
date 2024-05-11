@@ -8,7 +8,7 @@ pygame.init()
 
 
 #music import/play
-mixer.music.load("Js.mp3")
+mixer.music.load("music/yourtitel.mp3")
 mixer.music.set_volume(0.5)
 mixer.music.play(-1)
 
@@ -17,8 +17,8 @@ WIN = pygame.display.set_mode((2560,1400))
 pygame.display.set_caption("SuperTuxKart")
 
 #Background and Mask
-BG = pygame.transform.scale(pygame.image.load('rennstrecke.jpg'), (2560, 1400))
-TRACK_BORDER = scale_image(pygame.image.load("rennstrecke_mask.xcf"), 0.9)
+BG = pygame.transform.scale(pygame.image.load('imgs/rennstrecke.jpg'), (2560, 1400))
+TRACK_BORDER = scale_image(pygame.image.load("imgs/rennstrecke_mask.xcf"), 0.9)
 TRACK_BORDER_MASK = pygame.mask.from_surface(TRACK_BORDER)
 #Racer Nr.1
 racer1 = scale_image(pygame.image.load("tuxi.xcf"), 0.35)
@@ -27,7 +27,7 @@ movement1 = racer1.get_rect()
 #player1_mask = pygame.transform.scale(pygame.image.load("tuxMask.xcf").convert_alpha(), (100, 100))
 
 #Racer Nr.2
-racer2 = scale_image(pygame.image.load("yoshi.xcf"), 0.30)
+racer2 = scale_image(pygame.image.load("imgs/yoshi.xcf"), 0.30)
 player2 = pygame.Rect((930, 1130, 100, 100))
 movement2 = racer2.get_rect()
 
