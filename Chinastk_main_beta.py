@@ -6,6 +6,7 @@ from pygame import mixer
 from utils import scale_image, blit_rotate_center
 pygame.init()
 
+#Bruno Banan
 
 #music import/play
 mixer.music.load("music/yourtitel.mp3")

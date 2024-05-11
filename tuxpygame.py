@@ -3,14 +3,22 @@ import time
 from pygame import mixer
 pygame.init()
 
+<<<<<<< HEAD
 mixer.music.load("music/yourtitel.mp3")
+=======
+mixer.music.load("music/AfD.mp3")
+>>>>>>> 3e76721 (bruno)
 mixer.music.set_volume(0.5)
 mixer.music.play(-1)
 
 WIN = pygame.display.set_mode((1920,1080))
 pygame.display.set_caption("SuperTuxKart")
 
+<<<<<<< HEAD
 racer = pygame.transform.scale(pygame.image.load("imgs/tuxi.xcf").convert_alpha(), (100, 100))
+=======
+racer = pygame.transform.scale(pygame.image.load("imgs/tuxiAfD.xcf").convert_alpha(), (100, 100))
+>>>>>>> 3e76721 (bruno)
 player = pygame.Rect((300 ,250 , 100 ,100))
 player2 = racer.get_rect()
 
