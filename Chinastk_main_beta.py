@@ -9,15 +9,15 @@ pygame.init()
 #Bruno Banani
 
 #music import/play
-mixer.music.load("music/yourtitel.mp3")
-mixer.music.set_volume(0.5)
-mixer.music.play(-1)
+#mixer.music.load("music/yourtitel.mp3")
+#mixer.music.set_volume(0.5)
+#mixer.music.play(-1)
 
 
 #Track and Mask
-scale_factor = 2
-TRACK = scale_image(pygame.image.load("imgs/rennstrecke.png"), scale_factor)
-TRACK_BORDER = scale_image(pygame.image.load("imgs/rennstrecke_mask.png"), scale_factor)
+scale_factor = 2.3
+TRACK = scale_image(pygame.image.load("imgs/rennstrecke.jpg"), scale_factor)
+TRACK_BORDER = scale_image(pygame.image.load("imgs/rennstrecke_mask.xcf"), scale_factor)
 TRACK_BORDER_MASK = pygame.mask.from_surface(TRACK_BORDER)
 
 #finish line Mask
@@ -48,7 +48,7 @@ class AbstractCar:
         self.img = self.IMG
         self.max_vel = max_vel
         self.vel = 0
-        self.rotation_vel = 0.5 * rotation_vel
+        self.rotation_vel = 0.25 * rotation_vel
         self.angle = 0
         self.x, self.y = self.START_POS
         self.acceleration = 0.1
@@ -99,7 +99,7 @@ class AbstractCar:
 
 class PlayerCar(AbstractCar):
     IMG = racer1
-    START_POS = (500, 500)
+    START_POS = (400, 600)
 
     def reduce_speed(self):
         self.vel = max(self.vel - self.acceleration / 2, 0)
@@ -142,18 +142,19 @@ def move_player(player_car):
 clock = pygame.time.Clock()
 
 images = [(TRACK, (0, 0))]
-player_car = PlayerCar(20, 20)
+player_car = PlayerCar(5, 5)
 run = True
 while  run:
     #game loop setup
-    draw(WIN, images, player_car)
+    draw(WIN, images, player_car, )
     #WIN.blit(racer2, player2)
     clock.tick(FPS)
 
     #player Nr.1 control
     move_player(player_car)
     if player_car.collide(TRACK_BORDER_MASK) != None:
-        player_car.bounce()
+        #player_car.bounce()
+        print("collide")
 
     #if player_car.finish_line(finish_line) != None:
      #   stat1 = stat1 + 1
