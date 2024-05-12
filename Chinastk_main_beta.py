@@ -13,9 +13,14 @@ pygame.init()
 #mixer.music.set_volume(0.5)
 #mixer.music.play(-1)
 
+#factors: help to adjust to different resolutions
+scale_factor = 1
+scale_player = 0.1 * scale_factor
+START_POS_X = 390 * scale_factor
+START_POS_Y = 425 * scale_factor
+
 
 #Track and Mask
-scale_factor = 2.3
 TRACK = scale_image(pygame.image.load("imgs/rennstrecke.jpg"), scale_factor)
 TRACK_BORDER = scale_image(pygame.image.load("imgs/rennstrecke_mask_s.xcf"), scale_factor)
 TRACK_BORDER_MASK = pygame.mask.from_surface(TRACK_BORDER)
@@ -33,10 +38,10 @@ pygame.display.set_caption("SuperTuxKart")
 FPS = 144
 
 #Racer Nr.1
-racer1 = scale_image(pygame.image.load("imgs/tuxi.xcf"), 0.2)
+racer1 = scale_image(pygame.image.load("imgs/tuxi.xcf"), scale_player)
 
 #Racer Nr.2
-racer2 = scale_image(pygame.image.load("imgs/yoshi.xcf"), 0.30)
+racer2 = scale_image(pygame.image.load("imgs/yoshi.xcf"), scale_player)
 player2 = pygame.Rect((930, 1130, 100, 100))
 movement2 = racer2.get_rect()
 
@@ -50,7 +55,7 @@ class AbstractCar:
         self.vel = 0
         self.rotation_vel = 0.25 * rotation_vel
         self.angle = 0
-        self.x, self.y = self.START_POS
+        self.x, self.y = self.START_POS_SCALE
         self.acceleration = 0.1
 
     def rotate(self, left=False, right=False):
@@ -99,7 +104,7 @@ class AbstractCar:
 
 class PlayerCar(AbstractCar):
     IMG = racer1
-    START_POS = (400, 600)
+    START_POS_SCALE = (START_POS_X, START_POS_Y)
 
     def reduce_speed(self):
         self.vel = max(self.vel - self.acceleration / 2, 0)
@@ -136,7 +141,7 @@ def move_player(player_car):
 
 clock = pygame.time.Clock()
 images = [(TRACK, (0, 0))]
-player_car = PlayerCar(3, 5)
+player_car = PlayerCar(3, 4)
 run = True
 
 while  run:
