@@ -137,7 +137,9 @@ def move_player(player_car):
     if keys[pygame.K_s]:
         moved = True
         player_car.move_backward()
-
+    
+    if not moved:
+        player_car.reduce_speed()
 
 clock = pygame.time.Clock()
 images = [(TRACK, (0, 0))]
