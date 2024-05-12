@@ -14,7 +14,7 @@ pygame.init()
 #mixer.music.play(-1)
 
 #factors: help to adjust to different resolutions
-scale_factor = 1
+scale_factor = 2.3
 scale_player = 0.1 * scale_factor
 START_POS_X = 390 * scale_factor
 START_POS_Y = 425 * scale_factor
@@ -111,7 +111,7 @@ class PlayerCar(AbstractCar):
         self.move()
 
     def bounce(self):
-        self.vel = -self.vel * 0.25
+        self.vel = -self.vel * 0.5
         self.move()
 
 
