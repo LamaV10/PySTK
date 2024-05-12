@@ -133,8 +133,12 @@ def move_player(player_car):
         moved = True
         player_car.move_backward()
 
+
+clock = pygame.time.Clock()
+images = [(TRACK, (0, 0))]
 player_car = PlayerCar(3, 5)
 run = True
+
 while  run:
     #game loop setup
     draw(WIN, images, player_car, )
