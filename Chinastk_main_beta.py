@@ -17,7 +17,7 @@ pygame.init()
 #Track and Mask
 scale_factor = 2.3
 TRACK = scale_image(pygame.image.load("imgs/rennstrecke.jpg"), scale_factor)
-TRACK_BORDER = scale_image(pygame.image.load("imgs/rennstrecke_mask.xcf"), scale_factor)
+TRACK_BORDER = scale_image(pygame.image.load("imgs/rennstrecke_mask_s.xcf"), scale_factor)
 TRACK_BORDER_MASK = pygame.mask.from_surface(TRACK_BORDER)
 
 #finish line Mask
@@ -133,16 +133,7 @@ def move_player(player_car):
         moved = True
         player_car.move_backward()
 
-    if not moved:
-        player_car.reduce_speed()
-
-
-
-#Game settings
-clock = pygame.time.Clock()
-
-images = [(TRACK, (0, 0))]
-player_car = PlayerCar(5, 5)
+player_car = PlayerCar(3, 5)
 run = True
 while  run:
     #game loop setup
@@ -153,8 +144,8 @@ while  run:
     #player Nr.1 control
     move_player(player_car)
     if player_car.collide(TRACK_BORDER_MASK) != None:
-        #player_car.bounce()
-        print("collide")
+        player_car.bounce()
+        #print("collide")
 
     #if player_car.finish_line(finish_line) != None:
      #   stat1 = stat1 + 1
