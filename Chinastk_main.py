@@ -13,11 +13,14 @@ pygame.init()
 #mixer.music.set_volume(0.5)
 #mixer.music.play(-1)
 
+
 #factors: help to adjust to different resolutions
+#only adjust following one. Everything else will auto adjust
 scale_factor = 2.3
+
 scale_player = 0.1 * scale_factor
 START_POS_X = 390 * scale_factor
-START_POS_Y = 425 * scale_factor
+START_POS_Y = 433 * scale_factor
 
 
 #Track and Mask
@@ -137,13 +140,22 @@ def move_player(player_car):
     if keys[pygame.K_s]:
         moved = True
         player_car.move_backward()
-
+    
+    if not moved:
+        player_car.reduce_speed()
 
 clock = pygame.time.Clock()
 images = [(TRACK, (0, 0))]
 player_car = PlayerCar(3, 4)
 run = True
 
+#adjusts players start angle
+count = 0
+while count < 90:
+    player_car.rotate(left=True)
+    count = count + 1
+ 
+    
 while  run:
     #game loop setup
     draw(WIN, images, player_car, )

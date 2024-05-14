@@ -19,9 +19,14 @@ pygame.init()
 scale_factor = 2.3
 
 scale_player = 0.1 * scale_factor
-START_POS_X = 390 * scale_factor
-START_POS_Y = 433 * scale_factor
 
+#start position player 1
+START_POS_X1 = 390 * scale_factor
+START_POS_Y1 = 433 * scale_factor
+
+#start position player 2
+START_POS_X2 = 410 * scale_factor
+START_POS_Y2 = 453 * scale_factor
 
 #Track and Mask
 TRACK = scale_image(pygame.image.load("imgs/rennstrecke.jpg"), scale_factor)
@@ -58,7 +63,7 @@ class AbstractCar:
         self.vel = 0
         self.rotation_vel = 0.25 * rotation_vel
         self.angle = 0
-        self.x, self.y = self.START_POS_SCALE
+        self.x, self.y = self.START_POS_SCALE1
         self.acceleration = 0.1
 
     def rotate(self, left=False, right=False):
@@ -105,9 +110,9 @@ class AbstractCar:
 
 
 
-class PlayerCar(AbstractCar):
+class PlayerCar1(AbstractCar):
     IMG = racer1
-    START_POS_SCALE = (START_POS_X, START_POS_Y)
+    START_POS_SCALE1 = (START_POS_X1, START_POS_Y1)
 
     def reduce_speed(self):
         self.vel = max(self.vel - self.acceleration / 2, 0)
@@ -118,71 +123,94 @@ class PlayerCar(AbstractCar):
         self.move()
 
 
-def draw(win, images, player_car):
-    for img, pos in images:
-        win.blit(img, pos)
-
-    player_car.draw(win)
-    pygame.display.update()
-
-
-def move_player(player_car):
+def move_player1(player_car1):
     keys = pygame.key.get_pressed()
     moved = False
 
     if keys[pygame.K_a]:
-        player_car.rotate(left=True)
+        player_car1.rotate(left=True)
     if keys[pygame.K_d]:
-        player_car.rotate(right=True)
+        player_car1.rotate(right=True)
     if keys[pygame.K_w]:
         moved = True
-        player_car.move_forward()
+        player_car1.move_forward()
     if keys[pygame.K_s]:
         moved = True
-        player_car.move_backward()
+        player_car1.move_backward()
     
     if not moved:
-        player_car.reduce_speed()
+        player_car1.reduce_speed()
+
+
+class PlayerCar2(AbstractCar):
+    IMG = racer2
+    START_POS_SCALE2 = (START_POS_X2, START_POS_Y2)
+
+    def reduce_speed(self):
+        self.vel = max(self.vel - self.acceleration / 2, 0)
+        self.move()
+
+    def bounce(self):
+        self.vel = -self.vel * 0.5
+        self.move()
+
+
+def draw(win, images, player_car2, player_car1,):
+    for img, pos in images:
+        win.blit(img, pos)
+
+    player_car2.draw(win)
+    pygame.display.update()
+
+
+def move_player2(player_car2):
+    keys = pygame.key.get_pressed()
+    moved = False
+
+    if keys[pygame.K_j]:
+        player_car2.rotate(left=True)
+    if keys[pygame.K_l]:
+        player_car2.rotate(right=True)
+    if keys[pygame.K_i]:
+        moved = True
+        player_car2.move_forward()
+    if keys[pygame.K_k]:
+        moved = True
+        player_car2.move_backward()
+    
+    if not moved:
+        player_car2.reduce_speed()
+
 
 clock = pygame.time.Clock()
 images = [(TRACK, (0, 0))]
-player_car = PlayerCar(3, 4)
+player_car1 = PlayerCar1(3, 4)
+player_car2 = PlayerCar2(3, 4)
 run = True
 
 #adjusts players start angle
 count = 0
 while count < 90:
-    player_car.rotate(left=True)
+    player_car1.rotate(left=True)
+    player_car2.rotate(left=True)
     count = count + 1
  
     
 while  run:
     #game loop setup
-    draw(WIN, images, player_car, )
-    #WIN.blit(racer2, player2)
     clock.tick(FPS)
-
+    draw(WIN, images, player_car1, player_car2,)
+    
     #player Nr.1 control
-    move_player(player_car)
-    if player_car.collide(TRACK_BORDER_MASK) != None:
-        player_car.bounce()
-        #print("collide")
-
-    #if player_car.finish_line(finish_line) != None:
-     #   stat1 = stat1 + 1
-      #  sleep(3)
+    move_player1(player_car1)
+    if player_car1.collide(TRACK_BORDER_MASK) != None:
+        player_car1.bounce()
         
-
+    
     #player Nr.2 control
-    key2 = pygame.key.get_pressed()
-    if key2[pygame.K_j] and player2.x - PLAYER_VEL >= 0:
-        player2.move_ip(-5, 0)
-    if key2[pygame.K_l] and player2.x - PLAYER_VEL + PLAYER_WIDTH <= 2500:
-        player2.move_ip(5, 0)
-    if key2[pygame.K_i] and player2.y - PLAYER_VEL >= 0:
-        player2.move_ip(0, -5)
-    if key2[pygame.K_k] and player2.y - PLAYER_VEL + PLAYER_WIDTH <= 1380:
-        player2.move_ip(0, 5)
+    move_player2(player_car2)
+    if player_car2.collide(TRACK_BORDER_MASK) != None:
+        player_car2.bounce()
 
     #cloeses the windows if run = False
     for event in pygame.event.get():
