@@ -20,13 +20,12 @@ scale_factor = 2.3
 
 scale_player = 0.1 * scale_factor
 
-#start position player 1
+#start position
 START_POS_X1 = 390 * scale_factor
 START_POS_Y1 = 433 * scale_factor
-
-#start position player 2
-START_POS_X2 = 410 * scale_factor
+START_POS_X2 = 420 * scale_factor
 START_POS_Y2 = 453 * scale_factor
+
 
 #Track and Mask
 TRACK = scale_image(pygame.image.load("imgs/rennstrecke.jpg"), scale_factor)
@@ -63,7 +62,7 @@ class AbstractCar:
         self.vel = 0
         self.rotation_vel = 0.25 * rotation_vel
         self.angle = 0
-        self.x, self.y = self.START_POS_SCALE1
+        self.x, self.y = self.START_POS_SCALE
         self.acceleration = 0.1
 
     def rotate(self, left=False, right=False):
@@ -109,10 +108,10 @@ class AbstractCar:
         return poi
 
 
-
+#player1
 class PlayerCar1(AbstractCar):
     IMG = racer1
-    START_POS_SCALE1 = (START_POS_X1, START_POS_Y1)
+    START_POS_SCALE = (START_POS_X1, START_POS_Y2)
 
     def reduce_speed(self):
         self.vel = max(self.vel - self.acceleration / 2, 0)
@@ -121,6 +120,14 @@ class PlayerCar1(AbstractCar):
     def bounce(self):
         self.vel = -self.vel * 0.5
         self.move()
+
+
+def draw(win, images, player_car1, player_car2):
+    for img, pos in images:
+        win.blit(img, pos)
+
+    player_car.draw(win)
+    pygame.display.update()
 
 
 def move_player1(player_car1):
@@ -142,9 +149,63 @@ def move_player1(player_car1):
         player_car1.reduce_speed()
 
 
-class PlayerCar2(AbstractCar):
+class AbstractCar2:
+    def __init__(self, max_vel, rotation_vel):
+        self.img = self.IMG
+        self.max_vel = max_vel
+        self.vel = 0
+        self.rotation_vel = 0.25 * rotation_vel
+        self.angle = 0
+        self.x, self.y = self.START_POS_SCALE
+        self.acceleration = 0.1
+
+    def rotate(self, left=False, right=False):
+        if left:
+            self.angle += self.rotation_vel
+        elif right:
+            self.angle -= self.rotation_vel
+
+    def draw(self, win):
+        blit_rotate_center(win, self.img, (self.x, self.y), self.angle)
+
+    def move_forward(self):
+        self.vel = min(self.vel + self.acceleration, self.max_vel)
+        self.move()
+
+    def move_backward(self):
+        self.vel = max(self.vel - self.acceleration, -self.max_vel/2)
+        self.move()
+
+    def move(self):
+        radians = math.radians(self.angle)
+        vertical = math.cos(radians) * self.vel
+        horizontal = math.sin(radians) * self.vel
+
+        self.y -= vertical
+        self.x -= horizontal
+
+    def collide(self, mask, x=0, y=0):
+        car_mask = pygame.mask.from_surface(self.img)
+        offset = (int(self.x - x), int(self.y - y))
+        poi = mask.overlap(car_mask, offset)
+        return poi
+
+    def reset(self):
+        self.x, self.y = self.START_POS
+        self.angle = 0
+        self.vel = 0
+    
+    def finish_line(self, mask, x=0, y=0):
+        car_mask = pygame.mask.from_surface(self.img)
+        offset = (int(self.x - x), int(self.y - y))
+        poi = mask.overlap(car_mask, offset)
+        return poi
+
+
+#Plaayer 2
+class PlayerCar2(AbstractCar2):
     IMG = racer2
-    START_POS_SCALE2 = (START_POS_X2, START_POS_Y2)
+    START_POS_SCALE = (START_POS_X2, START_POS_Y2)
 
     def reduce_speed(self):
         self.vel = max(self.vel - self.acceleration / 2, 0)
@@ -155,7 +216,7 @@ class PlayerCar2(AbstractCar):
         self.move()
 
 
-def draw(win, images, player_car2, player_car1,):
+def draw(win, images, player_car1, player_car2):
     for img, pos in images:
         win.blit(img, pos)
 
@@ -181,7 +242,6 @@ def move_player2(player_car2):
     if not moved:
         player_car2.reduce_speed()
 
-
 clock = pygame.time.Clock()
 images = [(TRACK, (0, 0))]
 player_car1 = PlayerCar1(3, 4)
@@ -198,15 +258,22 @@ while count < 90:
     
 while  run:
     #game loop setup
+    draw(WIN, images, player_car1, player_car2)
+    #draw(WIN, images, player_car2, )
+    #WIN.blit(racer2, player2)
     clock.tick(FPS)
-    draw(WIN, images, player_car1, player_car2,)
-    
+
     #player Nr.1 control
     move_player1(player_car1)
     if player_car1.collide(TRACK_BORDER_MASK) != None:
         player_car1.bounce()
+        #print("collide")
+
+    #if player_car.finish_line(finish_line) != None:
+     #   stat1 = stat1 + 1
+      #  sleep(3)
         
-    
+
     #player Nr.2 control
     move_player2(player_car2)
     if player_car2.collide(TRACK_BORDER_MASK) != None:
