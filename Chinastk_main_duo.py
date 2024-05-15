@@ -117,7 +117,7 @@ class PlayerCar1(AbstractCar):
         self.move()
 
     def bounce(self):
-        self.vel = -self.vel * 0.5
+        self.vel = -self.vel * 0.9
         self.move()
 
 
@@ -151,7 +151,7 @@ class PlayerCar2(AbstractCar):
         self.move()
 
     def bounce(self):
-        self.vel = -self.vel * 0.5
+        self.vel = -self.vel * 0.9
         self.move()
 
 
