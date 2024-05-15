@@ -22,8 +22,8 @@ scale_player = 0.1 * scale_factor
 #start position
 START_POS_X1 = 390 * scale_factor
 START_POS_Y1 = 433 * scale_factor
-START_POS_X2 = 510 * scale_factor
-START_POS_Y2 = 428 * scale_factor
+START_POS_X2 = 345 * scale_factor
+START_POS_Y2 = 475 * scale_factor
 
 
 #Track and Mask
