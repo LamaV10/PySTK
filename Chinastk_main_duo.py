@@ -41,6 +41,9 @@ FINISH_BORDER_MASK = pygame.mask.from_surface(FINISH_BORDER)
 WIDTH, HEIGHT = TRACK.get_width(), TRACK.get_height()
 WIN = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("SuperTuxKart")
+MAIN_FONT = pygame.font.SysFont("comicsans", 44)
+
+#change the speed with this first variable
 FPS = 144
 
 #Racer Nr.1
@@ -159,6 +162,10 @@ def draw2(win, images, player_car1, player_car2):
     for img, pos in images:
         win.blit(img, pos)
 
+    level_text = MAIN_FONT.render(
+        f"FPS: {clock}", 1, (255, 255, 255))
+    win.blit(level_text, (10, HEIGHT - TRACK.get_height() +5))
+
     player_car1.draw(win)
     player_car2.draw(win)
     pygame.display.update()
@@ -217,6 +224,7 @@ while  run:
     move_player2(player_car2)
     if player_car2.collide(TRACK_BORDER_MASK) != None:
         player_car2.bounce()
+    
 
     #cloeses the windows if run = False
     for event in pygame.event.get():
