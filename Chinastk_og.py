@@ -7,9 +7,9 @@ pygame.init()
 
 
 #music import/play
-mixer.music.load("music/yourtitel.mp3")
-mixer.music.set_volume(0.5)
-mixer.music.play(-1)
+#mixer.music.load("music/yourtitel.mp3")
+#mixer.music.set_volume(0.5)
+#mixer.music.play(-1)
 
 #window setup
 WIN = pygame.display.set_mode((2560,1400))
