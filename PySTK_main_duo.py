@@ -17,6 +17,7 @@ pygame.init()
 #factors: help to adjust to different resolutions
 #only adjust following one. Everything else will auto adjust
 scale_factor = 2.3
+
 scale_player = 0.1 * scale_factor
 
 #start position
@@ -45,6 +46,10 @@ MAIN_FONT = pygame.font.SysFont("comicsans", 44)
 
 #change the speed with this first variable
 FPS = 144
+
+#lap count
+lapcount1 = 0
+lapcount2 = 0
 
 #Racer Nr.1
 racer1 = scale_image(pygame.image.load("imgs/tuxi.xcf"), scale_player)
@@ -165,6 +170,16 @@ def draw2(win, images, player_car1, player_car2):
     level_text = MAIN_FONT.render(
         f"FPS: {clock}", 1, (255, 255, 255))
     win.blit(level_text, (10, HEIGHT - TRACK.get_height() +5))
+
+    
+    level_text = MAIN_FONT.render(
+        f"lapcount P1: {lapcount1}", 1, (255, 255, 255))
+    win.blit(level_text, (10, HEIGHT - TRACK.get_height() +1155))
+
+
+    level_text = MAIN_FONT.render(
+        f"lapcount P2: {lapcount2}", 1, (255, 255, 255))
+    win.blit(level_text, (10, HEIGHT - TRACK.get_height() +1195))
 
     player_car1.draw(win)
     player_car2.draw(win)
