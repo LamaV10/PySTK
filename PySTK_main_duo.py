@@ -49,9 +49,6 @@ MAIN_FONT = pygame.font.SysFont("comicsans", 44)
 #change the speed with this first variable
 FPS = 144
 
-#lap count
-#lapcount1 = 0
-lapcount2 = 0
 
 #Racer Nr.1
 racer1 = scale_image(pygame.image.load("imgs/tuxi.xcf"), scale_player)
@@ -202,13 +199,20 @@ def move_player2(player_car2):
         player_car2.reduce_speed()
 
 lapcount1 = 0
-def lapcount_collision(player_car1):
+def lapcount_collision1(player_car1):
     global lapcount1
     computer_finish_poi_collide = player_car1.collide(
         FINISH_MASK, *FINISH_POSITION)
     if computer_finish_poi_collide != None:
         lapcount1 = lapcount1 + 1
 
+lapcount2 = 0
+def lapcount_collision2(player_car1):
+    global lapcount2
+    computer_finish_poi_collide = player_car2.collide(
+        FINISH_MASK, *FINISH_POSITION)
+    if computer_finish_poi_collide != None:
+        lapcount2 = lapcount2 + 1
         
 
 clock = pygame.time.Clock()
@@ -234,7 +238,8 @@ while  run:
     if player_car1.collide(TRACK_BORDER_MASK) != None:
         player_car1.bounce()
 
-    lapcount_collision(player_car1)
+    lapcount_collision1(player_car1)
+    lapcount_collision2(player_car2)
 
     #if player_car.finish_line(finish_line) != None:
      #   stat1 = stat1 + 1
