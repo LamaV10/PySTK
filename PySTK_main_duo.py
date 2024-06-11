@@ -25,6 +25,8 @@ START_POS_X1 = 390 * scale_factor
 START_POS_Y1 = 433 * scale_factor
 START_POS_X2 = 345 * scale_factor
 START_POS_Y2 = 475 * scale_factor
+Finish_POS_X = 305 * scale_factor  
+Finish_POS_Y = 460 * scale_factor
 
 
 #Track and Mask
@@ -33,9 +35,9 @@ TRACK_BORDER = scale_image(pygame.image.load("imgs/rennstrecke_mask_s.xcf"), sca
 TRACK_BORDER_MASK = pygame.mask.from_surface(TRACK_BORDER)
 
 #finish line Mask
-FINISH_BORDER = scale_image(pygame.image.load("imgs/finish-line.png"), scale_factor)
-FINISH_BORDER_MASK = pygame.mask.from_surface(FINISH_BORDER)
-
+FINISH = pygame.image.load("imgs/finish-line.png")
+FINISH_MASK = pygame.mask.from_surface(FINISH)
+FINISH_POSITION = (Finish_POS_X, Finish_POS_Y)
 
 
 #window setup
@@ -48,7 +50,7 @@ MAIN_FONT = pygame.font.SysFont("comicsans", 44)
 FPS = 144
 
 #lap count
-lapcount1 = 0
+#lapcount1 = 0
 lapcount2 = 0
 
 #Racer Nr.1
@@ -108,12 +110,6 @@ class AbstractCar:
         self.angle = 0
         self.vel = 0
     
-    def finish_line(self, mask, x=0, y=0):
-        car_mask = pygame.mask.from_surface(self.img)
-        offset = (int(self.x - x), int(self.y - y))
-        poi = mask.overlap(car_mask, offset)
-        return poi
-
 
 #player1
 class PlayerCar1(AbstractCar):
@@ -173,7 +169,7 @@ def draw2(win, images, player_car1, player_car2):
 
     
     level_text = MAIN_FONT.render(
-        f"lapcount P1: {lapcount1}", 1, (255, 255, 255))
+       f"lapcount P1: {lapcount1}", 1, (255, 255, 255))
     win.blit(level_text, (10, HEIGHT - TRACK.get_height() +1155))
 
 
@@ -184,6 +180,7 @@ def draw2(win, images, player_car1, player_car2):
     player_car1.draw(win)
     player_car2.draw(win)
     pygame.display.update()
+
 
 
 def move_player2(player_car2):
@@ -203,6 +200,14 @@ def move_player2(player_car2):
     
     if not moved:
         player_car2.reduce_speed()
+
+lapcount1 = 0
+def lapcount_collision(player_car1):
+    global lapcount1
+    computer_finish_poi_collide = player_car1.collide(
+        FINISH_MASK, *FINISH_POSITION)
+    if computer_finish_poi_collide != None:
+        lapcount1 = lapcount1 + 1
 
         
 
@@ -228,7 +233,8 @@ while  run:
     move_player1(player_car1)
     if player_car1.collide(TRACK_BORDER_MASK) != None:
         player_car1.bounce()
-        #print("collide")
+
+    lapcount_collision(player_car1)
 
     #if player_car.finish_line(finish_line) != None:
      #   stat1 = stat1 + 1
