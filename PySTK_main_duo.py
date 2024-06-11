@@ -16,9 +16,10 @@ pygame.init()
 
 #factors: help to adjust to different resolutions
 #only adjust following one. Everything else will auto adjust
-scale_factor = 2.3
+scale_factor = 1.25
 
 scale_player = 0.1 * scale_factor
+font_size = 32 * scale_factor
 
 #start position
 START_POS_X1 = 390 * scale_factor
@@ -44,7 +45,7 @@ FINISH_POSITION = (Finish_POS_X, Finish_POS_Y)
 WIDTH, HEIGHT = TRACK.get_width(), TRACK.get_height()
 WIN = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("SuperTuxKart")
-MAIN_FONT = pygame.font.SysFont("comicsans", 44)
+MAIN_FONT = pygame.font.SysFont("comicsans", 32)
 
 #change the speed with this first variable
 FPS = 144
@@ -162,17 +163,17 @@ def draw2(win, images, player_car1, player_car2):
 
     level_text = MAIN_FONT.render(
         f"FPS: {clock}", 1, (255, 255, 255))
-    win.blit(level_text, (10, HEIGHT - TRACK.get_height() +5))
+    win.blit(level_text, (10, HEIGHT - TRACK.get_height() +10))
 
     
     level_text = MAIN_FONT.render(
        f"lapcount P1: {lapcount1}", 1, (255, 255, 255))
-    win.blit(level_text, (10, HEIGHT - TRACK.get_height() +1155))
+    win.blit(level_text, (10, HEIGHT - TRACK.get_height() +490 * scale_factor))
 
 
     level_text = MAIN_FONT.render(
         f"lapcount P2: {lapcount2}", 1, (255, 255, 255))
-    win.blit(level_text, (10, HEIGHT - TRACK.get_height() +1195))
+    win.blit(level_text, (10, HEIGHT - TRACK.get_height() +510 * scale_factor))
 
     player_car1.draw(win)
     player_car2.draw(win)
