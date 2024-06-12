@@ -14,6 +14,13 @@ pygame.init()
 #mixer.music.play(-1)
 
 
+#choose if you want to play on 85 or 144
+#85 FPS is easier to play and works great on smaller screens (like laptops)
+#FPS_input = input('(144) or (85) FPS:')
+FPS = int(input("144 FPS or 85:"))
+
+print(FPS)
+
 #factors: help to adjust to different resolutions
 #only adjust following one. Everything else will auto adjust
 scale_factor = 1.25
@@ -49,7 +56,7 @@ MAIN_FONT = pygame.font.SysFont("comicsans", 32)
 
 #choose if you want to play on 85 or 144
 #85 FPS is easier to play and works great on smaller screens (like laptops)
-FPS = 85
+#FPS = 85
 #FPS = 144
 
 #Racer Nr.1
@@ -217,12 +224,9 @@ def lapcount_collision2(player_car1):
         lapcount2 = lapcount2 + 1
         
 
-clock = pygame.time.Clock()
-images = [(TRACK, (0, 0))]
 if FPS == 144:
     player_car1 = PlayerCar1(3, 4)
     player_car2 = PlayerCar2(3, 4)
-    run = True
 
     #adjusts players start angle
     count = 0
@@ -234,7 +238,6 @@ if FPS == 144:
 if FPS == 85:
     player_car1 = PlayerCar1(3, 8)
     player_car2 = PlayerCar2(3, 8)
-    run = True
 
     #adjusts players start angle
     count = 0
@@ -243,8 +246,12 @@ if FPS == 85:
         player_car2.rotate(left=True)
         count = count + 1
 
+
+clock = pygame.time.Clock()
+images = [(TRACK, (0, 0))]
+run = True
 while  run:
-    #game loop setup
+     #game loop setup
     draw2(WIN, images, player_car1, player_car2)
     clock.tick(FPS)
 
@@ -256,10 +263,6 @@ while  run:
     lapcount_collision1(player_car1)
     lapcount_collision2(player_car2)
 
-    #if player_car.finish_line(finish_line) != None:
-     #   stat1 = stat1 + 1
-      #  sleep(3)
-        
 
     #player Nr.2 control
     move_player2(player_car2)
