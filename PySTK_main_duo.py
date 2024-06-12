@@ -19,11 +19,10 @@ pygame.init()
 #FPS_input = input('(144) or (85) FPS:')
 FPS = int(input("144 FPS or 85:"))
 
-print(FPS)
-
 #factors: help to adjust to different resolutions
 #only adjust following one. Everything else will auto adjust
-scale_factor = 1.25
+scale_factor = float(input("Choose scale-factor:"))
+
 
 scale_player = 0.1 * scale_factor
 font_size = 32 * scale_factor
@@ -54,10 +53,6 @@ WIN = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("SuperTuxKart")
 MAIN_FONT = pygame.font.SysFont("comicsans", 32)
 
-#choose if you want to play on 85 or 144
-#85 FPS is easier to play and works great on smaller screens (like laptops)
-#FPS = 85
-#FPS = 144
 
 #Racer Nr.1
 racer1 = scale_image(pygame.image.load("imgs/tuxi.xcf"), scale_player)
@@ -67,8 +62,6 @@ racer2 = scale_image(pygame.image.load("imgs/yoshi.xcf"), scale_player)
 player2 = pygame.Rect((930, 1130, 100, 100))
 movement2 = racer2.get_rect()
 
-#stat count
-stat1 = 0
 
 class AbstractCar:
     def __init__(self, max_vel, rotation_vel):
@@ -165,10 +158,11 @@ class PlayerCar2(AbstractCar):
         self.move()
 
 
-def draw2(win, images, player_car1, player_car2):
+def draw(win, images, player_car1, player_car2):
     for img, pos in images:
         win.blit(img, pos)
-
+    
+    #FPS and lapcount text
     level_text = MAIN_FONT.render(
         f"FPS: {clock}", 1, (255, 255, 255))
     win.blit(level_text, (10, HEIGHT - TRACK.get_height() +10))
@@ -224,6 +218,7 @@ def lapcount_collision2(player_car1):
         lapcount2 = lapcount2 + 1
         
 
+#changes the speed of the players and adjusts to the right start angle when the FPS count is choosen
 if FPS == 144:
     player_car1 = PlayerCar1(3, 4)
     player_car2 = PlayerCar2(3, 4)
@@ -250,16 +245,18 @@ if FPS == 85:
 clock = pygame.time.Clock()
 images = [(TRACK, (0, 0))]
 run = True
+
 while  run:
      #game loop setup
-    draw2(WIN, images, player_car1, player_car2)
+    draw(WIN, images, player_car1, player_car2)
     clock.tick(FPS)
 
     #player Nr.1 control
     move_player1(player_car1)
     if player_car1.collide(TRACK_BORDER_MASK) != None:
         player_car1.bounce()
-
+    
+    #lapcount (who would have thought)
     lapcount_collision1(player_car1)
     lapcount_collision2(player_car2)
 
