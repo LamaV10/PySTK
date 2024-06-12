@@ -47,9 +47,10 @@ WIN = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("SuperTuxKart")
 MAIN_FONT = pygame.font.SysFont("comicsans", 32)
 
-#change the speed with this first variable
-FPS = 144
-
+#choose if you want to play on 85 or 144
+#85 FPS is easier to play and works great on smaller screens (like laptops)
+FPS = 85
+#FPS = 144
 
 #Racer Nr.1
 racer1 = scale_image(pygame.image.load("imgs/tuxi.xcf"), scale_player)
@@ -218,17 +219,30 @@ def lapcount_collision2(player_car1):
 
 clock = pygame.time.Clock()
 images = [(TRACK, (0, 0))]
-player_car1 = PlayerCar1(3, 4)
-player_car2 = PlayerCar2(3, 4)
-run = True
+if FPS == 144:
+    player_car1 = PlayerCar1(3, 4)
+    player_car2 = PlayerCar2(3, 4)
+    run = True
 
-#adjusts players start angle
-count = 0
-while count < 90:
-    player_car1.rotate(left=True)
-    player_car2.rotate(left=True)
-    count = count + 1
-     
+    #adjusts players start angle
+    count = 0
+    while count < 90:
+        player_car1.rotate(left=True)
+        player_car2.rotate(left=True)
+        count = count + 1
+
+if FPS == 85:
+    player_car1 = PlayerCar1(3, 8)
+    player_car2 = PlayerCar2(3, 8)
+    run = True
+
+    #adjusts players start angle
+    count = 0
+    while count < 45:
+        player_car1.rotate(left=True)
+        player_car2.rotate(left=True)
+        count = count + 1
+
 while  run:
     #game loop setup
     draw2(WIN, images, player_car1, player_car2)
