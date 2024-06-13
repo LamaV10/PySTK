@@ -20,7 +20,6 @@ pygame.init()
 FPS = int(input("144 FPS or 85:"))
 
 #factors: help to adjust to different resolutions
-#only adjust following one. Everything else will auto adjust
 scale_factor = float(input("Choose scale-factor:"))
 
 

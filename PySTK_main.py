@@ -14,13 +14,19 @@ pygame.init()
 #mixer.music.play(-1)
 
 
+#85 FPS is easier to play and works great on smaller screens (like laptops)
+#FPS_input = input('(144) or (85) FPS:')
+FPS = int(input("144 FPS or 85:"))
+
 #factors: help to adjust to different resolutions
-#only adjust following one. Everything else will auto adjust
-scale_factor = 2.3
+scale_factor = float(input("Choose scale-factor:"))
 
 scale_player = 0.1 * scale_factor
 START_POS_X = 390 * scale_factor
 START_POS_Y = 433 * scale_factor
+
+Finish_POS_X = 305 * scale_factor  
+Finish_POS_Y = 460 * scale_factor
 
 
 #Track and Mask
@@ -28,28 +34,22 @@ TRACK = scale_image(pygame.image.load("imgs/rennstrecke.jpg"), scale_factor)
 TRACK_BORDER = scale_image(pygame.image.load("imgs/rennstrecke_mask_s.xcf"), scale_factor)
 TRACK_BORDER_MASK = pygame.mask.from_surface(TRACK_BORDER)
 
-#finish line Mask
-FINISH_BORDER = scale_image(pygame.image.load("imgs/finish-line.png"), scale_factor)
-FINISH_BORDER_MASK = pygame.mask.from_surface(FINISH_BORDER)
 
+#finish line Mask
+FINISH = pygame.image.load("imgs/finish-line.png")
+FINISH_MASK = pygame.mask.from_surface(FINISH)
+FINISH_POSITION = (Finish_POS_X, Finish_POS_Y)
 
 
 #window setup
 WIDTH, HEIGHT = TRACK.get_width(), TRACK.get_height()
 WIN = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("SuperTuxKart")
-MAIN_FONT = pygame.font.SysFont("comicsans", 44)
+MAIN_FONT = pygame.font.SysFont("comicsans", 32)
 
-#change the speed with this FPS variable
-FPS = 144
 
 #Racer Nr.1
 racer1 = scale_image(pygame.image.load("imgs/tuxi.xcf"), scale_player)
-
-#Racer Nr.2
-racer2 = scale_image(pygame.image.load("imgs/yoshi.xcf"), scale_player)
-player2 = pygame.Rect((930, 1130, 100, 100))
-movement2 = racer2.get_rect()
 
 #stat count
 stat1 = 0
@@ -129,6 +129,10 @@ def draw(win, images, player_car):
         f"FPS: {clock}", 1, (255, 255, 255))
     win.blit(level_text, (10, HEIGHT - TRACK.get_height() +5))
 
+    level_text = MAIN_FONT.render(
+       f"lapcount P1: {lapcount1}", 1, (255, 255, 255))
+    win.blit(level_text, (10, HEIGHT - TRACK.get_height() +490 * scale_factor))
+
     player_car.draw(win)
     pygame.display.update()
 
@@ -151,45 +155,50 @@ def move_player(player_car):
     if not moved:
         player_car.reduce_speed()
 
+
+lapcount1 = 0
+def lapcount_collision(player_car):
+    global lapcount1
+    computer_finish_poi_collide = player_car.collide(
+        FINISH_MASK, *FINISH_POSITION)
+    if computer_finish_poi_collide != None:
+        lapcount1 = lapcount1 + 1
+
+#changes the speed of the players and adjusts to the right start angle when the FPS count is choosen
+if FPS == 144:
+    player_car = PlayerCar(3, 4)
+    #adjusts players start angle
+    count = 0
+    while count < 90:
+        player_car.rotate(left=True)
+        count = count + 1
+
+if FPS == 85:
+    player_car = PlayerCar(3, 8)
+    #adjusts players start angle
+    count = 0
+    while count < 45:
+        player_car.rotate(left=True)
+        count = count + 1
+
 clock = pygame.time.Clock()
 images = [(TRACK, (0, 0))]
-player_car = PlayerCar(3, 4)
 run = True
 
-#adjusts players start angle
-count = 0
-while count < 90:
-    player_car.rotate(left=True)
-    count = count + 1
- 
+
     
 while  run:
     #game loop setup
     draw(WIN, images, player_car, )
-    #WIN.blit(racer2, player2)
     clock.tick(FPS)
+     
 
     #player Nr.1 control
     move_player(player_car)
     if player_car.collide(TRACK_BORDER_MASK) != None:
         player_car.bounce()
-        #print("collide")
 
-    #if player_car.finish_line(finish_line) != None:
-     #   stat1 = stat1 + 1
-      #  sleep(3)
-        
-
-    #player Nr.2 control
-    key2 = pygame.key.get_pressed()
-    if key2[pygame.K_j] and player2.x - PLAYER_VEL >= 0:
-        player2.move_ip(-5, 0)
-    if key2[pygame.K_l] and player2.x - PLAYER_VEL + PLAYER_WIDTH <= 2500:
-        player2.move_ip(5, 0)
-    if key2[pygame.K_i] and player2.y - PLAYER_VEL >= 0:
-        player2.move_ip(0, -5)
-    if key2[pygame.K_k] and player2.y - PLAYER_VEL + PLAYER_WIDTH <= 1380:
-        player2.move_ip(0, 5)
+    lapcount_collision(player_car)
 
     #cloeses the windows if run = False
     for event in pygame.event.get():
