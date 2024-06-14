@@ -206,7 +206,7 @@ def lapcount_collision1(player_car1):
     computer_finish_poi_collide = player_car1.collide(
         FINISH_MASK, *FINISH_POSITION)
     if computer_finish_poi_collide != None:
-        lapcount1 = lapcount1 + 1
+        lapcount1 = lapcount1 + 1  
 
 lapcount2 = 0
 def lapcount_collision2(player_car1):
@@ -240,7 +240,8 @@ if FPS == 85:
         player_car2.rotate(left=True)
         count = count + 1
 
-
+lapcount_help1 = 24
+lapcount_help2 = 24
 clock = pygame.time.Clock()
 images = [(TRACK, (0, 0))]
 run = True
@@ -265,7 +266,15 @@ while  run:
     if player_car2.collide(TRACK_BORDER_MASK) != None:
         player_car2.bounce()
     
-
+    if lapcount1 == lapcount_help1:
+        lapcount1 = lapcount1 -23
+        lapcount_help1 = lapcount_help1 + 1
+   
+    
+    if lapcount2 == lapcount_help2:
+        lapcount2 = lapcount2 -23
+        lapcount_help2 = lapcount_help2 + 1
+    
     #cloeses the windows if run = False
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
