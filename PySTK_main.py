@@ -156,13 +156,23 @@ def move_player(player_car):
         player_car.reduce_speed()
 
 
+       
+#lapcount
+# Timer for the Lapcount-collision
+last_collision_time1 = 0
+last_collision_time2 = 0
+collision_delay = 5  # Sekunden
+
+
 lapcount1 = 0
-def lapcount_collision(player_car):
-    global lapcount1
-    computer_finish_poi_collide = player_car.collide(
-        FINISH_MASK, *FINISH_POSITION)
-    if computer_finish_poi_collide != None:
-        lapcount1 = lapcount1 + 1
+def lapcount_collision(player_car1):
+    global lapcount1, last_collision_time1
+    current_time = time.time()
+    if current_time - last_collision_time1 >= collision_delay:
+        computer_finish_poi_collide = player_car1.collide(FINISH_MASK, *FINISH_POSITION)
+        if computer_finish_poi_collide is not None:
+            lapcount1 += 1
+            last_collision_time1 = current_time
 
 #changes the speed of the players and adjusts to the right start angle when the FPS count is choosen
 if FPS == 144:
