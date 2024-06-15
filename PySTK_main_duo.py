@@ -58,10 +58,8 @@ racer1 = scale_image(pygame.image.load("imgs/tuxi.xcf"), scale_player)
 
 #Racer Nr.2
 racer2 = scale_image(pygame.image.load("imgs/yoshi.xcf"), scale_player)
-player2 = pygame.Rect((930, 1130, 100, 100))
-movement2 = racer2.get_rect()
 
-
+#car physics
 class AbstractCar:
     def __init__(self, max_vel, rotation_vel):
         self.img = self.IMG
@@ -123,26 +121,6 @@ class PlayerCar1(AbstractCar):
         self.move()
 
 
-def move_player1(player_car1):
-    keys = pygame.key.get_pressed()
-    moved = False
-
-    if keys[pygame.K_a]:
-        player_car1.rotate(left=True)
-    if keys[pygame.K_d]:
-        player_car1.rotate(right=True)
-    if keys[pygame.K_w]:
-        moved = True
-        player_car1.move_forward()
-    if keys[pygame.K_s]:
-        moved = True
-        player_car1.move_backward()
-    
-    if not moved:
-        player_car1.reduce_speed()
-
-
-
 #Player 2
 class PlayerCar2(AbstractCar):
     IMG = racer2
@@ -155,6 +133,8 @@ class PlayerCar2(AbstractCar):
     def bounce(self):
         self.vel = -self.vel * 0.9
         self.move()
+
+
 
 
 def draw(win, images, player_car1, player_car2):
@@ -182,6 +162,26 @@ def draw(win, images, player_car1, player_car2):
 
 
 
+
+def move_player1(player_car1):
+    keys = pygame.key.get_pressed()
+    moved = False
+
+    if keys[pygame.K_a]:
+        player_car1.rotate(left=True)
+    if keys[pygame.K_d]:
+        player_car1.rotate(right=True)
+    if keys[pygame.K_w]:
+        moved = True
+        player_car1.move_forward()
+    if keys[pygame.K_s]:
+        moved = True
+        player_car1.move_backward()
+    
+    if not moved:
+        player_car1.reduce_speed()
+
+
 def move_player2(player_car2):
     keys = pygame.key.get_pressed()
     moved = False
@@ -200,23 +200,34 @@ def move_player2(player_car2):
     if not moved:
         player_car2.reduce_speed()
 
+#lapcount
+# Timer for the Lapcount-collision
+last_collision_time1 = 0
+last_collision_time2 = 0
+collision_delay = 5  # Sekunden
+
+
 lapcount1 = 0
 def lapcount_collision1(player_car1):
-    global lapcount1
-    computer_finish_poi_collide = player_car1.collide(
-        FINISH_MASK, *FINISH_POSITION)
-    if computer_finish_poi_collide != None:
-        lapcount1 = lapcount1 + 1  
+    global lapcount1, last_collision_time1
+    current_time = time.time()
+    if current_time - last_collision_time1 >= collision_delay:
+        computer_finish_poi_collide = player_car1.collide(FINISH_MASK, *FINISH_POSITION)
+        if computer_finish_poi_collide is not None:
+            lapcount1 += 1
+            last_collision_time1 = current_time
+
+
 
 lapcount2 = 0
-def lapcount_collision2(player_car1):
-    global lapcount2
-    computer_finish_poi_collide = player_car2.collide(
-        FINISH_MASK, *FINISH_POSITION)
-    if computer_finish_poi_collide != None:
-        lapcount2 = lapcount2 + 1
-        
-
+def lapcount_collision2(player_car2):
+    global lapcount2, last_collision_time2
+    current_time = time.time()
+    if current_time - last_collision_time2 >= collision_delay:
+        computer_finish_poi_collide = player_car2.collide(FINISH_MASK, *FINISH_POSITION)
+        if computer_finish_poi_collide is not None:
+            lapcount2 += 1
+            last_collision_time2 = current_time
 #changes the speed of the players and adjusts to the right start angle when the FPS count is choosen
 if FPS == 144:
     player_car1 = PlayerCar1(3, 4)
@@ -265,15 +276,6 @@ while  run:
     move_player2(player_car2)
     if player_car2.collide(TRACK_BORDER_MASK) != None:
         player_car2.bounce()
-    
-    if lapcount1 == lapcount_help1:
-        lapcount1 = lapcount1 -23
-        lapcount_help1 = lapcount_help1 + 1
-   
-    
-    if lapcount2 == lapcount_help2:
-        lapcount2 = lapcount2 -23
-        lapcount_help2 = lapcount_help2 + 1
     
     #cloeses the windows if run = False
     for event in pygame.event.get():
