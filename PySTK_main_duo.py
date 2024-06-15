@@ -166,11 +166,17 @@ def draw(win, images, player_car1, player_car2):
 
 def won1():
     level_text = MAIN_FONT.render(
-        f"!: {win_text1}", 1, (255, 255, 255))
-    WIN.blit(level_text, (10, HEIGHT - TRACK.get_height() +50))
+        f"{win_text1}", 1, (0, 255, 0))
+    WIN.blit(level_text, (480, HEIGHT - TRACK.get_height() +300))
     
     pygame.display.update()
 
+def won2():
+    level_text = MAIN_FONT.render(
+        f"{win_text2}", 1, (0, 255, 0))
+    WIN.blit(level_text, (480, HEIGHT - TRACK.get_height() +300))
+    
+    pygame.display.update()
 
 
 
@@ -216,7 +222,7 @@ def move_player2(player_car2):
 # Timer for the Lapcount-collision
 last_collision_time1 = 0
 last_collision_time2 = 0
-collision_delay = 0.1 # Sekunden
+collision_delay = 5 # Sekunden
 
 
 lapcount1 = 0
@@ -294,8 +300,8 @@ while  run:
         won1()
 
     if lapcount2 >= 6:
-        run = False
-        print("Player 2 has won!")
+        won2()
+
     
     #cloeses the windows if run = False
     for event in pygame.event.get():
