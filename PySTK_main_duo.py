@@ -59,6 +59,9 @@ racer1 = scale_image(pygame.image.load("imgs/tuxi.xcf"), scale_player)
 #Racer Nr.2
 racer2 = scale_image(pygame.image.load("imgs/yoshi.xcf"), scale_player)
 
+win_text1 = "Player 1 has won!!!"
+win_text2 = "Player 2 has won!!!"
+
 #car physics
 class AbstractCar:
     def __init__(self, max_vel, rotation_vel):
@@ -161,6 +164,15 @@ def draw(win, images, player_car1, player_car2):
     pygame.display.update()
 
 
+def won1():
+    level_text = MAIN_FONT.render(
+        f"!: {win_text1}", 1, (255, 255, 255))
+    WIN.blit(level_text, (10, HEIGHT - TRACK.get_height() +50))
+    
+    pygame.display.update()
+
+
+
 
 
 def move_player1(player_car1):
@@ -204,7 +216,7 @@ def move_player2(player_car2):
 # Timer for the Lapcount-collision
 last_collision_time1 = 0
 last_collision_time2 = 0
-collision_delay = 5  # Sekunden
+collision_delay = 0.1 # Sekunden
 
 
 lapcount1 = 0
@@ -228,6 +240,7 @@ def lapcount_collision2(player_car2):
         if computer_finish_poi_collide is not None:
             lapcount2 += 1
             last_collision_time2 = current_time
+
 #changes the speed of the players and adjusts to the right start angle when the FPS count is choosen
 if FPS == 144:
     player_car1 = PlayerCar1(3, 4)
@@ -276,6 +289,13 @@ while  run:
     move_player2(player_car2)
     if player_car2.collide(TRACK_BORDER_MASK) != None:
         player_car2.bounce()
+
+    if lapcount1 >= 6:
+        won1()
+
+    if lapcount2 >= 6:
+        run = False
+        print("Player 2 has won!")
     
     #cloeses the windows if run = False
     for event in pygame.event.get():

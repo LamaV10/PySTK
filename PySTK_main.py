@@ -51,8 +51,6 @@ MAIN_FONT = pygame.font.SysFont("comicsans", 32)
 #Racer Nr.1
 racer1 = scale_image(pygame.image.load("imgs/tuxi.xcf"), scale_player)
 
-#stat count
-stat1 = 0
 
 class AbstractCar:
     def __init__(self, max_vel, rotation_vel):
