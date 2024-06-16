@@ -165,16 +165,18 @@ def draw(win, images, player_car1, player_car2):
 
 
 def won1():
+    MAIN_FONT = pygame.font.SysFont("comicsans", 100)
     level_text = MAIN_FONT.render(
         f"{win_text1}", 1, (0, 255, 0))
-    WIN.blit(level_text, (480, HEIGHT - TRACK.get_height() +300))
+    WIN.blit(level_text, (215 * scale_factor, HEIGHT - TRACK.get_height() +260 * scale_factor))
     
     pygame.display.update()
 
 def won2():
+    MAIN_FONT = pygame.font.SysFont("comicsans", 100)
     level_text = MAIN_FONT.render(
         f"{win_text2}", 1, (0, 255, 0))
-    WIN.blit(level_text, (480, HEIGHT - TRACK.get_height() +300))
+    WIN.blit(level_text, (215 * scale_factor, HEIGHT - TRACK.get_height() +260 * scale_factor))
     
     pygame.display.update()
 
@@ -222,7 +224,7 @@ def move_player2(player_car2):
 # Timer for the Lapcount-collision
 last_collision_time1 = 0
 last_collision_time2 = 0
-collision_delay = 5 # Sekunden
+collision_delay = 0.10 # Sekunden
 
 
 lapcount1 = 0
