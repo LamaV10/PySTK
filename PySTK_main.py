@@ -52,6 +52,10 @@ MAIN_FONT = pygame.font.SysFont("comicsans", 32)
 racer1 = scale_image(pygame.image.load("imgs/tuxi.xcf"), scale_player)
 
 
+win_text1 = "Player 1 has won!!!"
+won1 = False
+count_text = 0
+
 class AbstractCar:
     def __init__(self, max_vel, rotation_vel):
         self.img = self.IMG
@@ -122,7 +126,9 @@ class PlayerCar(AbstractCar):
 def draw(win, images, player_car):
     for img, pos in images:
         win.blit(img, pos)
-
+    
+    global MAIN_FONT
+    MAIN_FONT = pygame.font.SysFont("comicsans", 32)
     level_text = MAIN_FONT.render(
         f"FPS: {clock}", 1, (255, 255, 255))
     win.blit(level_text, (10, HEIGHT - TRACK.get_height() +5))
@@ -130,6 +136,21 @@ def draw(win, images, player_car):
     level_text = MAIN_FONT.render(
        f"lapcount P1: {lapcount1}", 1, (255, 255, 255))
     win.blit(level_text, (10, HEIGHT - TRACK.get_height() +490 * scale_factor))
+
+    
+    if won1 == True:
+        if count_text < 30:
+            MAIN_FONT = pygame.font.SysFont("comicsans", 100)
+            level_text = MAIN_FONT.render(
+                f"{win_text1}", 1, (0, 255, 0))
+            WIN.blit(level_text, (215 * scale_factor, HEIGHT - TRACK.get_height() +260 * scale_factor))
+
+
+        if count_text < 0:
+            MAIN_FONT = pygame.font.SysFont("comicsans", 100)
+            level_text = MAIN_FONT.render(
+                f"{win_text1}", 1, (255, 0, 0))
+            WIN.blit(level_text, (215 * scale_factor, HEIGHT - TRACK.get_height() +260 * scale_factor))
 
     player_car.draw(win)
     pygame.display.update()
@@ -207,6 +228,14 @@ while  run:
         player_car.bounce()
 
     lapcount_collision(player_car)
+
+    if lapcount1 >= 6:
+        won1 = True
+        if count_text <= 20:
+            count_text += 1 
+        
+        elif count_text > 5:
+            count_text -=40
 
     #cloeses the windows if run = False
     for event in pygame.event.get():
