@@ -63,6 +63,7 @@ win_text1 = "Player 1 has won!!!"
 win_text2 = "Player 2 has won!!!"
 won1 = False
 won2 = False
+count_text = 0
 
 #car physics
 class AbstractCar:
@@ -163,21 +164,36 @@ def draw(win, images, player_car1, player_car2):
         f"lapcount P2: {lapcount2}", 1, (255, 255, 255))
     WIN.blit(level_text, (10, HEIGHT - TRACK.get_height() +510 * scale_factor))
 
+    
     if won1 == True:
-        MAIN_FONT = pygame.font.SysFont("comicsans", 100)
-        level_text = MAIN_FONT.render(
-            f"{win_text1}", 1, (0, 255, 0))
-        WIN.blit(level_text, (215 * scale_factor, HEIGHT - TRACK.get_height() +260 * scale_factor))
-   
+        if count_text < 30:
+            MAIN_FONT = pygame.font.SysFont("comicsans", 100)
+            level_text = MAIN_FONT.render(
+                f"{win_text1}", 1, (0, 255, 0))
+            WIN.blit(level_text, (215 * scale_factor, HEIGHT - TRACK.get_height() +260 * scale_factor))
+            print(count_text)
+
+        if count_text < 0:
+            MAIN_FONT = pygame.font.SysFont("comicsans", 100)
+            level_text = MAIN_FONT.render(
+                f"{win_text1}", 1, (255, 0, 0))
+            WIN.blit(level_text, (215 * scale_factor, HEIGHT - TRACK.get_height() +260 * scale_factor))
 
 
-    
-    if won2 == True:    
-        MAIN_FONT = pygame.font.SysFont("comicsans", 100)
-        level_text = MAIN_FONT.render(
-            f"{win_text2}", 1, (0, 255, 0))
-        WIN.blit(level_text, (215 * scale_factor, HEIGHT - TRACK.get_height() +260 * scale_factor))
-    
+    if won2 == True:
+        if count_text < 30:
+            MAIN_FONT = pygame.font.SysFont("comicsans", 100)
+            level_text = MAIN_FONT.render(
+                f"{win_text2}", 1, (0, 255, 0))
+            WIN.blit(level_text, (215 * scale_factor, HEIGHT - TRACK.get_height() +260 * scale_factor))
+            print(count_text)
+
+        if count_text < 0:
+            MAIN_FONT = pygame.font.SysFont("comicsans", 100)
+            level_text = MAIN_FONT.render(
+                f"{win_text2}", 1, (255, 0, 0))
+            WIN.blit(level_text, (215 * scale_factor, HEIGHT - TRACK.get_height() +260 * scale_factor))
+
     player_car1.draw(win)
     player_car2.draw(win)
     pygame.display.update()
@@ -303,12 +319,22 @@ while  run:
     #lapcount (who would have thought)
     lapcount_collision1(player_car1)
     lapcount_collision2(player_car2)
+   
 
     if lapcount1 >= 6:
         won1 = True
-
+        if count_text <= 20:
+            count_text += 1 
+        elif count_text > 5:
+            count_text -=40
+    
     if lapcount2 >= 6:
         won2 = True
+        if count_text <= 20:
+            count_text += 1 
+        elif count_text > 5:
+            count_text -=40
+
 
     
     #cloeses the windows if run = False
