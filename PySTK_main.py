@@ -127,7 +127,8 @@ class PlayerCar(AbstractCar):
 def draw(win, images, player_car):
     for img, pos in images:
         win.blit(img, pos)
-    
+   
+    text_scale_factor = TRACK.get_width() * 0.00088
     global MAIN_FONT
     MAIN_FONT = pygame.font.SysFont("comicsans", 32)
     level_text = MAIN_FONT.render(
@@ -141,11 +142,11 @@ def draw(win, images, player_car):
     if (end1 - start1) > 0:
         level_text = MAIN_FONT.render(
             f"laptime P1: {end1 - start1}", 1, (255, 255, 255))
-        win.blit(level_text, (2275, HEIGHT - TRACK.get_height() +490 * scale_factor))
+        win.blit(level_text, (990 * text_scale_factor, HEIGHT - TRACK.get_height() +490 * scale_factor))
     else:
         level_text = MAIN_FONT.render(
             f"laptime P1:", 1, (255, 255, 255))
-        win.blit(level_text, (2275, HEIGHT - TRACK.get_height() +490 * scale_factor))
+        win.blit(level_text, (990 * scale_factor, HEIGHT - TRACK.get_height() +490 * scale_factor))
 
 
     
