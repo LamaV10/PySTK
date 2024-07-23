@@ -51,11 +51,12 @@ MAIN_FONT = pygame.font.SysFont("comicsans", 32)
 #Racer Nr.1
 racer1 = scale_image(pygame.image.load("imgs/tuxi.xcf"), scale_player)
 
-
+#win utilities
 win_text1 = "Player 1 has won!!!"
 won1 = False
 count_text = 0
 
+#car physics
 class AbstractCar:
     def __init__(self, max_vel, rotation_vel):
         self.img = self.IMG
@@ -109,7 +110,7 @@ class AbstractCar:
         return poi
 
 
-
+#player 1
 class PlayerCar(AbstractCar):
     IMG = racer1
     START_POS_SCALE = (START_POS_X, START_POS_Y)
@@ -122,7 +123,7 @@ class PlayerCar(AbstractCar):
         self.vel = -self.vel * 0.5
         self.move()
 
-
+#display of text & players
 def draw(win, images, player_car):
     for img, pos in images:
         win.blit(img, pos)
@@ -136,6 +137,16 @@ def draw(win, images, player_car):
     level_text = MAIN_FONT.render(
        f"lapcount P1: {lapcount1}", 1, (255, 255, 255))
     win.blit(level_text, (10, HEIGHT - TRACK.get_height() +490 * scale_factor))
+
+    if (end1 - start1) > 0:
+        level_text = MAIN_FONT.render(
+            f"laptime P1: {end1 - start1}", 1, (255, 255, 255))
+        win.blit(level_text, (2275, HEIGHT - TRACK.get_height() +490 * scale_factor))
+    else:
+        level_text = MAIN_FONT.render(
+            f"laptime P1:", 1, (255, 255, 255))
+        win.blit(level_text, (2275, HEIGHT - TRACK.get_height() +490 * scale_factor))
+
 
     
     if won1 == True:
@@ -155,7 +166,7 @@ def draw(win, images, player_car):
     player_car.draw(win)
     pygame.display.update()
 
-
+#keybinds
 def move_player(player_car):
     keys = pygame.key.get_pressed()
     moved = False
@@ -179,8 +190,7 @@ def move_player(player_car):
 #lapcount
 # Timer for the Lapcount-collision
 last_collision_time1 = 0
-last_collision_time2 = 0
-collision_delay = 5  # Sekunden
+collision_delay = 10  # Sekunden
 
 
 lapcount1 = 0
@@ -192,6 +202,33 @@ def lapcount_collision(player_car1):
         if computer_finish_poi_collide is not None:
             lapcount1 += 1
             last_collision_time1 = current_time
+
+#laptime
+last_collision_time_laptime1 = 0
+lastTouch1 = 0
+start1 = 0 
+end1 = 0.1
+def laptime1(player_car1):
+    global last_collision_time_laptime1, lastTouch1, start1, end1
+    current_time = time.time()
+    
+    if current_time - last_collision_time_laptime1 >= collision_delay:
+        computer_finish_poi_collide = player_car1.collide(FINISH_MASK, *FINISH_POSITION)
+        
+        if computer_finish_poi_collide is not None and lastTouch1 == 0:
+            start1 = time.time()
+            lastTouch1 = lastTouch1 + 1
+            last_collision_time_laptime1 = current_time
+            print(lastTouch1)
+
+    if current_time - last_collision_time_laptime1 >= collision_delay:
+       computer_finish_poi_collide = player_car1.collide(FINISH_MASK, *FINISH_POSITION)
+       if computer_finish_poi_collide is not None and lastTouch1 == 1:
+            end1 = time.time()
+            print(end1 - start1)
+            lastTouch1 = lastTouch1 - 1
+            last_collision_time_laptime1 = current_time
+            print(lastTouch1)
 
 #changes the speed of the players and adjusts to the right start angle when the FPS count is choosen
 if FPS == 144:
@@ -210,14 +247,13 @@ if FPS == 85:
         player_car.rotate(left=True)
         count = count + 1
 
+        
 clock = pygame.time.Clock()
 images = [(TRACK, (0, 0))]
 run = True
 
-
-    
+#game loop 
 while  run:
-    #game loop setup
     draw(WIN, images, player_car, )
     clock.tick(FPS)
      
@@ -226,8 +262,11 @@ while  run:
     move_player(player_car)
     if player_car.collide(TRACK_BORDER_MASK) != None:
         player_car.bounce()
-
+    #laptcount
     lapcount_collision(player_car)
+    
+    #laptime
+    laptime1(player_car)
 
     if lapcount1 >= 6:
         won1 = True
@@ -241,7 +280,6 @@ while  run:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             run = False
-
     pygame.display.update()
 
 pygame.quit()
