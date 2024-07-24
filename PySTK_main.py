@@ -129,27 +129,31 @@ def draw(win, images, player_car):
         win.blit(img, pos)
    
     text_scale_factor = TRACK.get_width() * 0.00088
+    font_scale = math.trunc(15 * scale_factor)
     global MAIN_FONT
-    MAIN_FONT = pygame.font.SysFont("comicsans", 32)
+    MAIN_FONT = pygame.font.SysFont("comicsans", font_scale)
+   
+    #Fps and lapcount text
     level_text = MAIN_FONT.render(
         f"FPS: {clock}", 1, (255, 255, 255))
     win.blit(level_text, (10, HEIGHT - TRACK.get_height() +5))
 
     level_text = MAIN_FONT.render(
-       f"lapcount P1: {lapcount1}", 1, (255, 255, 255))
+       f"lapcount P1: {lapcount1}", 1, (0, 255, 0))
     win.blit(level_text, (10, HEIGHT - TRACK.get_height() +490 * scale_factor))
-
+    
+    #laptime 
     if (end1 - start1) > 0:
         level_text = MAIN_FONT.render(
-            f"laptime P1: {end1 - start1}", 1, (255, 255, 255))
-        win.blit(level_text, (990 * text_scale_factor, HEIGHT - TRACK.get_height() +490 * scale_factor))
+            f"laptime P1: {math.trunc(end1 - start1)}", 1, (255, 255, 0))
+        win.blit(level_text, (1045 * text_scale_factor, HEIGHT - TRACK.get_height() +490 * scale_factor))
     else:
         level_text = MAIN_FONT.render(
-            f"laptime P1:", 1, (255, 255, 255))
-        win.blit(level_text, (990 * scale_factor, HEIGHT - TRACK.get_height() +490 * scale_factor))
+            f"laptime P1: /", 1, (255, 255, 0))
+        win.blit(level_text, (1045 * text_scale_factor, HEIGHT - TRACK.get_height() +490 * scale_factor))
 
 
-    
+    #won text
     if won1 == True:
         if count_text < 30:
             MAIN_FONT = pygame.font.SysFont("comicsans", 100)
@@ -208,7 +212,7 @@ def lapcount_collision(player_car1):
 last_collision_time_laptime1 = 0
 lastTouch1 = 0
 start1 = 0 
-end1 = 0.1
+end1 = 0
 def laptime1(player_car1):
     global last_collision_time_laptime1, lastTouch1, start1, end1
     current_time = time.time()

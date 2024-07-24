@@ -149,42 +149,44 @@ def draw(win, images, player_car1, player_car2):
         win.blit(img, pos)
     
     text_scale_factor = TRACK.get_width() * 0.00088
+    font_scale = math.trunc(15 * scale_factor)
     global MAIN_FONT
+    MAIN_FONT = pygame.font.SysFont("comicsans", font_scale)
+    
     #FPS and lapcount text
-    MAIN_FONT = pygame.font.SysFont("comicsans", 32)
     level_text = MAIN_FONT.render(
         f"FPS: {clock}", 1, (255, 255, 255))
     WIN.blit(level_text, (10, HEIGHT - TRACK.get_height() +10))
 
     
     level_text = MAIN_FONT.render(
-       f"lapcount P1: {lapcount1}", 1, (255, 255, 255))
+       f"lapcount P1: {lapcount1}", 1, (0, 255, 0))
     WIN.blit(level_text, (10, HEIGHT - TRACK.get_height() +490 * scale_factor))
 
 
     level_text = MAIN_FONT.render(
-        f"lapcount P2: {lapcount2}", 1, (255, 255, 255))
+        f"lapcount P2: {lapcount2}", 1, (0, 255, 0))
     WIN.blit(level_text, (10, HEIGHT - TRACK.get_height() +510 * scale_factor))
 
     #laptime text P1
     if (end1 - start1) > 0:
         level_text = MAIN_FONT.render(
-            f"laptime P1: {end1 - start1}", 1, (255, 255, 255))
-        win.blit(level_text, (990 * text_scale_factor, HEIGHT - TRACK.get_height() +490 * scale_factor))
+            f"laptime P1: {math.trunc(end1 - start1)}", 1, (255, 255, 0))
+        win.blit(level_text, (1045 * text_scale_factor, HEIGHT - TRACK.get_height() +490 * scale_factor))
     else:
         level_text = MAIN_FONT.render(
-            f"laptime P1:", 1, (255, 255, 255))
-        win.blit(level_text, (990 * text_scale_factor, HEIGHT - TRACK.get_height() +490 * scale_factor))
+            f"laptime P1: /", 1, (255, 255, 0))
+        win.blit(level_text, (1045 * text_scale_factor, HEIGHT - TRACK.get_height() +490 * scale_factor))
    
     #laptime text P2
     if (end2 - start2) > 0:
         level_text = MAIN_FONT.render(
-            f"laptime P2: {end2 - start2}", 1, (255, 255, 255))
-        win.blit(level_text, (990 * text_scale_factor, HEIGHT - TRACK.get_height() +510 * scale_factor))
+            f"laptime P2: {math.trunc(end2 - start2)}", 1, (255, 255, 0))
+        win.blit(level_text, (1045 * text_scale_factor, HEIGHT - TRACK.get_height() +510 * scale_factor))
     else:
         level_text = MAIN_FONT.render(
-            f"laptime P2:", 1, (255, 255, 255))
-        win.blit(level_text, (990 * text_scale_factor, HEIGHT - TRACK.get_height() +510 * scale_factor))
+            f"laptime P2: /", 1, (255, 255, 0))
+        win.blit(level_text, (1045 * text_scale_factor, HEIGHT - TRACK.get_height() +510 * scale_factor))
     
     #won text
     if won1 == True:
