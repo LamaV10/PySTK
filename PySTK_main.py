@@ -156,17 +156,17 @@ def draw(win, images, player_car):
     #won text
     if won1 == True:
         if count_text < 30:
-            MAIN_FONT = pygame.font.SysFont("comicsans", 100)
+            MAIN_FONT = pygame.font.SysFont("comicsans", 5 * font_scale)
             level_text = MAIN_FONT.render(
                 f"{win_text1}", 1, (0, 255, 0))
-            WIN.blit(level_text, (215 * scale_factor, HEIGHT - TRACK.get_height() +260 * scale_factor))
+            WIN.blit(level_text, (275 * scale_factor, HEIGHT - TRACK.get_height() +260 * scale_factor))
 
 
         if count_text < 0:
-            MAIN_FONT = pygame.font.SysFont("comicsans", 100)
+            MAIN_FONT = pygame.font.SysFont("comicsans", 5 * font_scale)
             level_text = MAIN_FONT.render(
                 f"{win_text1}", 1, (255, 0, 0))
-            WIN.blit(level_text, (215 * scale_factor, HEIGHT - TRACK.get_height() +260 * scale_factor))
+            WIN.blit(level_text, (275 * scale_factor, HEIGHT - TRACK.get_height() +260 * scale_factor))
 
     player_car.draw(win)
     pygame.display.update()
@@ -179,6 +179,7 @@ def move_player(player_car):
     if keys[pygame.K_a]:
         player_car.rotate(left=True)
     if keys[pygame.K_d]:
+        
         player_car.rotate(right=True)
     if keys[pygame.K_w]:
         moved = True
