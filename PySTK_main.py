@@ -51,7 +51,7 @@ MAIN_FONT = pygame.font.SysFont("comicsans", 32)
 #Racer Nr.1
 racer1 = scale_image(pygame.image.load("imgs/tuxi.xcf"), scale_player)
 
-#win utilities
+#won utilities
 win_text1 = "Player 1 has won!!!"
 won1 = False
 count_text = 0

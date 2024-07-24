@@ -59,7 +59,7 @@ racer1 = scale_image(pygame.image.load("imgs/tuxi.xcf"), scale_player)
 #Racer Nr.2
 racer2 = scale_image(pygame.image.load("imgs/yoshi.xcf"), scale_player)
 
-#win utilities
+#won utilities
 win_text1 = "Player 1 has won!!!"
 win_text2 = "Player 2 has won!!!"
 won1 = False
