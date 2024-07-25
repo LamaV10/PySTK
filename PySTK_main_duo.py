@@ -168,26 +168,30 @@ def draw(win, images, player_car1, player_car2):
         f"lapcount P2: {lapcount2}", 1, (0, 255, 0))
     WIN.blit(level_text, (10, HEIGHT - TRACK.get_height() +510 * scale_factor))
 
+
+
     #laptime text P1
-    if (end1 - start1) > 0:
+    if (final_laptime1) > 0:
         level_text = MAIN_FONT.render(
-            f"laptime P1: {math.trunc(end1 - start1)}", 1, (0, 0, 255))
-        win.blit(level_text, (1045 * text_scale_factor, HEIGHT - TRACK.get_height() +490 * scale_factor))
+            f"laptime (s) P1: {math.trunc(final_laptime1)}", 1, (0, 0, 255))
+        win.blit(level_text, (1040 * text_scale_factor, HEIGHT - TRACK.get_height() +490 * scale_factor))
     else:
         level_text = MAIN_FONT.render(
-            f"laptime P1: /", 1, (0, 0, 255))
-        win.blit(level_text, (1045 * text_scale_factor, HEIGHT - TRACK.get_height() +490 * scale_factor))
+            f"laptime (s) P1: /", 1, (0, 0, 255))
+        win.blit(level_text, (1040 * text_scale_factor, HEIGHT - TRACK.get_height() +490 * scale_factor))
    
     #laptime text P2
-    if (end2 - start2) > 0:
+    if (final_laptime2) > 0:
         level_text = MAIN_FONT.render(
-            f"laptime P2: {math.trunc(end2 - start2)}", 1, (0, 0, 255))
-        win.blit(level_text, (1045 * text_scale_factor, HEIGHT - TRACK.get_height() +510 * scale_factor))
+            f"laptime (s) P2: {math.trunc(final_laptime2)}", 1, (0, 0, 255))
+        win.blit(level_text, (1040 * text_scale_factor, HEIGHT - TRACK.get_height() +510 * scale_factor))
     else:
         level_text = MAIN_FONT.render(
-            f"laptime P2: /", 1, (0, 0, 255))
-        win.blit(level_text, (1045 * text_scale_factor, HEIGHT - TRACK.get_height() +510 * scale_factor))
+            f"laptime (s) P2: /", 1, (0, 0, 255))
+        win.blit(level_text, (1040 * text_scale_factor, HEIGHT - TRACK.get_height() +510 * scale_factor))
     
+    
+
     #won text
     if won1 == True:
         if count_text < 30:
@@ -251,7 +255,7 @@ def move_player2(player_car2):
     keys = pygame.key.get_pressed()
     moved = False
 
-    if keys[pygame.K_j]:
+    if keys[pygame.K_j]: 
         player_car2.rotate(left=True)
     if keys[pygame.K_l]:
         player_car2.rotate(right=True)
@@ -296,13 +300,23 @@ def lapcount_collision2(player_car2):
 
 
 
+
 #laptime1
 last_collision_time_laptime1 = 0
+
 lastTouch1 = 0
+lastTouch2 = 0
+
 start1 = 0 
+start2 = 0 
+
 end1 = 0
+end2 = 0
+
+final_laptime1 = 0 
+
 def laptime1(player_car1):
-    global last_collision_time_laptime1, lastTouch1, start1, end1
+    global last_collision_time_laptime1, lastTouch1, lastTouch2, lapcount1, start1, start2, end1, end2, final_laptime1
     current_time = time.time()
     
     if current_time - last_collision_time_laptime1 >= collision_delay:
@@ -316,36 +330,78 @@ def laptime1(player_car1):
 
         elif computer_finish_poi_collide is not None and lastTouch1 == 1:
             end1 = time.time()
-            print("P1:", end1 - start1)
+            final_laptime1 = (end1 - start1)
             lastTouch1 = lastTouch1 - 1
             last_collision_time_laptime1 = current_time
+            print("P1:", final_laptime1)
             #print(lastTouch1)
+
+        if computer_finish_poi_collide is not None and lastTouch1 == 0 and lapcount1 ==2:
+            start2 = time.time()
+            lastTouch2 = lastTouch2 + 1
+            last_collision_time_laptime1 = current_time
+            #print("2:", lastTouch2)
+
+        elif computer_finish_poi_collide is not None and lastTouch1 == 1 and lastTouch2 == 1 and lapcount1 == 3:
+            end2 = time.time()
+            final_laptime1 = (end2 - start2)
+            lastTouch2 = lastTouch2 - 1
+            last_collision_time_laptime1 = current_time
+            print("P1:", final_laptime1)
+           #print("2:", lastTouch2)
 
 
 #laptime2
 last_collision_time_laptime2 = 0
-lastTouch2 = 0
-start2 = 0 
-end2 = 0
+
+lastTouch3 = 0
+lastTouch4 = 0
+
+start3 = 0 
+start4 = 0 
+
+end3 = 0
+end4 = 0
+
+final_laptime2 = 0
+
 def laptime2(player_car2):
-    global last_collision_time_laptime2, lastTouch2, start2, end2
+    global last_collision_time_laptime2, lastTouch3, lastTouch4, lapcount2, start3, start4, end3, end4, final_laptime2
     current_time = time.time()
     
     if current_time - last_collision_time_laptime2 >= collision_delay:
         computer_finish_poi_collide = player_car2.collide(FINISH_MASK, *FINISH_POSITION)
         
-        if computer_finish_poi_collide is not None and lastTouch2 == 0:
-            start2 = time.time()
-            lastTouch2 = lastTouch2 + 1
+        if computer_finish_poi_collide is not None and lastTouch3 == 0:
+            start3 = time.time()
+            lastTouch3 = lastTouch3 + 1
             last_collision_time_laptime2 = current_time
-            #print(lastTouch2)
+            #print("lastTouch3:", lastTouch3)
 
-        elif computer_finish_poi_collide is not None and lastTouch2 == 1:
-            end2 = time.time()
-            print("P2:", end2 - start2)
-            lastTouch2 = lastTouch2 - 1
+        elif computer_finish_poi_collide is not None and lastTouch3 == 1:
+            end3 = time.time()
+            final_laptime2 = (end3 - start3)
+            lastTouch3 = lastTouch3 - 1
             last_collision_time_laptime2 = current_time
-            #print(lastTouch2)
+            print("P2:", final_laptime2)
+            #print("lastTouch3:", lastTouch3)
+
+        if computer_finish_poi_collide is not None and lastTouch4 == 0 and lapcount2 ==2:
+            start4 = time.time()
+            lastTouch4 = lastTouch4 + 1
+            last_collision_time_laptime2 = current_time
+            #print("lastTouch4:", lastTouch4)
+
+        elif computer_finish_poi_collide is not None and lastTouch4 == 1 and lastTouch3 == 1 and lapcount2 == 3:
+            end4 = time.time()
+            final_laptime2 = (end4 - start4)
+            lastTouch4 = lastTouch4 - 1
+            last_collision_time_laptime2 = current_time
+            print("P2:", final_laptime2)
+            #print("lastTouch4:", lastTouch4)
+
+
+
 
 #changes the speed of the players and adjusts to the right start angle when the FPS count is choosen
 if FPS == 144:

@@ -142,18 +142,20 @@ def draw(win, images, player_car):
        f"lapcount P1: {lapcount1}", 1, (0, 255, 0))
     win.blit(level_text, (10, HEIGHT - TRACK.get_height() +490 * scale_factor))
     
+    
+
     #laptime 
-    if (end1 - start1) > 0:
+    if (final_laptime1) > 0:
         level_text = MAIN_FONT.render(
-            f"laptime P1: {math.trunc(end1 - start1)}", 1, (255, 255, 0))
-        win.blit(level_text, (1045 * text_scale_factor, HEIGHT - TRACK.get_height() +490 * scale_factor))
+            f"laptime (s) P1: {math.trunc(final_laptime1)}", 1, (0, 0, 255))
+        win.blit(level_text, (1040 * text_scale_factor, HEIGHT - TRACK.get_height() +490 * scale_factor))
     else:
         level_text = MAIN_FONT.render(
-            f"laptime P1: /", 1, (255, 255, 0))
-        win.blit(level_text, (1045 * text_scale_factor, HEIGHT - TRACK.get_height() +490 * scale_factor))
+            f"laptime (s) P1: /", 1, (0, 0, 255))
+        win.blit(level_text, (1040 * text_scale_factor, HEIGHT - TRACK.get_height() +490 * scale_factor))
 
 
-    #won text
+     #won text
     if won1 == True:
         if count_text < 30:
             MAIN_FONT = pygame.font.SysFont("comicsans", 5 * font_scale)
@@ -196,7 +198,7 @@ def move_player(player_car):
 #lapcount
 # Timer for the Lapcount-collision
 last_collision_time1 = 0
-collision_delay = 10  # Sekunden
+collision_delay = 10 # Sekunden
 
 
 lapcount1 = 0
@@ -211,11 +213,20 @@ def lapcount_collision(player_car1):
 
 #laptime
 last_collision_time_laptime1 = 0
+
 lastTouch1 = 0
+lastTouch2 = 0
+
 start1 = 0 
+start2 = 0 
+
 end1 = 0
+end2 = 0
+
+final_laptime1 = 0
+
 def laptime1(player_car1):
-    global last_collision_time_laptime1, lastTouch1, start1, end1
+    global last_collision_time_laptime1, lastTouch1, lastTouch2, lapcount1, start1, start2, end1, end2, final_laptime1
     current_time = time.time()
     
     if current_time - last_collision_time_laptime1 >= collision_delay:
@@ -225,14 +236,32 @@ def laptime1(player_car1):
             start1 = time.time()
             lastTouch1 = lastTouch1 + 1
             last_collision_time_laptime1 = current_time
-            #print(lastTouch1)
+            #print("1:", lastTouch1)
 
         elif computer_finish_poi_collide is not None and lastTouch1 == 1:
             end1 = time.time()
-            print("P1:", end1 - start1)
+            final_laptime1 = (end1 -start1)
             lastTouch1 = lastTouch1 - 1
             last_collision_time_laptime1 = current_time
-            #print(lastTouch1)
+            print("1P1:", final_laptime1)
+            #print("1:", lastTouch1)
+
+        if computer_finish_poi_collide is not None and lastTouch1 == 0 and lapcount1 ==2:
+            start2 = time.time()
+            lastTouch2 = lastTouch2 + 1
+            last_collision_time_laptime1 = current_time
+            #print("2:", lastTouch2)
+
+        elif computer_finish_poi_collide is not None and lastTouch1 == 1 and lastTouch2 == 1 and lapcount1 == 3:
+            end2 = time.time()
+            final_laptime1 = (end2 -start2)
+            lastTouch2 = lastTouch2 - 1
+            last_collision_time_laptime1 = current_time
+            print("2P1:", final_laptime1)
+           #print("2:", lastTouch2)
+
+
+
 
 #changes the speed of the players and adjusts to the right start angle when the FPS count is choosen
 if FPS == 144:
