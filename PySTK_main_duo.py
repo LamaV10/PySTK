@@ -171,21 +171,21 @@ def draw(win, images, player_car1, player_car2):
     #laptime text P1
     if (end1 - start1) > 0:
         level_text = MAIN_FONT.render(
-            f"laptime P1: {math.trunc(end1 - start1)}", 1, (255, 255, 0))
+            f"laptime P1: {math.trunc(end1 - start1)}", 1, (0, 0, 255))
         win.blit(level_text, (1045 * text_scale_factor, HEIGHT - TRACK.get_height() +490 * scale_factor))
     else:
         level_text = MAIN_FONT.render(
-            f"laptime P1: /", 1, (255, 255, 0))
+            f"laptime P1: /", 1, (0, 0, 255))
         win.blit(level_text, (1045 * text_scale_factor, HEIGHT - TRACK.get_height() +490 * scale_factor))
    
     #laptime text P2
     if (end2 - start2) > 0:
         level_text = MAIN_FONT.render(
-            f"laptime P2: {math.trunc(end2 - start2)}", 1, (255, 255, 0))
+            f"laptime P2: {math.trunc(end2 - start2)}", 1, (0, 0, 255))
         win.blit(level_text, (1045 * text_scale_factor, HEIGHT - TRACK.get_height() +510 * scale_factor))
     else:
         level_text = MAIN_FONT.render(
-            f"laptime P2: /", 1, (255, 255, 0))
+            f"laptime P2: /", 1, (0, 0, 255))
         win.blit(level_text, (1045 * text_scale_factor, HEIGHT - TRACK.get_height() +510 * scale_factor))
     
     #won text
@@ -314,9 +314,7 @@ def laptime1(player_car1):
             last_collision_time_laptime1 = current_time
             #print(lastTouch1)
 
-    if current_time - last_collision_time_laptime1 >= collision_delay:
-        computer_finish_poi_collide = player_car1.collide(FINISH_MASK, *FINISH_POSITION)
-        if computer_finish_poi_collide is not None and lastTouch1 == 1:
+        elif computer_finish_poi_collide is not None and lastTouch1 == 1:
             end1 = time.time()
             print("P1:", end1 - start1)
             lastTouch1 = lastTouch1 - 1
@@ -342,9 +340,7 @@ def laptime2(player_car2):
             last_collision_time_laptime2 = current_time
             #print(lastTouch2)
 
-    if current_time - last_collision_time_laptime2 >= collision_delay:
-        computer_finish_poi_collide = player_car2.collide(FINISH_MASK, *FINISH_POSITION)
-        if computer_finish_poi_collide is not None and lastTouch2 == 1:
+        elif computer_finish_poi_collide is not None and lastTouch2 == 1:
             end2 = time.time()
             print("P2:", end2 - start2)
             lastTouch2 = lastTouch2 - 1

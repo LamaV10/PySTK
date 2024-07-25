@@ -227,9 +227,7 @@ def laptime1(player_car1):
             last_collision_time_laptime1 = current_time
             #print(lastTouch1)
 
-    if current_time - last_collision_time_laptime1 >= collision_delay:
-       computer_finish_poi_collide = player_car1.collide(FINISH_MASK, *FINISH_POSITION)
-       if computer_finish_poi_collide is not None and lastTouch1 == 1:
+        elif computer_finish_poi_collide is not None and lastTouch1 == 1:
             end1 = time.time()
             print("P1:", end1 - start1)
             lastTouch1 = lastTouch1 - 1
