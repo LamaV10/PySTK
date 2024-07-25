@@ -103,12 +103,6 @@ class AbstractCar:
         self.angle = 0
         self.vel = 0
     
-    def finish_line(self, mask, x=0, y=0):
-        car_mask = pygame.mask.from_surface(self.img)
-        offset = (int(self.x - x), int(self.y - y))
-        poi = mask.overlap(car_mask, offset)
-        return poi
-
 
 #player 1
 class PlayerCar(AbstractCar):
