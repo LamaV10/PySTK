@@ -51,7 +51,7 @@ MAIN_FONT = pygame.font.SysFont("comicsans", 32)
 
 #Racer Nr.1
 racer1 = scale_image(pygame.image.load("imgs/tuxi.xcf"), scale_player)
-#racer1 = scale_image(pygame.image.load("imgs/2015-red-novitec-rosso-ferrari.png"), scale_player)
+#racer1 = scale_image(pygame.image.load("imgs/ferrari-rossa-tux.png"), scale_player)
 
 #won utilities
 win_text1 = "Player 1 has won!!!"
