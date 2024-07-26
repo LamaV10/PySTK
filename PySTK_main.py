@@ -22,6 +22,7 @@ FPS = int(input("144 FPS or 85: "))
 scale_factor = float(input("Choose scale-factor: "))
 
 scale_player = 0.1 * scale_factor
+#scale_player = 0.02 * scale_factor
 START_POS_X = 390 * scale_factor
 START_POS_Y = 433 * scale_factor
 
@@ -50,6 +51,7 @@ MAIN_FONT = pygame.font.SysFont("comicsans", 32)
 
 #Racer Nr.1
 racer1 = scale_image(pygame.image.load("imgs/tuxi.xcf"), scale_player)
+#racer1 = scale_image(pygame.image.load("imgs/2015-red-novitec-rosso-ferrari.png"), scale_player)
 
 #won utilities
 win_text1 = "Player 1 has won!!!"
@@ -263,16 +265,16 @@ if FPS == 144:
     #adjusts players start angle
     count = 0
     while count < 90:
-        player_car.rotate(left=True)
-        count = count + 1
+      player_car.rotate(left=True)
+      count = count + 1
 
 if FPS == 85:
     player_car = PlayerCar(3, 8)
     #adjusts players start angle
     count = 0
     while count < 45:
-        player_car.rotate(left=True)
-        count = count + 1
+       player_car.rotate(left=True)
+       coun = count + 1
 
         
 clock = pygame.time.Clock()

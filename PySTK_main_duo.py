@@ -23,6 +23,7 @@ FPS = int(input("144 FPS or 85: "))
 scale_factor = float(input("Choose scale-factor: "))
 
 
+#scale_player = 0.02 * scale_factor
 scale_player = 0.1 * scale_factor
 font_size = 32 * scale_factor
 
@@ -55,9 +56,11 @@ MAIN_FONT = pygame.font.SysFont("comicsans", 32)
 
 #Racer Nr.1
 racer1 = scale_image(pygame.image.load("imgs/tuxi.xcf"), scale_player)
+#racer1 = scale_image(pygame.image.load("imgs/ferrari-rossa-tux.xcf"), scale_player)
 
 #Racer Nr.2
 racer2 = scale_image(pygame.image.load("imgs/yoshi.xcf"), scale_player)
+#racer2 = scale_image(pygame.image.load("imgs/chevynovelle-yoshi.xcf"), scale_player)
 
 #won utilities
 win_text1 = "Player 1 has won!!!"
