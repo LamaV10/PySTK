@@ -21,10 +21,10 @@ FPS = int(input("144 FPS or 85: "))
 #factors: help to adjust to different resolutions
 scale_factor = float(input("Choose scale-factor: "))
 
-scale_player = 0.1 * scale_factor
-#scale_player = 0.02 * scale_factor
-START_POS_X = 390 * scale_factor
-START_POS_Y = 433 * scale_factor
+scale_player = 0.02 * scale_factor
+
+START_POS_X = 410 * scale_factor
+START_POS_Y = 428 * scale_factor
 
 Finish_POS_X = 305 * scale_factor  
 Finish_POS_Y = 460 * scale_factor
@@ -32,7 +32,7 @@ Finish_POS_Y = 460 * scale_factor
 
 #Track and Mask
 TRACK = scale_image(pygame.image.load("imgs/rennstrecke.jpg"), scale_factor)
-TRACK_BORDER = scale_image(pygame.image.load("imgs/rennstrecke_mask_s.xcf"), scale_factor)
+TRACK_BORDER = scale_image(pygame.image.load("imgs/rennstrecke_mask.xcf"), scale_factor)
 TRACK_BORDER_MASK = pygame.mask.from_surface(TRACK_BORDER)
 
 
@@ -50,8 +50,7 @@ MAIN_FONT = pygame.font.SysFont("comicsans", 32)
 
 
 #Racer Nr.1
-racer1 = scale_image(pygame.image.load("imgs/tuxi.xcf"), scale_player)
-#racer1 = scale_image(pygame.image.load("imgs/ferrari-rossa-tux.png"), scale_player)
+racer1 = scale_image(pygame.image.load("imgs/ferrari-rossa-tux.png"), scale_player)
 
 #won utilities
 win_text1 = "Player 1 has won!!!"
@@ -129,11 +128,12 @@ def draw(win, images, player_car):
     global MAIN_FONT
     MAIN_FONT = pygame.font.SysFont("comicsans", font_scale)
    
-    #Fps and lapcount text
+    #FPS text
     level_text = MAIN_FONT.render(
         f"FPS: {clock}", 1, (255, 255, 255))
     win.blit(level_text, (10, HEIGHT - TRACK.get_height() +5))
-
+    
+    #lapcount text
     level_text = MAIN_FONT.render(
        f"lapcount P1: {lapcount1}", 1, (0, 255, 0))
     win.blit(level_text, (10, HEIGHT - TRACK.get_height() +490 * scale_factor))
@@ -261,10 +261,10 @@ def laptime1(player_car1):
 
 #changes the speed of the players and adjusts to the right start angle when the FPS count is choosen
 if FPS == 144:
-    player_car = PlayerCar(3, 4)
+    player_car = PlayerCar(3, 5)
     #adjusts players start angle
     count = 0
-    while count < 90:
+    while count < 72:
       player_car.rotate(left=True)
       count = count + 1
 
@@ -297,6 +297,7 @@ while  run:
     #laptime
     laptime1(player_car)
 
+    #blinking "won text"
     if lapcount1 >= 6:
         won1 = True
         if count_text <= 20:

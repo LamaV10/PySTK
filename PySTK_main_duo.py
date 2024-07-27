@@ -23,22 +23,23 @@ FPS = int(input("144 FPS or 85: "))
 scale_factor = float(input("Choose scale-factor: "))
 
 
-#scale_player = 0.02 * scale_factor
-scale_player = 0.1 * scale_factor
+scale_player = 0.02 * scale_factor
 font_size = 32 * scale_factor
 
 #start position
-START_POS_X1 = 390 * scale_factor
-START_POS_Y1 = 433 * scale_factor
+START_POS_X1 = 410 * scale_factor
+START_POS_Y1 = 428 * scale_factor
+
 START_POS_X2 = 345 * scale_factor
-START_POS_Y2 = 475 * scale_factor
+START_POS_Y2 = 478 * scale_factor
+
 Finish_POS_X = 305 * scale_factor  
 Finish_POS_Y = 460 * scale_factor
 
 
 #Track and Mask
 TRACK = scale_image(pygame.image.load("imgs/rennstrecke.jpg"), scale_factor)
-TRACK_BORDER = scale_image(pygame.image.load("imgs/rennstrecke_mask_s.xcf"), scale_factor)
+TRACK_BORDER = scale_image(pygame.image.load("imgs/rennstrecke_mask.xcf"), scale_factor)
 TRACK_BORDER_MASK = pygame.mask.from_surface(TRACK_BORDER)
 
 #finish line Mask
@@ -55,12 +56,10 @@ MAIN_FONT = pygame.font.SysFont("comicsans", 32)
 
 
 #Racer Nr.1
-racer1 = scale_image(pygame.image.load("imgs/tuxi.xcf"), scale_player)
-#racer1 = scale_image(pygame.image.load("imgs/ferrari-rossa-tux.png"), scale_player)
+racer1 = scale_image(pygame.image.load("imgs/ferrari-rossa-tux.png"), scale_player)
 
 #Racer Nr.2
-racer2 = scale_image(pygame.image.load("imgs/yoshi.xcf"), scale_player)
-#racer2 = scale_image(pygame.image.load("imgs/chevynovelle-yoshi.png"), scale_player)
+racer2 = scale_image(pygame.image.load("imgs/chevyss-yoshi.png"), scale_player)
 
 #won utilities
 win_text1 = "Player 1 has won!!!"
@@ -156,12 +155,12 @@ def draw(win, images, player_car1, player_car2):
     global MAIN_FONT
     MAIN_FONT = pygame.font.SysFont("comicsans", font_scale)
     
-    #FPS and lapcount text
+    #FPS text
     level_text = MAIN_FONT.render(
         f"FPS: {clock}", 1, (255, 255, 255))
     WIN.blit(level_text, (10, HEIGHT - TRACK.get_height() +10))
 
-    
+    #lapcount text 
     level_text = MAIN_FONT.render(
        f"lapcount P1: {lapcount1}", 1, (0, 255, 0))
     WIN.blit(level_text, (10, HEIGHT - TRACK.get_height() +490 * scale_factor))
@@ -234,7 +233,7 @@ def draw(win, images, player_car1, player_car2):
 
 
 
-#keybinds
+#keybinds player 1
 def move_player1(player_car1):
     keys = pygame.key.get_pressed()
     moved = False
@@ -254,6 +253,7 @@ def move_player1(player_car1):
         player_car1.reduce_speed()
 
 
+#keybinds player  22 
 def move_player2(player_car2):
     keys = pygame.key.get_pressed()
     moved = False
@@ -408,12 +408,12 @@ def laptime2(player_car2):
 
 #changes the speed of the players and adjusts to the right start angle when the FPS count is choosen
 if FPS == 144:
-    player_car1 = PlayerCar1(3, 4)
-    player_car2 = PlayerCar2(3, 4)
+    player_car1 = PlayerCar1(3, 5)
+    player_car2 = PlayerCar2(3, 5)
 
     #adjusts players start angle
     count = 0
-    while count < 90:
+    while count < 72:
         player_car1.rotate(left=True)
         player_car2.rotate(left=True)
         count = count + 1
@@ -456,7 +456,8 @@ while  run:
     #laptime
     laptime1(player_car1)
     laptime2(player_car2)
-
+    
+    #blinking "won text"
     if lapcount1 >= 6:
         won1 = True
         if count_text <= 20:
