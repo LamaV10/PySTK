@@ -269,14 +269,14 @@ if FPS == 144:
       count = count + 1
 
 if FPS == 85:
-    player_car = PlayerCar(3, 8)
+    player_car = PlayerCar(3, 9)
     #adjusts players start angle
     count = 0
-    while count < 45:
+    while count < 40:
        player_car.rotate(left=True)
-       coun = count + 1
+       count = count + 1
 
-        
+
 clock = pygame.time.Clock()
 images = [(TRACK, (0, 0))]
 run = True

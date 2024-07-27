@@ -419,12 +419,12 @@ if FPS == 144:
         count = count + 1
 
 if FPS == 85:
-    player_car1 = PlayerCar1(3, 8)
-    player_car2 = PlayerCar2(3, 8)
+    player_car1 = PlayerCar1(3, 9)
+    player_car2 = PlayerCar2(3, 9)
 
     #adjusts players start angle
     count = 0
-    while count < 45:
+    while count < 40:
         player_car1.rotate(left=True)
         player_car2.rotate(left=True)
         count = count + 1

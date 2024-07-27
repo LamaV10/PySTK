@@ -1,6 +1,7 @@
 import pyautogui as auto
 import time 
 
+print("What layout is currently set on your machine?")
 language = int(input("US (1) or DE (2) layout: "))
 mode = int(input("singleplayer (1) or multiplayer(2): "))
 print(mode)
