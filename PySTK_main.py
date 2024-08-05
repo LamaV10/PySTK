@@ -51,6 +51,7 @@ MAIN_FONT = pygame.font.SysFont("comicsans", 32)
 
 #Racer Nr.1
 racer1 = scale_image(pygame.image.load("imgs/ferrari-rossa-tux.png"), scale_player)
+racer1_mask = scale_image(pygame.image.load("imgs/ferrari-rossa-tux-mask.xcf"), scale_player)
 
 #won utilities
 win_text1 = "Player 1 has won!!!"
@@ -67,6 +68,7 @@ class AbstractCar:
         self.angle = 0
         self.x, self.y = self.START_POS_SCALE
         self.acceleration = 0.1
+        self.mask = self.mask
 
     def rotate(self, left=False, right=False):
         if left:
@@ -94,7 +96,7 @@ class AbstractCar:
         self.x -= horizontal
 
     def collide(self, mask, x=0, y=0):
-        car_mask = pygame.mask.from_surface(self.img)
+        car_mask = pygame.mask.from_surface(self.mask)
         offset = (int(self.x - x), int(self.y - y))
         poi = mask.overlap(car_mask, offset)
         return poi
@@ -108,6 +110,7 @@ class AbstractCar:
 #player 1
 class PlayerCar(AbstractCar):
     IMG = racer1
+    mask = racer1_mask
     START_POS_SCALE = (START_POS_X, START_POS_Y)
 
     def reduce_speed(self):
