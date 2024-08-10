@@ -49,6 +49,10 @@ pygame.display.set_caption("SuperTuxKart")
 MAIN_FONT = pygame.font.SysFont("comicsans", 32)
 
 
+#text scale factor
+text_scale_factor = TRACK.get_width() * 0.00088
+font_scale = math.trunc(15 * scale_factor)
+
 #Racer Nr.1
 racer1 = scale_image(pygame.image.load("imgs/ferrari-rossa-tux.png"), scale_player)
 racer1_mask = scale_image(pygame.image.load("imgs/ferrari-rossa-tux-mask.xcf"), scale_player)
@@ -125,9 +129,9 @@ class PlayerCar(AbstractCar):
 def draw(win, images, player_car):
     for img, pos in images:
         win.blit(img, pos)
-   
-    text_scale_factor = TRACK.get_width() * 0.00088
-    font_scale = math.trunc(15 * scale_factor)
+  
+    global font_scale
+    global text_scale_factor
     global MAIN_FONT
     MAIN_FONT = pygame.font.SysFont("comicsans", font_scale)
    
@@ -140,7 +144,6 @@ def draw(win, images, player_car):
     level_text = MAIN_FONT.render(
        f"lapcount P1: {lapcount1}", 1, (0, 255, 0))
     win.blit(level_text, (10, HEIGHT - TRACK.get_height() +490 * scale_factor))
-    
     
 
     #laptime 
@@ -171,6 +174,37 @@ def draw(win, images, player_car):
 
     player_car.draw(win)
     pygame.display.update()
+
+ 
+#countdown 
+countdown_run = True
+def countdown():
+    
+    global countdown_run
+    MAIN_FONT = pygame.font.SysFont("comicsans", 10 * font_scale)
+    if countdown_run == True:
+        level_text = MAIN_FONT.render(
+            f"3", 1, (255, 0, 0))
+        WIN.blit(level_text, (475 * scale_factor, HEIGHT - TRACK.get_height() +260 * scale_factor))
+        pygame.display.update()
+        time.sleep(1)
+
+        level_text = MAIN_FONT.render(
+            f"2", 1, (255, 255, 0))
+        WIN.blit(level_text, (475 * scale_factor, HEIGHT - TRACK.get_height() +260 * scale_factor))
+        pygame.display.update()
+        time.sleep(1)
+    
+        level_text = MAIN_FONT.render(
+            f"1", 1, (0, 255, 0))
+        WIN.blit(level_text, (475 * scale_factor, HEIGHT - TRACK.get_height() +260 * scale_factor))
+        pygame.display.update()
+        time.sleep(1)
+    
+        countdown_run = False
+        pygame.display.update()
+
+
 
 #keybinds
 def move_player(player_car):
@@ -286,10 +320,11 @@ run = True
 
 #game loop 
 while  run:
+    countdown()
     draw(WIN, images, player_car, )
     clock.tick(FPS)
      
-
+    
     #player Nr.1 control
     move_player(player_car)
     if player_car.collide(TRACK_BORDER_MASK) != None:
