@@ -47,6 +47,8 @@ FINISH = pygame.image.load("imgs/RaceTrack/finish-line.png")
 FINISH_MASK = pygame.mask.from_surface(FINISH)
 FINISH_POSITION = (Finish_POS_X, Finish_POS_Y)
 
+#countdown background
+countdown_bg = scale_image(pygame.image.load("imgs/Countdown_BG/countdown_bg.png"), scale_factor)
 
 #window setup
 WIDTH, HEIGHT = TRACK.get_width(), TRACK.get_height()
@@ -241,6 +243,7 @@ def countdown():
    
     global countdown_run
 
+    image = countdown_bg
     color = (255, 0, 0)
     countdown_no = 3
 
@@ -252,6 +255,8 @@ def countdown():
         
         if countdown_no == 1:
             color = (0, 255, 0)
+        
+        WIN.blit(image, (0, 0))
         
         level_text = MAIN_FONT.render(
             f"{countdown_no}", 1, (color))
