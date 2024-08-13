@@ -256,10 +256,12 @@ def countdown():
         level_text = MAIN_FONT.render(
             f"{countdown_no}", 1, (color))
         WIN.blit(level_text, (475 * scale_factor, HEIGHT - TRACK.get_height() +260 * scale_factor))
-        countdown_no -= 1
-       
         pygame.display.update()
+        
+        countdown_no -= 1
         time.sleep(1)
+
+        WIN.fill((0,0,0))       
 
         if countdown_no == 0:
             countdown_run = False
