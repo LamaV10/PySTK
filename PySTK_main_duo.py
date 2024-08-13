@@ -38,12 +38,12 @@ Finish_POS_Y = 460 * scale_factor
 
 
 #Track and Mask
-TRACK = scale_image(pygame.image.load("imgs/rennstrecke.jpg"), scale_factor)
-TRACK_BORDER = scale_image(pygame.image.load("imgs/rennstrecke_mask.xcf"), scale_factor)
+TRACK = scale_image(pygame.image.load("imgs/RaceTrack/rennstrecke.jpg"), scale_factor)
+TRACK_BORDER = scale_image(pygame.image.load("imgs/RaceTrack/rennstrecke_mask.xcf"), scale_factor)
 TRACK_BORDER_MASK = pygame.mask.from_surface(TRACK_BORDER)
 
 #finish line Mask
-FINISH = pygame.image.load("imgs/finish-line.png")
+FINISH = pygame.image.load("imgs/RaceTrack/finish-line.png")
 FINISH_MASK = pygame.mask.from_surface(FINISH)
 FINISH_POSITION = (Finish_POS_X, Finish_POS_Y)
 
@@ -59,12 +59,12 @@ text_scale_factor = TRACK.get_width() * 0.00088
 font_scale = math.trunc(15 * scale_factor)
 
 #Racer Nr.1
-racer1 = scale_image(pygame.image.load("imgs/ferrari-rossa-tux.png"), scale_player)
-racer1_mask = scale_image(pygame.image.load("imgs/ferrari-rossa-tux-mask.png"), scale_player)
+racer1 = scale_image(pygame.image.load("imgs/Tux/ferrari-rossa-tux.png"), scale_player)
+racer1_mask = scale_image(pygame.image.load("imgs/Tux/ferrari-rossa-tux-mask.png"), scale_player)
 
 #Racer Nr.2
-racer2 = scale_image(pygame.image.load("imgs/chevyss-yoshi.png"), scale_player)
-racer2_mask = scale_image(pygame.image.load("imgs/chevyss-yoshi-mask.png"), scale_player)
+racer2 = scale_image(pygame.image.load("imgs/Yoshi/chevyss-yoshi.png"), scale_player)
+racer2_mask = scale_image(pygame.image.load("imgs/Yoshi/chevyss-yoshi-mask.png"), scale_player)
 
 #won utilities
 win_text1 = "Player 1 has won!!!"

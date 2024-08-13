@@ -31,13 +31,15 @@ Finish_POS_Y = 460 * scale_factor
 
 
 #Track and Mask
-TRACK = scale_image(pygame.image.load("imgs/rennstrecke.jpg"), scale_factor)
-TRACK_BORDER = scale_image(pygame.image.load("imgs/rennstrecke_mask.xcf"), scale_factor)
+TRACK = scale_image(pygame.image.load("imgs/RaceTrack/rennstrecke.jpg"), scale_factor)
+TRACK_BORDER = scale_image(pygame.image.load("imgs/RaceTrack/rennstrecke_mask.xcf"), scale_factor)
 TRACK_BORDER_MASK = pygame.mask.from_surface(TRACK_BORDER)
 
+#countdown background
+# countdown_bg = scale_image(pygame.image.load("imgs/.jpg"), scale_factor)
 
 #finish line Mask
-FINISH = pygame.image.load("imgs/finish-line.png")
+FINISH = pygame.image.load("imgs/RaceTrack/finish-line.png")
 FINISH_MASK = pygame.mask.from_surface(FINISH)
 FINISH_POSITION = (Finish_POS_X, Finish_POS_Y)
 
@@ -54,8 +56,8 @@ text_scale_factor = TRACK.get_width() * 0.00088
 font_scale = math.trunc(15 * scale_factor)
 
 #Racer Nr.1
-racer1 = scale_image(pygame.image.load("imgs/ferrari-rossa-tux.png"), scale_player)
-racer1_mask = scale_image(pygame.image.load("imgs/ferrari-rossa-tux-mask.xcf"), scale_player)
+racer1 = scale_image(pygame.image.load("imgs/Tux/ferrari-rossa-tux.png"), scale_player)
+racer1_mask = scale_image(pygame.image.load("imgs/Tux/ferrari-rossa-tux-mask.xcf"), scale_player)
 
 #won utilities
 win_text1 = "Player 1 has won!!!"
@@ -129,6 +131,7 @@ class PlayerCar(AbstractCar):
 def draw(win, images, player_car):
     for img, pos in images:
         win.blit(img, pos)
+        
     
     global font_scale
     global text_scale_factor
@@ -186,6 +189,7 @@ def countdown():
     MAIN_FONT = pygame.font.SysFont("comicsans", 10 * font_scale)
 
     while countdown_run == True:
+        # images = 
         if countdown_no == 2:
             color = (255, 255, 0)
         
