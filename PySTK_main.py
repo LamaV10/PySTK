@@ -16,6 +16,7 @@ pygame.init()
 
 #85 FPS is easier to play and works great on smaller screens (like laptops)
 #FPS_input = input('(144) or (85) FPS:')
+print("Choose 144 FPS if you put the scale size over 1.8")
 FPS = int(input("144 FPS or 85: "))
 
 #factors: help to adjust to different resolutions
