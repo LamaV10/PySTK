@@ -318,7 +318,7 @@ def move_player2(player_car2):
 # Timer for the Lapcount-collision
 last_collision_time1 = 0
 last_collision_time2 = 0
-collision_delay = 10 # Sekunden
+collision_delay = 0.10 # Sekunden
 
 
 lapcount1 = 0
