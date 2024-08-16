@@ -37,7 +37,7 @@ TRACK_BORDER = scale_image(pygame.image.load("imgs/RaceTrack/rennstrecke_mask.xc
 TRACK_BORDER_MASK = pygame.mask.from_surface(TRACK_BORDER)
 
 #countdown background
-countdown_bg = scale_image(pygame.image.load("imgs/Countdown_BG/countdown_bg.png"), scale_factor * 0.5)
+countdown_bg = scale_image(pygame.image.load("imgs/Background/Countdown_BG/countdown_bg.png"), scale_factor * 0.5)
 
 #finish line Mask
 FINISH = pygame.image.load("imgs/RaceTrack/finish-line.png")

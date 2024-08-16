@@ -49,7 +49,7 @@ FINISH_MASK = pygame.mask.from_surface(FINISH)
 FINISH_POSITION = (Finish_POS_X, Finish_POS_Y)
 
 #countdown background
-countdown_bg = scale_image(pygame.image.load("imgs/Countdown_BG/countdown_bg.png"), scale_factor * 0.5)
+countdown_bg = scale_image(pygame.image.load("imgs/Background/Countdown_BG/countdown_bg.png"), scale_factor * 0.5)
 
 #window setup
 WIDTH, HEIGHT = TRACK.get_width(), TRACK.get_height()
