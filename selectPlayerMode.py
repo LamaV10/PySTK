@@ -1,6 +1,7 @@
 import pyautogui as auto
 import time 
 import pygame
+import pygame_gui
 from utils import scale_image, blit_rotate_center
 
 scale_factor = float(input("Choose scale-factor: "))
@@ -12,10 +13,23 @@ WIDTH, HEIGHT = Background.get_width(), Background.get_height()
 WIN = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("select PySTK Mode")
 
+MANAGER = pygame_gui.UIManager((WIDTH, HEIGHT))
+TEXT_INPUT = pygame_gui.elements.UITextEntryLine(relative_rect=pygame.REct((350, 275), (900, 50)), manager=MANAGER, object_id="#main_text_entry")
 
 run = True
 #loop
 while run:
+    UI_REFRESH_RATE = CLOCK.tick(60)/1000
+
+    #cloeses the windows if run = False
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            run = False
+        MANAGER.process_events(event)
+    
+    MANAGER.update(UI_REFRESH_RATE)
+    MANAGER.draw_ui(WIN)
+
     # Using blit to copy content from one surface to other
     WIN.blit(Background, (0, 0))
     pygame.display.update()
@@ -50,10 +64,5 @@ while run:
         auto.press('enter')
     
     run = False
-    #cloeses the windows if run = False
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            run = False
-    pygame.display.update()
 
 pygame.quit()
