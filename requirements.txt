@@ -1,7 +1,6 @@
 MouseInfo==0.1.3
 PyAutoGUI==0.9.54
 pygame==2.6.0
-pygame-ce==2.5.1
 pygame_gui==0.6.12
 PyGetWindow==0.0.9
 PyMsgBox==1.0.9
