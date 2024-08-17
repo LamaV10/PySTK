@@ -70,7 +70,6 @@ def get_scale_factor():
     # print("(This is not relevant if you are on Windows. Choose US in this case!)")
     # language = int(input("US (1) or DE (2) layout: "))
     # mode = int(input("singleplayer (1) or multiplayer(2): "))
-    # print(mode)
     #
     # if mode == 1 and language == 1:
     #     #this is the normal textthe normal text for the us layout
