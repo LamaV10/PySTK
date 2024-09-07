@@ -6,7 +6,7 @@ import sys
 
 pygame.init()
 
-WIDTH, HEIGHT = 1600, 900
+WIDTH, HEIGHT = 720, 480 
 SCREEN = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Text Input in PyGame | BaralTech")
 
@@ -75,42 +75,49 @@ def get_mode():
 get_language()
 get_mode()
 
+
+if mode == 1:
+    Source/PySTK_main.py
+
+if mode == 2:
+    Source/PySTK_main_duo.py
+
 # print("What layout is currently set on your machine?")
 # print("(This is not relevant if you are on Windows. Choose US in this case!)")
-
-if language == 1:
-    auto.write("cd Source/")
-    time.sleep(1)
-    auto.press('enter')
-
-if language == 2:
-    auto.write("cd Source-")
-    time.sleep(1)
-    auto.press('enter')
-
-
-
-if mode == 1 and language == 1:
-    #this is the normal textthe normal text for the us layout
-    auto.write("python PySTK_main.py")
-    time.sleep(1)
-    auto.press('enter')
-
-elif mode == 1 and language == 2:
-    #this is for the de layout
-    auto.write("pzthon PzSTK?main.pz")
-    time.sleep(1)
-    auto.press('enter')
-
-
-if mode == 2 and language == 1:
-    #this is the normal textthe normal text for the us layout
-    auto.write("python PySTK_main_duo.py")
-    time.sleep(1)
-    auto.press('enter')
-
-elif mode == 2 and language == 2:
-    #this is for the de layout
-    auto.write("pzthon PzSTK?main?duo.pz")
-    time.sleep(1)
-    auto.press('enter')
+#
+# if language == 1:
+#     auto.write("cd Source/")
+#     time.sleep(1)
+#     auto.press('enter')
+#
+# if language == 2:
+#     auto.write("cd Source-")
+#     time.sleep(1)
+#     auto.press('enter')
+#
+#
+#
+# if mode == 1 and language == 1:
+#     #this is the normal textthe normal text for the us layout
+#     auto.write("python PySTK_main.py")
+#     time.sleep(1)
+#     auto.press('enter')
+#
+# elif mode == 1 and language == 2:
+#     #this is for the de layout
+#     auto.write("pzthon PzSTK?main.pz")
+#     time.sleep(1)
+#     auto.press('enter')
+#
+#
+# if mode == 2 and language == 1:
+#     #this is the normal textthe normal text for the us layout
+#     auto.write("python PySTK_main_duo.py")
+#     time.sleep(1)
+#     auto.press('enter')
+#
+# elif mode == 2 and language == 2:
+#     #this is for the de layout
+#     auto.write("pzthon PzSTK?main?duo.pz")
+#     time.sleep(1)
+#     auto.press('enter')
