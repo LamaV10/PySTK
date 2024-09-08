@@ -1,4 +1,4 @@
-If you want to have music, just create a folder inside of PySTK named "music".
+If you want to have music, just create a folder inside of Source named "music".
 Now you can put your music inside.
 Don't forget to add the songname to the pythonfile. 
 You can do that at #music impot/play

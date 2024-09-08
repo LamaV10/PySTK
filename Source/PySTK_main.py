@@ -8,11 +8,16 @@ pygame.init()
 
 #Bruno Banani
 
-# music import/play
-# mixer.music.load("Music/Flashing-Lights.mp3")
-# mixer.music.set_volume(0.5)
-# mixer.music.play(-1)
-#
+def music():
+
+    run = int(input("Do you have your music setup? Yes (1) No(2)"))
+    if run == 1:
+        # music import/play
+        mixer.music.load("Music/Flashing-Lights.mp3")
+        mixer.music.set_volume(0.5)
+        mixer.music.play(-1)
+
+music()
 
 #85 FPS is easier to play and works great on smaller screens (like laptops)
 #FPS_input = input('(144) or (85) FPS:')
