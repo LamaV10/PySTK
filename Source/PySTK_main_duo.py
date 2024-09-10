@@ -2,22 +2,11 @@
 import pygame
 import time
 import math
-from pygame import mixer
+import music
 from utils import scale_image, blit_rotate_center
 pygame.init()
 
 #Bruno Banani
-
-def music():
-
-    run = int(input("Do you have your music setup? Yes (1) No(2): "))
-    if run == 1:
-        # music import/play
-        mixer.music.load("Music/Flashing-Lights.mp3")
-        mixer.music.set_volume(0.5)
-        mixer.music.play(-1)
-
-music()
 
 #choose if you want to play on 85 or 144
 #85 FPS is easier to play and works great on smaller screens (like laptops)
