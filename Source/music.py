@@ -13,7 +13,3 @@ def music():
 
         mixer.music.set_volume(0.5)
         mixer.music.play(-1)
-
-music()
-
-

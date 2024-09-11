@@ -8,6 +8,8 @@ pygame.init()
 
 #Bruno Banani
 
+music.music()
+
 #85 FPS is easier to play and works great on smaller screens (like laptops)
 #FPS_input = input('(144) or (85) FPS:')
 print("Choose 144 FPS if you put the scale size over 1.8")
@@ -59,7 +61,7 @@ win_text1 = "Player 1 has won!!!"
 won1 = False
 count_text = 0
 
-#car physics
+#car class (blueprint) 
 class AbstractCar:
     def __init__(self, max_vel, rotation_vel):
         self.img = self.IMG

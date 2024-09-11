@@ -8,6 +8,8 @@ pygame.init()
 
 #Bruno Banani
 
+music.music()
+
 #choose if you want to play on 85 or 144
 #85 FPS is easier to play and works great on smaller screens (like laptops)
 #FPS_input = input('(144) or (85) FPS:')
