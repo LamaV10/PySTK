@@ -2,13 +2,14 @@
 import pygame
 import time
 import math
+
 import music
+music.music()
+
 from utils import scale_image, blit_rotate_center
 pygame.init()
 
 #Bruno Banani
-
-music.music()
 
 #85 FPS is easier to play and works great on smaller screens (like laptops)
 #FPS_input = input('(144) or (85) FPS:')
