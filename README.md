@@ -2,13 +2,13 @@
 
 List of Celebs using Chinastk:
 
--Eis Würfel
+- Eis Würfel
 
--Einfaches E
+- Einfaches E
 
--Kleiner am Netzwerk Angeschlossener Speicher X
+- Kleiner am Netzwerk Angeschlossener Speicher X
 
--Enkelsohn
+- Enkelsohn
 
 ![chevyss-yoshi](https://github.com/user-attachments/assets/fdd368eb-90c9-4445-b6c0-d3bd83e1f50d)
 ![ferrari-rossa-tux](https://github.com/user-attachments/assets/963273f2-2bfd-46e5-966d-cc62510a3c66)
