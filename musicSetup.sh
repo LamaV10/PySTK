@@ -10,6 +10,7 @@ echo "5: Vscode"
 echo "Your editors number: "
 
 read ide
+cd Source/
 
 if [ $ide -eq 1 ]; then
   nvim music.py	
