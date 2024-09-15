@@ -31,3 +31,4 @@ Now you can put your music inside (mp3's should always work).
 Then you can execute the script musicSetup.sh.
 This will bring you to the code where you can modify the path to your music in order to get your it to work (Source/music.py)!
 This only will work if you have NeoVim, Vim, Nano or Vscode/ium installed.
+Let me know which editors you want to be added!
