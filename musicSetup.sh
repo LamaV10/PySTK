@@ -26,5 +26,9 @@ elif [ $ide -eq 4 ]; then
   
 elif [ $ide -eq 5 ]; then
   code music.py
+
+elif [ $ide -ne "12345" ]; then
+  echo "Invalid number for editor!"
+
 fi
 
