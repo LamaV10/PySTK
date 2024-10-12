@@ -3,6 +3,8 @@ import time
 import pyautogui as auto
 import pygame_gui
 import sys
+import subprocess
+import os
 
 pygame.init()
 
@@ -34,7 +36,7 @@ def get_language():
                 language = event.text 
                 print("language:", language)
                 run = False
-            
+
             manager.process_events(event)
 
         manager.update(UI_REFRESH_RATE)
@@ -60,7 +62,7 @@ def get_mode():
                 mode = event.text 
                 print("mode:", mode)
                 run = False
-            
+
             manager.process_events(event)
 
         manager.update(UI_REFRESH_RATE)
@@ -75,12 +77,16 @@ def get_mode():
 get_language()
 get_mode()
 
+os.chdir("Source/")
+# subprocess.run(["python", "PySTK_main.py"])
 
 if mode == 1:
-    Source/PySTK_main.py
+    os.chdir("Source/")
+    subprocess.run(["python", "PySTK_main.py"])
 
 if mode == 2:
-    Source/PySTK_main_duo.py
+    os.chdir("Source/")
+    subprocess.run(["python", "PySTK_main_duo.py"])
 
 # print("What layout is currently set on your machine?")
 # print("(This is not relevant if you are on Windows. Choose US in this case!)")
