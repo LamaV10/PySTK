@@ -22,6 +22,7 @@ List of Celebs using Chinastk:
 # Usage
 
 If all the Requirements are fulfilled just execute "play.sh". 
+If you cannot execute a .sh file because of your OS, go into bin/ and execute the desired PySTK mode.
 The rest should be self explenatory.
 
 # Music
