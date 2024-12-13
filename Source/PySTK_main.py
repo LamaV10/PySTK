@@ -62,6 +62,10 @@ win_text1 = "Player 1 has won!!!"
 won1 = False
 count_text = 0
 
+###################
+#### Physics ###### 
+###################
+
 #car class (blueprint) 
 class AbstractCar:
     def __init__(self, max_vel, rotation_vel):
@@ -111,6 +115,10 @@ class AbstractCar:
         self.vel = 0
     
 
+###################
+#### Players ###### 
+###################
+
 #player 1
 class PlayerCar(AbstractCar):
     IMG = racer1
@@ -125,15 +133,45 @@ class PlayerCar(AbstractCar):
         self.vel = -self.vel * 0.5
         self.move()
 
+
+
+#keybinds
+def move_player(player_car):
+    keys = pygame.key.get_pressed()
+    moved = False
+
+    if keys[pygame.K_a]:
+        player_car.rotate(left=True)
+    if keys[pygame.K_d]:
+        
+        player_car.rotate(right=True)
+    if keys[pygame.K_w]:
+        moved = True
+        player_car.move_forward()
+    if keys[pygame.K_s]:
+        moved = True
+        player_car.move_backward()
+    
+    if not moved:
+        player_car.reduce_speed()
+
+
+
+###################
+#### Display ###### 
+###################
+
 #display of text & players
 def draw(win, images, player_car):
     for img, pos in images:
         win.blit(img, pos)
         
+    global won1
     
     global font_scale
     global text_scale_factor
     global MAIN_FONT
+
     MAIN_FONT = pygame.font.SysFont("comicsans", font_scale)
    
     #FPS text
@@ -171,10 +209,22 @@ def draw(win, images, player_car):
             f"{win_text1}", 1, (color))
         WIN.blit(level_text, (275 * scale_factor, HEIGHT - TRACK.get_height() +260 * scale_factor))
 
+    #blinking "won text"
+    if lapcount1 >= 6:
+
+        won1 = True
+        if count_text <= 20:
+            count_text += 1 
+
+        elif count_text > 5:
+            count_text -=40
+
+
     player_car.draw(win)
     pygame.display.update()
 
  
+
 #countdown 
 countdown_run = True
 def countdown():
@@ -210,27 +260,10 @@ def countdown():
         if countdown_no == 0:
             countdown_run = False
 
-#keybinds
-def move_player(player_car):
-    keys = pygame.key.get_pressed()
-    moved = False
 
-    if keys[pygame.K_a]:
-        player_car.rotate(left=True)
-    if keys[pygame.K_d]:
-        
-        player_car.rotate(right=True)
-    if keys[pygame.K_w]:
-        moved = True
-        player_car.move_forward()
-    if keys[pygame.K_s]:
-        moved = True
-        player_car.move_backward()
-    
-    if not moved:
-        player_car.reduce_speed()
-
-
+################
+#### Stats #####
+################
        
 #lapcount
 # Timer for the Lapcount-collision
@@ -299,7 +332,6 @@ def laptime1(player_car1):
 
 
 
-
 #changes the speed of the players and adjusts to the right start angle when the FPS count is choosen
 if FPS == 144:
     player_car = PlayerCar(3, 5)
@@ -316,6 +348,7 @@ if FPS == 85:
     while count < 40:
        player_car.rotate(left=True)
        count = count + 1
+
 
 
 clock = pygame.time.Clock()
@@ -338,15 +371,6 @@ while  run:
    
     #laptime
     laptime1(player_car)
-
-    #blinking "won text"
-    if lapcount1 >= 6:
-        won1 = True
-        if count_text <= 20:
-            count_text += 1 
-        
-        elif count_text > 5:
-            count_text -=40
 
     #cloeses the windows if run = False
     for event in pygame.event.get():
