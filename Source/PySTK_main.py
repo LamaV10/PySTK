@@ -383,7 +383,7 @@ def countdown():
 # Timer for the Lapcount-collision
 last_collision_time1 = 0
 last_collision_time2 = 0
-collision_delay = 10 # Sekunden
+collision_delay = 1 # Sekunden
 
 
 lapcount1 = 0
@@ -446,7 +446,7 @@ def laptime1(player_car1):
             print("P1:", final_laptime1)
             #print(lastTouch1)
 
-        if computer_finish_poi_collide is not None and lastTouch1 == 0 and lapcount1 ==2:
+        if computer_finish_poi_collide is not None and lastTouch1 == 0 and lapcount1 == 2:
             start2 = time.time()
             lastTouch2 = lastTouch2 + 1
             last_collision_time_laptime1 = current_time
@@ -496,7 +496,7 @@ def laptime2(player_car2):
             print("P2:", final_laptime2)
             #print("lastTouch3:", lastTouch3)
 
-        if computer_finish_poi_collide is not None and lastTouch4 == 0 and lapcount2 ==2:
+        if computer_finish_poi_collide is not None and lastTouch4 == 0 and lapcount2 == 2:
             start4 = time.time()
             lastTouch4 = lastTouch4 + 1
             last_collision_time_laptime2 = current_time
@@ -558,9 +558,9 @@ images = [(TRACK, (0, 0))]
 run = True
 
 
+countdown()
 # game loop
 while  run:
-    countdown()
     draw(WIN, images, player_car1, player_car2)
     clock.tick(FPS)
 
