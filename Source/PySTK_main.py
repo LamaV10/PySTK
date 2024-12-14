@@ -77,7 +77,7 @@ racer1_mask = scale_image(pygame.image.load("imgs/Tux/ferrari-rossa-tux-mask.png
 
 #won utilities for player 1
 win_text1 = "Player 1 has won!!!"
-won1 = False
+won = False
 
 # variables necessary for multiplayer
 # start position if there is a second player
@@ -90,8 +90,6 @@ racer2_mask = scale_image(pygame.image.load("imgs/Yoshi/chevyss-yoshi-mask.png")
 
 # won utilities for player 2
 win_text2 = "Player 2 has won!!!"
-won2 = False
-
 
 count_text = 0
 
@@ -286,57 +284,38 @@ def draw(win, images, player_car1, player_car2):
     
     
 def wonText():
-    global won1
-    global won2 
+    global won
 
+    toAbsolveLaps = 2
     #won text
-    if won1 == True:
+    if won == True:
         global count_text
         
         if count_text < 30:
             color = (0, 255, 0)
         if count_text < 0:
             color = (255, 0, 0)
+
+        if lapcount1 >= toAbsolveLaps:
+            win_text = win_text1
+
+        if lapcount2 >= toAbsolveLaps:
+            win_text = win_text2
             
         MAIN_FONT = pygame.font.SysFont("comicsans", 5 * font_scale)
         level_text = MAIN_FONT.render(
-            f"{win_text1}", 1, (color))
+            f"{win_text}", 1, (color))
         WIN.blit(level_text, (275 * scale_factor, HEIGHT - TRACK.get_height() +260 * scale_factor))
 
     #blinking "won text" for player 1
-    if lapcount1 >= 6:
+    if lapcount1 >= toAbsolveLaps or lapcount2 >= toAbsolveLaps:
 
-        won1 = True
+        won = True
         if count_text <= 20:
             count_text += 1 
 
         elif count_text > 5:
             count_text -=40
-
-
-    # wonText for second player if multiplayer was choosen 
-    if player_mode == 2:
-        if won2 == True:
-        
-            if count_text < 30:
-                color = (0, 255, 0)
-            if count_text < 0:
-                color = (255, 0, 0)
-            
-            MAIN_FONT = pygame.font.SysFont("comicsans", 5 * font_scale)
-            level_text = MAIN_FONT.render(
-                f"{win_text2}", 1, (color))
-            WIN.blit(level_text, (275 * scale_factor, HEIGHT - TRACK.get_height() +260 * scale_factor))
-
-        #blinking "won text" for player 2
-        if lapcount2 >= 6:
-
-            won2 = True
-            if count_text <= 20:
-                count_text += 1 
-
-            elif count_text > 5:
-                count_text -=40
 
 
 #countdown 
@@ -383,7 +362,7 @@ def countdown():
 # Timer for the Lapcount-collision
 last_collision_time1 = 0
 last_collision_time2 = 0
-collision_delay = 1 # Sekunden
+collision_delay = 10 # Sekunden
 
 
 lapcount1 = 0
@@ -443,7 +422,7 @@ def laptime1(player_car1):
             final_laptime1 = (end1 - start1)
             lastTouch1 = lastTouch1 - 1
             last_collision_time_laptime1 = current_time
-            print("P1:", final_laptime1)
+            print("P1:", "Lap:", lapcount1 - 1, ":", final_laptime1)
             #print(lastTouch1)
 
         if computer_finish_poi_collide is not None and lastTouch1 == 0 and lapcount1 == 2:
@@ -457,7 +436,7 @@ def laptime1(player_car1):
             final_laptime1 = (end2 - start2)
             lastTouch2 = lastTouch2 - 1
             last_collision_time_laptime1 = current_time
-            print("P1:", final_laptime1)
+            print("P1:", "Lap:", lapcount1 - 1, ":", final_laptime1)
            #print("2:", lastTouch2)
 
 
@@ -563,6 +542,8 @@ countdown()
 while  run:
     draw(WIN, images, player_car1, player_car2)
     clock.tick(FPS)
+
+    wonText();
 
     # player Nr.1 control
     move_player1(player_car1)
