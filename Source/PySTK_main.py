@@ -80,18 +80,18 @@ win_text1 = "Player 1 has won!!!"
 won1 = False
 
 # variables necessary for multiplayer
-if player_mode == 2:
 # start position if there is a second player
-    START_POS_X2 = 345 * scale_factor
-    START_POS_Y2 = 478 * scale_factor
+START_POS_X2 = 345 * scale_factor
+START_POS_Y2 = 478 * scale_factor
 
-    #Racer Nr.2
-    racer2 = scale_image(pygame.image.load("imgs/Yoshi/chevyss-yoshi.png"), scale_player)
-    racer2_mask = scale_image(pygame.image.load("imgs/Yoshi/chevyss-yoshi-mask.png"), scale_player)
+#Racer Nr.2
+racer2 = scale_image(pygame.image.load("imgs/Yoshi/chevyss-yoshi.png"), scale_player)
+racer2_mask = scale_image(pygame.image.load("imgs/Yoshi/chevyss-yoshi-mask.png"), scale_player)
 
-    # won utilities for player 2
-    win_text2 = "Player 2 has won!!!"
-    won2 = False
+# won utilities for player 2
+win_text2 = "Player 2 has won!!!"
+won2 = False
+
 
 count_text = 0
 
@@ -188,22 +188,21 @@ def move_player1(player_car1):
     if not moved:
         player_car1.reduce_speed()
 
-if player_mode == 2:
-    #Player 2
-    class PlayerCar2(AbstractCar):
-        IMG = racer2
-        mask = racer2_mask
-        START_POS_SCALE = (START_POS_X2, START_POS_Y2)
+#Player 2
+class PlayerCar2(AbstractCar):
+    IMG = racer2
+    mask = racer2_mask
+    START_POS_SCALE = (START_POS_X2, START_POS_Y2)
 
-        def reduce_speed(self):
-            self.vel = max(self.vel - self.acceleration / 2, 0)
-            self.move()
+    def reduce_speed(self):
+        self.vel = max(self.vel - self.acceleration / 2, 0)
+        self.move()
 
-        def bounce(self):
-            self.vel = -self.vel * 0.9
-            self.move()
+    def bounce(self):
+        self.vel = -self.vel * 0.9
+        self.move()
 
-    #keybinds player  22 
+#keybinds player  22 
 def move_player2(player_car2):
     keys = pygame.key.get_pressed()
     moved = False
@@ -229,30 +228,29 @@ def move_player2(player_car2):
 ###################
 
 #display of text & players
-def drawSingle(win, images, player_car1):
+def draw(win, images, player_car1, player_car2):
     for img, pos in images:
         win.blit(img, pos)
     
-    global won1
-
     global font_scale
     global text_scale_factor
     global MAIN_FONT
 
     MAIN_FONT = pygame.font.SysFont("comicsans", font_scale)
     
-    #FPS text
+    # FPS text
     level_text = MAIN_FONT.render(
         f"FPS: {clock}", 1, (255, 255, 255))
     WIN.blit(level_text, (10, HEIGHT - TRACK.get_height() +10))
 
-    #lapcount text 
+
+    # Text for player one 
+    # lapcount text for player 1 
     level_text = MAIN_FONT.render(
        f"lapcount P1: {lapcount1}", 1, (0, 255, 0))
     WIN.blit(level_text, (10, HEIGHT - TRACK.get_height() +490 * scale_factor))
 
-
-    #laptime text P1
+    # laptime text P1
     if (final_laptime1) > 0:
         level_text = MAIN_FONT.render(
             f"laptime (s) P1: {math.trunc(final_laptime1)}", 1, (0, 0, 255))
@@ -261,91 +259,36 @@ def drawSingle(win, images, player_car1):
         level_text = MAIN_FONT.render(
             f"laptime (s) P1: /", 1, (0, 0, 255))
         win.blit(level_text, (1040 * text_scale_factor, HEIGHT - TRACK.get_height() +490 * scale_factor))
-   
-
-    #won text
-    if won1 == True:
-        global count_text
-        
-        if count_text < 30:
-            color = (0, 255, 0)
-        if count_text < 0:
-            color = (255, 0, 0)
-            
-        MAIN_FONT = pygame.font.SysFont("comicsans", 5 * font_scale)
-        level_text = MAIN_FONT.render(
-            f"{win_text1}", 1, (color))
-        WIN.blit(level_text, (275 * scale_factor, HEIGHT - TRACK.get_height() +260 * scale_factor))
-
-    #blinking "won text"
-    if lapcount1 >= 6:
-
-        won1 = True
-        if count_text <= 20:
-            count_text += 1 
-
-        elif count_text > 5:
-            count_text -=40
 
     player_car1.draw(win)
+ 
+
+    # Text for player 2
+    if player_mode == 2:
+        # laptime text P2
+        if(final_laptime2) > 0:
+            level_text = MAIN_FONT.render(
+                f"laptime (s) P2: {math.trunc(final_laptime2)}", 1, (0, 0, 255))
+            win.blit(level_text, (1040 * text_scale_factor, HEIGHT - TRACK.get_height() +510 * scale_factor))
+        else:
+            level_text = MAIN_FONT.render(
+                f"laptime (s) P2: /", 1, (0, 0, 255))
+            win.blit(level_text, (1040 * text_scale_factor, HEIGHT - TRACK.get_height() +510 * scale_factor))
+
+        # lapcount text for player 2 
+        level_text = MAIN_FONT.render(
+            f"lapcount P2: {lapcount2}", 1, (0, 255, 0))
+        WIN.blit(level_text, (10, HEIGHT - TRACK.get_height() +510 * scale_factor))
+
+        player_car2.draw(win)
+
     pygame.display.update()
-
-
-
-
-#display of text & players
-def drawMulti(win, images, player_car1, player_car2):
-    for img, pos in images:
-        win.blit(img, pos)
     
+    
+def wonText():
     global won1
     global won2 
 
-    global font_scale
-    global text_scale_factor
-    global MAIN_FONT
-
-    MAIN_FONT = pygame.font.SysFont("comicsans", font_scale)
-    
-    #FPS text
-    level_text = MAIN_FONT.render(
-        f"FPS: {clock}", 1, (255, 255, 255))
-    WIN.blit(level_text, (10, HEIGHT - TRACK.get_height() +10))
-
-    #lapcount text 
-    level_text = MAIN_FONT.render(
-       f"lapcount P1: {lapcount1}", 1, (0, 255, 0))
-    WIN.blit(level_text, (10, HEIGHT - TRACK.get_height() +490 * scale_factor))
-
-
-    level_text = MAIN_FONT.render(
-        f"lapcount P2: {lapcount2}", 1, (0, 255, 0))
-    WIN.blit(level_text, (10, HEIGHT - TRACK.get_height() +510 * scale_factor))
-
-
-
-    #laptime text P1
-    if (final_laptime1) > 0:
-        level_text = MAIN_FONT.render(
-            f"laptime (s) P1: {math.trunc(final_laptime1)}", 1, (0, 0, 255))
-        win.blit(level_text, (1040 * text_scale_factor, HEIGHT - TRACK.get_height() +490 * scale_factor))
-    else:
-        level_text = MAIN_FONT.render(
-            f"laptime (s) P1: /", 1, (0, 0, 255))
-        win.blit(level_text, (1040 * text_scale_factor, HEIGHT - TRACK.get_height() +490 * scale_factor))
-   
-    #laptime text P2
-    if (final_laptime2) > 0:
-        level_text = MAIN_FONT.render(
-            f"laptime (s) P2: {math.trunc(final_laptime2)}", 1, (0, 0, 255))
-        win.blit(level_text, (1040 * text_scale_factor, HEIGHT - TRACK.get_height() +510 * scale_factor))
-    else:
-        level_text = MAIN_FONT.render(
-            f"laptime (s) P2: /", 1, (0, 0, 255))
-        win.blit(level_text, (1040 * text_scale_factor, HEIGHT - TRACK.get_height() +510 * scale_factor))
-    
-    
-
     #won text
     if won1 == True:
         global count_text
@@ -360,7 +303,7 @@ def drawMulti(win, images, player_car1, player_car2):
             f"{win_text1}", 1, (color))
         WIN.blit(level_text, (275 * scale_factor, HEIGHT - TRACK.get_height() +260 * scale_factor))
 
-    #blinking "won text"
+    #blinking "won text" for player 1
     if lapcount1 >= 6:
 
         won1 = True
@@ -371,34 +314,29 @@ def drawMulti(win, images, player_car1, player_car2):
             count_text -=40
 
 
-
-
-    if won2 == True:
+    # wonText for second player if multiplayer was choosen 
+    if player_mode == 2:
+        if won2 == True:
         
-        if count_text < 30:
-            color = (0, 255, 0)
-        if count_text < 0:
-            color = (255, 0, 0)
+            if count_text < 30:
+                color = (0, 255, 0)
+            if count_text < 0:
+                color = (255, 0, 0)
             
-        MAIN_FONT = pygame.font.SysFont("comicsans", 5 * font_scale)
-        level_text = MAIN_FONT.render(
-            f"{win_text2}", 1, (color))
-        WIN.blit(level_text, (275 * scale_factor, HEIGHT - TRACK.get_height() +260 * scale_factor))
+            MAIN_FONT = pygame.font.SysFont("comicsans", 5 * font_scale)
+            level_text = MAIN_FONT.render(
+                f"{win_text2}", 1, (color))
+            WIN.blit(level_text, (275 * scale_factor, HEIGHT - TRACK.get_height() +260 * scale_factor))
 
-    #blinking "won text"
-    if lapcount2 >= 6:
+        #blinking "won text" for player 2
+        if lapcount2 >= 6:
 
-        won2 = True
-        if count_text <= 20:
-            count_text += 1 
+            won2 = True
+            if count_text <= 20:
+                count_text += 1 
 
-        elif count_text > 5:
-            count_text -=40
-
-
-    player_car1.draw(win)
-    player_car2.draw(win)
-    pygame.display.update()
+            elif count_text > 5:
+                count_text -=40
 
 
 #countdown 
@@ -576,110 +514,86 @@ def laptime2(player_car2):
 
 
 #changes the speed of the players and adjusts to the right start angle when the FPS count is choosen
-if FPS == 144 and player_mode == 2:
+if FPS == 144:
     player_car1 = PlayerCar1(3, 5)
     player_car2 = PlayerCar2(3, 5)
-
-    #adjusts players start angle
-    count = 0
-    while count < 72:
-        player_car1.rotate(left=True)
-        player_car2.rotate(left=True)
-        count = count + 1
-elif FPS == 144:
-    player_car1 = PlayerCar1(3, 5)
-
-    #adjusts players start angle
-    count = 0
-    while count < 72:
-        player_car1.rotate(left=True)
-        count = count + 1
+    
+    if player_mode == 2:
+        # adjusts players start angle
+        count = 0
+        while count < 72:
+            player_car1.rotate(left=True)
+            player_car2.rotate(left=True)
+            count = count + 1
+    else:
+        count = 0
+        while count < 72:
+            player_car1.rotate(left=True)
+            count = count + 1
 
 
 
-
-if FPS == 85 and player_mode == 2:
+if FPS == 85:
     player_car1 = PlayerCar1(3, 9)
     player_car2 = PlayerCar2(3, 9)
 
+    if player_mode == 2:
     #adjusts players start angle
-    count = 0
-    while count < 40:
-        player_car1.rotate(left=True)
-        player_car2.rotate(left=True)
-        count = count + 1
-elif FPS == 85:
-    player_car1 = PlayerCar1(3, 9)
+        count = 0
+        while count < 40:
+            player_car1.rotate(left=True)
+            player_car2.rotate(left=True)
+            count = count + 1
+    else:
+    #adjusts players start angle
+        count = 0
+        while count < 40:
+            player_car1.rotate(left=True)
+            count = count + 1
 
-    #adjusts players start angle
-    count = 0
-    while count < 40:
-        player_car1.rotate(left=True)
-        count = count + 1
 
 
 clock = pygame.time.Clock()
 images = [(TRACK, (0, 0))]
 run = True
 
-if player_mode == 1:
-# Singleplayer game loop
-    while  run:
-        countdown()
-        drawSingle(WIN, images, player_car1)
-        clock.tick(FPS)
 
-        # player Nr.1 control
-        move_player1(player_car1)
-        if player_car1.collide(TRACK_BORDER_MASK) != None:
-            player_car1.bounce()
-    
-        # lapcount (who would have thought)
-        lapcount_collision1(player_car1)
+# game loop
+while  run:
+    countdown()
+    draw(WIN, images, player_car1, player_car2)
+    clock.tick(FPS)
+
+    # player Nr.1 control
+    move_player1(player_car1)
+    if player_car1.collide(TRACK_BORDER_MASK) != None:
+        player_car1.bounce()
    
-        # laptime
-        laptime1(player_car1)
 
-        # cloeses the windows if run = False
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                run = False
-
-        pygame.display.update()
-
-
-
-if player_mode == 2:
-# multiplayer game loop
-    while  run:
-        countdown()
-        drawMulti(WIN, images, player_car1, player_car2)
-        clock.tick(FPS)
-
-        # player Nr.1 control
-        move_player1(player_car1)
-        if player_car1.collide(TRACK_BORDER_MASK) != None:
-            player_car1.bounce()
-    
+    if player_mode == 2:
         # player Nr.2 control
         move_player2(player_car2)
         if player_car2.collide(TRACK_BORDER_MASK) != None:
             player_car2.bounce()
     
 
-        # lapcount (who would have thought)
-        lapcount_collision1(player_car1)
+    # lapcount (who would have thought)
+    lapcount_collision1(player_car1)
+
+    if player_mode == 2:
         lapcount_collision2(player_car2)
    
-        # laptime
-        laptime1(player_car1)
+    # laptime
+    laptime1(player_car1)
+        
+    if player_mode == 2:
         laptime2(player_car2)
 
-        # cloeses the windows if run = False
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                run = False
+    # cloeses the windows if run = False
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            run = False
 
-        pygame.display.update()
+    pygame.display.update()
 
 pygame.quit()
