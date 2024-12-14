@@ -1,3 +1,5 @@
+clear
+
 echo "Singleplayer (1) or Multiplayer (2)?"
 read mode
 

@@ -62,9 +62,9 @@ win_text1 = "Player 1 has won!!!"
 won1 = False
 count_text = 0
 
-###################
-#### Physics ###### 
-###################
+##############
+#### Car ##### 
+##############
 
 #car class (blueprint) 
 class AbstractCar:
