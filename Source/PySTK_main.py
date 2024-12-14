@@ -10,7 +10,7 @@ from utils import scale_image, blit_rotate_center
 pygame.init()
 
 # choose mode (single- or multiplayer) 
-player_mode = int(input("Singleplayer (1) or Multiplayer (2)?"))
+player_mode = int(input("Singleplayer (1) or Multiplayer (2): "))
 
 # choose if you want to play on 85 or 144
 # 85 FPS is easier to play and works great on smaller screens (like laptops)
