@@ -241,48 +241,40 @@ def draw(win, images, player_car1, player_car2):
         f"FPS: {clock}", 1, (255, 255, 255))
     WIN.blit(level_text, (10, HEIGHT - TRACK.get_height() +10))
 
-
-    # Text for player one 
-    # lapcount text for player 1 
-    level_text = MAIN_FONT.render(
-       f"lapcount P1: {lapcount1}", 1, (0, 255, 0))
-    WIN.blit(level_text, (10, HEIGHT - TRACK.get_height() +490 * scale_factor))
-
-    # laptime text P1
-    if (final_laptime1) > 0:
-        level_text = MAIN_FONT.render(
-            f"laptime (s) P1: {math.trunc(final_laptime1)}", 1, (0, 0, 255))
-        win.blit(level_text, (1040 * text_scale_factor, HEIGHT - TRACK.get_height() +490 * scale_factor))
-    else:
-        level_text = MAIN_FONT.render(
-            f"laptime (s) P1: /", 1, (0, 0, 255))
-        win.blit(level_text, (1040 * text_scale_factor, HEIGHT - TRACK.get_height() +490 * scale_factor))
-
+    # display player 1
     player_car1.draw(win)
  
-
-    # Text for player 2
+    # display player 2 
     if player_mode == 2:
-        # laptime text P2
-        if(final_laptime2) > 0:
-            level_text = MAIN_FONT.render(
-                f"laptime (s) P2: {math.trunc(final_laptime2)}", 1, (0, 0, 255))
-            win.blit(level_text, (1040 * text_scale_factor, HEIGHT - TRACK.get_height() +510 * scale_factor))
-        else:
-            level_text = MAIN_FONT.render(
-                f"laptime (s) P2: /", 1, (0, 0, 255))
-            win.blit(level_text, (1040 * text_scale_factor, HEIGHT - TRACK.get_height() +510 * scale_factor))
-
-        # lapcount text for player 2 
-        level_text = MAIN_FONT.render(
-            f"lapcount P2: {lapcount2}", 1, (0, 255, 0))
-        WIN.blit(level_text, (10, HEIGHT - TRACK.get_height() +510 * scale_factor))
-
         player_car2.draw(win)
 
     # pygame.display.update()
-    
-    
+   
+# function to display laptime
+def displayLaptime(win, player, playerLaptime, yAxis):
+    global MAIN_FONT
+
+    MAIN_FONT = pygame.font.SysFont("comicsans", font_scale)
+
+    if (playerLaptime) > 0:
+        level_text = MAIN_FONT.render(
+            f"laptime (s) {player}: {math.trunc(final_laptime1)}", 1, (0, 0, 255))
+        win.blit(level_text, (1040 * text_scale_factor, HEIGHT - TRACK.get_height() + yAxis * scale_factor))
+    else:
+        level_text = MAIN_FONT.render(
+            f"laptime (s) {player}: /", 1, (0, 0, 255))
+        win.blit(level_text, (1040 * text_scale_factor, HEIGHT - TRACK.get_height() + yAxis * scale_factor))
+
+
+def displayLapcount(win, player, playerLapcount, yAxis):
+
+    level_text = MAIN_FONT.render(
+        f"lapcount {player}: {playerLapcount}", 1, (0, 255, 0))
+    WIN.blit(level_text, (10, HEIGHT - TRACK.get_height() + yAxis * scale_factor))
+
+
+
+
 def wonText():
     global won
 
@@ -541,6 +533,13 @@ countdown()
 # game loop
 while  run:
     draw(WIN, images, player_car1, player_car2)
+    displayLaptime(WIN, "P1", final_laptime1, 490)
+    displayLapcount(WIN, "P1", lapcount1, 490)
+
+    if player_mode == 2:
+        displayLaptime(WIN, "P2", final_laptime2, 510)
+        displayLapcount(WIN, "P2", lapcount2, 510)
+
     clock.tick(FPS)
 
     wonText();
