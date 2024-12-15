@@ -278,7 +278,7 @@ def displayLapcount(win, player, playerLapcount, yAxis):
 def wonText():
     global won
 
-    toAbsolveLaps = 2
+    toAbsolveLaps = 6 
     #won text
     if won == True:
         global count_text
