@@ -536,9 +536,6 @@ while  run:
     displayLaptime(WIN, "P1", final_laptime1, 490)
     displayLapcount(WIN, "P1", lapcount1, 490)
 
-    if player_mode == 2:
-        displayLaptime(WIN, "P2", final_laptime2, 510)
-        displayLapcount(WIN, "P2", lapcount2, 510)
 
     clock.tick(FPS)
 
@@ -549,24 +546,27 @@ while  run:
     if player_car1.collide(TRACK_BORDER_MASK) != None:
         player_car1.bounce()
    
-
-    if player_mode == 2:
-        # player Nr.2 control
-        move_player2(player_car2)
-        if player_car2.collide(TRACK_BORDER_MASK) != None:
-            player_car2.bounce()
-    
-
     # lapcount (who would have thought)
     lapcount_collision1(player_car1)
-
-    if player_mode == 2:
-        lapcount_collision2(player_car2)
    
     # laptime
     laptime1(player_car1)
         
-    if player_mode == 2:
+
+    # if player 2
+    if player_mode ==2:
+        # laptime & lapcount
+        displayLaptime(WIN, "P2", final_laptime2, 510)
+        displayLapcount(WIN, "P2", lapcount2, 510)
+        
+        # movement player 2
+        move_player2(player_car2)
+        if player_car2.collide(TRACK_BORDER_MASK) != None:
+            player_car2.bounce()
+
+        # lapcount: collision with finish for player 2
+        lapcount_collision2(player_car2)
+        # laptime player 2
         laptime2(player_car2)
 
     # cloeses the windows if run = False
