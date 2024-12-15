@@ -280,7 +280,7 @@ def draw(win, images, player_car1, player_car2):
 
         player_car2.draw(win)
 
-    pygame.display.update()
+    # pygame.display.update()
     
     
 def wonText():
