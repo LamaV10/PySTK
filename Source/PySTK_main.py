@@ -1,4 +1,4 @@
-#mport
+# import
 import pygame
 import time
 import math
@@ -126,7 +126,7 @@ class AbstractCar:
         self.move()
 
     def move_backward(self):
-        self.vel = max(self.vel - self.acceleration, -self.max_vel/2)
+        self.vel = max(self.vel - self.acceleration, -self.max_vel / 2)
         self.move()
 
     def move(self):
@@ -167,25 +167,6 @@ class PlayerCar1(AbstractCar):
         self.vel = -self.vel * 0.9
         self.move()
 
-#keybinds player 1
-def move_player1(player_car1):
-    keys = pygame.key.get_pressed()
-    moved = False
-
-    if keys[pygame.K_a]:
-        player_car1.rotate(left=True)
-    if keys[pygame.K_d]:
-        player_car1.rotate(right=True)
-    if keys[pygame.K_w]:
-        moved = True
-        player_car1.move_forward()
-    if keys[pygame.K_s]:
-        moved = True
-        player_car1.move_backward()
-    
-    if not moved:
-        player_car1.reduce_speed()
-
 #Player 2
 class PlayerCar2(AbstractCar):
     IMG = racer2
@@ -200,24 +181,35 @@ class PlayerCar2(AbstractCar):
         self.vel = -self.vel * 0.9
         self.move()
 
-#keybinds player  22 
-def move_player2(player_car2):
+
+
+# keybinds player 
+# takes in the player (for example player_car1 or player_car2)
+def move_player(player_car, right, left, forward, backward):
+
+    # Convert string key names to pygame key constants
+    left_key = getattr(pygame, left)
+    right_key = getattr(pygame, right)
+    forward_key = getattr(pygame, forward)
+    backward_key = getattr(pygame, backward)
+
+
     keys = pygame.key.get_pressed()
     moved = False
 
-    if keys[pygame.K_j]: 
-        player_car2.rotate(left=True)
-    if keys[pygame.K_l]:
-        player_car2.rotate(right=True)
-    if keys[pygame.K_i]:
+    if keys[left_key]:
+        player_car.rotate(left=True)
+    if keys[right_key]:
+        player_car.rotate(right=True)
+    if keys[forward_key]:
         moved = True
-        player_car2.move_forward()
-    if keys[pygame.K_k]:
+        player_car.move_forward()
+    if keys[backward_key]:
         moved = True
-        player_car2.move_backward()
+        player_car.move_backward()
     
     if not moved:
-        player_car2.reduce_speed()
+        player_car.reduce_speed()
 
 
 
@@ -507,7 +499,7 @@ if FPS == 144:
 if FPS == 85:
     player_car1 = PlayerCar1(3, 9)
     player_car2 = PlayerCar2(3, 9)
-
+    
     if player_mode == 2:
     #adjusts players start angle
         count = 0
@@ -542,7 +534,8 @@ while  run:
     wonText();
 
     # player Nr.1 control
-    move_player1(player_car1)
+    # move_player1(player_car1)
+    move_player(player_car1, "K_d", "K_a", "K_w", "K_s")
     if player_car1.collide(TRACK_BORDER_MASK) != None:
         player_car1.bounce()
    
@@ -554,13 +547,13 @@ while  run:
         
 
     # if player 2
-    if player_mode ==2:
+    if player_mode == 2:
         # laptime & lapcount
         displayLaptime(WIN, "P2", final_laptime2, 510)
         displayLapcount(WIN, "P2", lapcount2, 510)
         
         # movement player 2
-        move_player2(player_car2)
+        move_player(player_car2, "K_l", "K_j", "K_i", "K_k")
         if player_car2.collide(TRACK_BORDER_MASK) != None:
             player_car2.bounce()
 
