@@ -380,6 +380,7 @@ def laptime(player_car, playerName, last_collision_time_laptime, lastTouch1, las
     # global last_collision_time_laptime, lastTouch1, lastTouch2, lapcount1, start1, start2, end1, end2, final_laptime
     current_time = time.time()
     print(current_time - last_collision_time_laptime)
+    print("last collision", last_collision_time_laptime)
 
     if current_time - last_collision_time_laptime >= collision_delay:
         computer_finish_poi_collide = player_car.collide(FINISH_MASK, *FINISH_POSITION)
@@ -413,6 +414,13 @@ def laptime(player_car, playerName, last_collision_time_laptime, lastTouch1, las
             lastTouch2 = lastTouch2 - 1
             last_collision_time_laptime = current_time
             # print(playerName, "Lap:", lapcount - 1, ":", final_laptime)
+
+
+x = 69
+
+def test(x):
+    x = x + 1
+    return x
 
 
 
@@ -569,6 +577,7 @@ run = True
 # game loop
 while  run:
     clock.tick(FPS)
+    test(x)
 
     draw(WIN, images, player_car1, player_car2)
     displayLaptime(WIN, "P1", final_laptime1P1, 490)
@@ -613,5 +622,6 @@ while  run:
             run = False
 
     pygame.display.update()
+print(x)
 
 pygame.quit()
