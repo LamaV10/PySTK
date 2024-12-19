@@ -54,7 +54,7 @@ countdown_bg = scale_image(pygame.image.load("imgs/Background/Countdown_BG/count
 #window setup
 WIDTH, HEIGHT = TRACK.get_width(), TRACK.get_height()
 WIN = pygame.display.set_mode((WIDTH, HEIGHT))
-pygame.display.set_caption("SuperTuxKart")
+pygame.display.set_caption("PySTK")
 MAIN_FONT = pygame.font.SysFont("comicsans", 32)
 
 #text scale factor
@@ -248,7 +248,7 @@ def displayLaptime(win, player, playerLaptime, yAxis):
 
     MAIN_FONT = pygame.font.SysFont("comicsans", font_scale)
 
-    if (playerLaptime) > 0:
+    if playerLaptime[0] > 0:
         level_text = MAIN_FONT.render(
             f"laptime (s) {player}: {math.trunc(final_laptime1P1)}", 1, (0, 0, 255))
         win.blit(level_text, (1040 * text_scale_factor, HEIGHT - TRACK.get_height() + yAxis * scale_factor))
@@ -379,16 +379,16 @@ def lapcount_collision2(player_car2):
 def laptime(player_car, playerName, last_collision_time_laptime, lastTouch1, lastTouch2, lapcount, start1, start2, end1, end, final_laptime):
     # global last_collision_time_laptime, lastTouch1, lastTouch2, lapcount1, start1, start2, end1, end2, final_laptime
     current_time = time.time()
-    print(current_time - last_collision_time_laptime)
-    print("last collision", last_collision_time_laptime)
+    print(current_time - last_collision_time_laptime[0])
+    print("last collision", last_collision_time_laptime[0])
 
-    if current_time - last_collision_time_laptime >= collision_delay:
+    if current_time - last_collision_time_laptime[0] >= collision_delay:
         computer_finish_poi_collide = player_car.collide(FINISH_MASK, *FINISH_POSITION)
         # print(final_laptime1P1)
         
         if computer_finish_poi_collide is not None and lastTouch1 == 0:
             start1 = time.time()
-            lastTouch1 = lastTouch1 + 1
+            lastTouch1 = lastTouch1[0] + 1
             last_collision_time_laptime = time.time() 
             print("l. 391")
             print(lastTouch1)
@@ -397,48 +397,45 @@ def laptime(player_car, playerName, last_collision_time_laptime, lastTouch1, las
         elif computer_finish_poi_collide is not None and lastTouch1 == 1:
             end1 = time.time()
             final_laptime = (end1 - start1)
-            lastTouch1 = lastTouch1 - 1
+            lastTouch1 = lastTouch1[0] - 1
             last_collision_time_laptime = current_time
             print(playerName, "Lap:", lapcount - 1, ":", final_laptime)
             print("l. 399")
 
         if computer_finish_poi_collide is not None and lastTouch1 == 0 and lapcount == 2:
             start2 = time.time()
-            lastTouch2 = lastTouch2 + 1
+            lastTouch2 = lastTouch2[0] + 1
             last_collision_time_laptime = current_time
             #print("2:", lastTouch2)
 
         elif computer_finish_poi_collide is not None and lastTouch1 == 1 and lastTouch2 == 1 and lapcount == 3:
             end2 = time.time()
             final_laptime = (end2 - start2)
-            lastTouch2 = lastTouch2 - 1
+            lastTouch2 = lastTouch2[0] - 1
             last_collision_time_laptime = current_time
             # print(playerName, "Lap:", lapcount - 1, ":", final_laptime)
 
 
 x = 69
-
 def test(x):
     x = x + 1
     return x
 
 
-
-
-
 #laptime1
-last_collision_time_laptimeP1 = 0
+last_collision_time_laptimeP1 = [0]
 
-lastTouch1P1 = 0
-lastTouch2P1 = 0
+lastTouch1P1 = [0]
+lastTouch2P1 = [0]
 
-start1P1 = 0 
-start2P1 = 0 
+start1P1 = [0]
+start2P1 = [0]
 
-end1P1 = 0
-end2P1 = 0
+end1P1 = [0]
+end2P1 = [0]
 
-final_laptime1P1 = 0 
+
+final_laptime1P1 = [0] 
 
 def laptime1(player_car1):
     global last_collision_time_laptime1, lastTouch1, lastTouch2, lapcount1, start1, start2, end1, end2, final_laptime1
