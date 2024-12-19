@@ -38,6 +38,20 @@ Finish_POS_X = 305 * scale_factor
 Finish_POS_Y = 460 * scale_factor
 
 
+# understanding python 
+y = [5]
+x = 69
+def test(x):
+    x = x + 1
+    
+    if y[0] > 4:
+        y[0] += 1
+    print(y)
+
+
+test(x)
+
+
 #Track and Mask
 TRACK = scale_image(pygame.image.load("imgs/RaceTrack/rennstrecke.jpg"), scale_factor)
 TRACK_BORDER = scale_image(pygame.image.load("imgs/RaceTrack/rennstrecke_mask.xcf"), scale_factor)
@@ -93,6 +107,23 @@ win_text2 = "Player 2 has won!!!"
 
 count_text = 0
 
+
+
+
+# variables for displayLaptime function player 1 
+last_collision_time_laptimeP1 = [0]
+
+lastTouch1P1 = [0]
+lastTouch2P1 = [0]
+
+start1P1 = [0]
+start2P1 = [0]
+
+end1P1 = [0]
+end2P1 = [0]
+
+
+final_laptime1P1 = [0] 
 
 
 
@@ -248,9 +279,10 @@ def displayLaptime(win, player, playerLaptime, yAxis):
 
     MAIN_FONT = pygame.font.SysFont("comicsans", font_scale)
 
+    # if playerLaptime[0] > 0:
     if playerLaptime[0] > 0:
         level_text = MAIN_FONT.render(
-            f"laptime (s) {player}: {math.trunc(final_laptime1P1)}", 1, (0, 0, 255))
+            f"laptime (s) {player}: {math.trunc(playerLaptime[0])}", 1, (0, 0, 255))
         win.blit(level_text, (1040 * text_scale_factor, HEIGHT - TRACK.get_height() + yAxis * scale_factor))
     else:
         level_text = MAIN_FONT.render(
@@ -415,28 +447,6 @@ def laptime(player_car, playerName, last_collision_time_laptime, lastTouch1, las
             last_collision_time_laptime = current_time
             # print(playerName, "Lap:", lapcount - 1, ":", final_laptime)
 
-
-x = 69
-def test(x):
-    x = x + 1
-    return x
-
-
-#laptime1
-last_collision_time_laptimeP1 = [0]
-
-lastTouch1P1 = [0]
-lastTouch2P1 = [0]
-
-start1P1 = [0]
-start2P1 = [0]
-
-end1P1 = [0]
-end2P1 = [0]
-
-
-final_laptime1P1 = [0] 
-
 def laptime1(player_car1):
     global last_collision_time_laptime1, lastTouch1, lastTouch2, lapcount1, start1, start2, end1, end2, final_laptime1
     current_time = time.time()
@@ -574,7 +584,6 @@ run = True
 # game loop
 while  run:
     clock.tick(FPS)
-    test(x)
 
     draw(WIN, images, player_car1, player_car2)
     displayLaptime(WIN, "P1", final_laptime1P1, 490)
@@ -619,6 +628,6 @@ while  run:
             run = False
 
     pygame.display.update()
-print(x)
+
 
 pygame.quit()
