@@ -38,18 +38,6 @@ Finish_POS_X = 305 * scale_factor
 Finish_POS_Y = 460 * scale_factor
 
 
-# understanding python 
-y = [5]
-x = 69
-def test(x):
-    x = x + 1
-    
-    if y[0] > 4:
-        y[0] += 1
-    print(y)
-
-
-
 #Track and Mask
 TRACK = scale_image(pygame.image.load("imgs/RaceTrack/rennstrecke.jpg"), scale_factor)
 TRACK_BORDER = scale_image(pygame.image.load("imgs/RaceTrack/rennstrecke_mask.xcf"), scale_factor)
