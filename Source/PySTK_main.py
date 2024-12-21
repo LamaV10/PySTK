@@ -403,7 +403,6 @@ def laptime(player_car, playerName, last_collision_time_laptime, lastTouch1, las
         computer_finish_poi_collide = player_car.collide(FINISH_MASK, *FINISH_POSITION)
         
         if computer_finish_poi_collide is not None and lastTouch1[0] == 0:
-        # if computer_finish_poi_collide is not None and lastTouch1 == 0:
             start1[0] = time.time()
             lastTouch1[0] = lastTouch1[0] + 1
             last_collision_time_laptime[0] = time.time() 
@@ -415,13 +414,12 @@ def laptime(player_car, playerName, last_collision_time_laptime, lastTouch1, las
             last_collision_time_laptime[0] = current_time
             print(playerName, "Lap:", lapcount[0] - 1, ":", final_laptime[0])
 
-        if computer_finish_poi_collide is not None and lastTouch1[0] == 0 and lapcount[0] == 2:
+        if computer_finish_poi_collide is not None and lastTouch1[0] == 0:
             start2[0] = time.time()
             lastTouch2[0] = lastTouch2[0] + 1
             last_collision_time_laptime[0] = current_time
-            #print("2:", lastTouch2)
 
-        elif computer_finish_poi_collide is not None and lastTouch1[0] == 1 and lastTouch2[0] == 1 and lapcount[0] == 3:
+        elif computer_finish_poi_collide is not None and lastTouch1[0] == 1 and lastTouch2[0] == 1:
             end2[0] = time.time()
             final_laptime[0] = (end2[0] - start2[0])
             lastTouch2[0] = lastTouch2[0] - 1
