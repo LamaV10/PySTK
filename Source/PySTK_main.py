@@ -25,14 +25,13 @@ scale_factor = float(input("Choose scale-factor: "))
 scale_player = 0.02 * scale_factor
 font_size = 32 * scale_factor
 
-# start position
+# start position player 1
 START_POS_X1 = 410 * scale_factor
 START_POS_Y1 = 428 * scale_factor
 
-# start position if there is a second player
-if player_mode == 2:
-    START_POS_X2 = 345 * scale_factor
-    START_POS_Y2 = 478 * scale_factor
+# start position player 2
+START_POS_X2 = 345 * scale_factor
+START_POS_Y2 = 478 * scale_factor
 
 Finish_POS_X = 305 * scale_factor  
 Finish_POS_Y = 460 * scale_factor
@@ -316,10 +315,10 @@ def wonText():
     if won == True:
         global count_text
         
-        if count_text < 30:
-            color = (0, 255, 0)
         if count_text < 0:
             color = (255, 0, 0)
+        else:
+            color = (0, 255, 0)
 
         if lapcountP1[0] >= toAbsolveLaps:
             win_text = win_text1
@@ -336,11 +335,10 @@ def wonText():
     if lapcountP1[0] >= toAbsolveLaps or lapcountP2[0] >= toAbsolveLaps:
 
         won = True
-        if count_text < 20:
+        if count_text < 70:
             count_text += 1 
-
-        elif count_text > 5:
-            count_text -=40
+        else:
+            count_text -= 140 
 
 
 #countdown 
