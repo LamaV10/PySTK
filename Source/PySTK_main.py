@@ -62,7 +62,6 @@ font_scale = math.trunc(15 * scale_factor)
 
 
 
-
 # start position
 START_POS_X1 = 410 * scale_factor
 START_POS_Y1 = 428 * scale_factor
@@ -91,7 +90,6 @@ racer2_mask = scale_image(pygame.image.load("imgs/Yoshi/chevyss-yoshi-mask.png")
 win_text2 = "Player 2 has won!!!"
 
 count_text = 0
-
 
 
 
