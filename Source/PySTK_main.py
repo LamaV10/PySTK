@@ -16,7 +16,7 @@ player_mode = int(input("Singleplayer (1) or Multiplayer (2): "))
 # 85 FPS is easier to play and works great on smaller screens (like laptops)
 # FPS_input = input('(144) or (85) FPS:')
 print("Choose 144 FPS if you put the scale size over 1.8")
-FPS = int(input("144 FPS or 85: "))
+FPS = int(input("144 or 85 FPS: "))
 
 # factors: help to adjust to different resolutions
 scale_factor = float(input("Choose scale-factor: "))
@@ -442,9 +442,7 @@ if FPS == 144:
             player_car1.rotate(left=True)
             count = count + 1
 
-
-
-if FPS == 85:
+elif FPS == 85:
     player_car1 = PlayerCar1(3, 9)
     player_car2 = PlayerCar2(3, 9)
     
@@ -461,6 +459,8 @@ if FPS == 85:
         while count < 40:
             player_car1.rotate(left=True)
             count = count + 1
+else:
+    print("ERROR: Please enter a valid FPS number!")
 
 
 
