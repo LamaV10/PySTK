@@ -1,4 +1,3 @@
-# import
 import pygame
 import time
 import math
@@ -320,8 +319,7 @@ def wonText():
 
         if lapcountP1[0] >= toAbsolveLaps:
             win_text = win_text1
-
-        if lapcountP2[0] >= toAbsolveLaps:
+        elif  lapcountP2[0] >= toAbsolveLaps:
             win_text = win_text2
             
         MAIN_FONT = pygame.font.SysFont("comicsans", 5 * font_scale)
@@ -353,9 +351,8 @@ def countdown():
 
     while countdown_run == True:
         if countdown_no == 2:
-            color = (255, 255, 0)
-        
-        if countdown_no == 1:
+            color = (0, 0, 255)
+        elif countdown_no == 1:
             color = (0, 255, 0)
         
         WIN.blit(image, (0, 0))
