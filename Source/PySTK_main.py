@@ -20,6 +20,7 @@ player_mode = int(input("Singleplayer (1) or Multiplayer (2): "))
 
 # factors: help to adjust to different resolutions
 clearTerminal()
+print("For 1440p ~ 2.3, for 1080p ~ 1.8, for 720p ~ 1.25 ")
 scale_factor = float(input("Choose scale-factor: "))
 
 # choose if you want to play on 85 or 144
