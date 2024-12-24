@@ -1,24 +1,33 @@
 import pygame
 import time
 import math
+import os
 
 import music
+
+def clearTerminal():
+    os.system('cls' if os.name == 'nt' else 'clear')
+
+clearTerminal()
 music.music()
 
 from utils import scale_image, blit_rotate_center
 pygame.init()
 
 # choose mode (single- or multiplayer) 
+clearTerminal()
 player_mode = int(input("Singleplayer (1) or Multiplayer (2): "))
+
+# factors: help to adjust to different resolutions
+clearTerminal()
+scale_factor = float(input("Choose scale-factor: "))
 
 # choose if you want to play on 85 or 144
 # 85 FPS is easier to play and works great on smaller screens (like laptops)
 # FPS_input = input('(144) or (85) FPS:')
+clearTerminal()
 print("Choose 144 FPS if you put the scale size over 1.8")
-FPS = int(input("144 or 85 FPS: "))
-
-# factors: help to adjust to different resolutions
-scale_factor = float(input("Choose scale-factor: "))
+FPS = int(input("144 FPS (1) or 85 FPS (2): "))
 
 
 scale_player = 0.02 * scale_factor
@@ -422,7 +431,7 @@ def laptime(player_car, playerName, last_collision_time_laptime, lastTouch1, las
 
 
 #changes the speed of the players and adjusts to the right start angle when the FPS count is choosen
-if FPS == 144:
+if FPS == 1:
     player_car1 = PlayerCar1(3, 5)
     player_car2 = PlayerCar2(3, 5)
     
@@ -439,7 +448,7 @@ if FPS == 144:
             player_car1.rotate(left=True)
             count = count + 1
 
-elif FPS == 85:
+elif FPS == 2:
     player_car1 = PlayerCar1(3, 9)
     player_car2 = PlayerCar2(3, 9)
     
