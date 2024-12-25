@@ -435,6 +435,7 @@ def laptime(player_car, playerName, last_collision_time_laptime, lastTouch1, las
 if FPS == 1:
     player_car1 = PlayerCar1(3, 5)
     player_car2 = PlayerCar2(3, 5)
+    fpsClock = 144
     
     if player_mode == 2:
         # adjusts players start angle
@@ -452,6 +453,7 @@ if FPS == 1:
 elif FPS == 2:
     player_car1 = PlayerCar1(3, 9)
     player_car2 = PlayerCar2(3, 9)
+    fpsClock = 85 
     
     if player_mode == 2:
     #adjusts players start angle
@@ -479,7 +481,7 @@ run = True
 countdown()
 # game loop
 while  run:
-    clock.tick(FPS)
+    clock.tick(fpsClock)
 
     draw(WIN, images, player_car1, player_car2)
     displayLaptime(WIN, "P1", final_laptimeP1, 490)

@@ -10,8 +10,10 @@ elif [ -f /usr/bin/python3.12 ]; then
   file=PySTK_main.cpython-312.pyc
 fi
 
+tag="-m"
+
 cd Source/
-$pythonTyp -m py_compile PySTK_main.py
+$pythonTyp $tag py_compile PySTK_main.py
 mv -f __pycache__/$file bin/
 cd bin/
 $pythonTyp $file 
