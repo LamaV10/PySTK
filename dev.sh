@@ -17,5 +17,3 @@ $pythonTyp $tag py_compile PySTK_main.py
 mv -f __pycache__/$file bin/
 cd bin/
 $pythonTyp $file 
-cd ..
-cd ..
