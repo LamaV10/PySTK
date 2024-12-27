@@ -1,34 +1,23 @@
-echo "Put the directory where your music is located in the following file which is going to be opend!"
-echo ""
+echo "Enter the location of your desiered music title (mp3):"
+read location
 
-echo "Which editor do you want to use?"
-echo "1: NeoVim"
-echo "2: Vim"
-echo "3: Nano"
-echo "4: Vscodium"
-echo "5: Vscode"
-echo "Your editors number: "
-
-read ide
 cd Source/bin/
 
-if [ $ide -eq 1 ]; then
-  nvim music.py	
+echo "import pygame
+from pygame import mixer
+pygame.init()
 
-elif [ $ide -eq 2 ]; then
-  vim	music.py
+def music():
 
-elif [ $ide -eq 3 ]; then
-  nano music.py
-  
-elif [ $ide -eq 4 ]; then
-  vscodium music.py
-  
-elif [ $ide -eq 5 ]; then
-  code music.py
+    run = int(input('Do you have your music setup? Yes (1) No (2): '))
+    if run == 1:
+        # music import/play
+        # change your path to your music here:
+        mixer.music.load('$location')
+        
 
-elif [ $ide -ne "12345" ]; then
-  echo "Invalid number for editor!"
+        mixer.music.set_volume(0.5)
+        mixer.music.play(-1)" > music.py
 
-fi
+
 
