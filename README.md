@@ -27,9 +27,21 @@ The rest should be self explenatory.
 
 # Music
 
-If you want to have music, just create a folder inside of Source named "Music".
-Now you can put your music inside (mp3's should always work).
-Then you can execute the script musicSetup.sh.
-This will bring you to the code where you can modify the path to your music in order to get your it to work (Source/music.py)!
-This only will work if you have NeoVim, Vim, Nano or Vscode/ium installed.
-Let me know which editors you want to be added!
+In order to get music setup in the game, you can execute the musicSetup.sh script.
+Then you can enter the location of your file (mp3 should always work).
+
+For example:
+
+```
+/home/Bruno/Music/Easy.mp3
+```
+
+If this script doesn't work (because of a different OS) you have to manually modify the path in the music.py file in Line 11,
+which is located in Source/bin/.
+
+Example:
+
+```
+mixer.music.load('/home/Bruno/Music/YOUR_TITEL.mp3')
+```
+
