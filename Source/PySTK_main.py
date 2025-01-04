@@ -138,7 +138,7 @@ lapcountP2 = [0]
 # Timer for the Lapcount-collision
 last_collision_timeP1 = [0]
 last_collision_timeP2 = [0]
-collision_delay = 10 # Sekunden
+collision_delay = 1 # Sekunden
 
 
 
@@ -314,14 +314,12 @@ def displayLapcount(win, player, playerLapcount, yAxis):
 
 
 
-def wonText():
-    global won
+def wonText(win_text1, win_text2, count_text, won, lapcountP1, lapcountP2):
 
     toAbsolveLaps = 6 
-    #won text
+
     if won == True:
-        global count_text
-        
+        #won text
         if count_text < 0:
             color = (255, 0, 0)
         else:
@@ -329,7 +327,7 @@ def wonText():
 
         if lapcountP1[0] >= toAbsolveLaps:
             win_text = win_text1
-        elif  lapcountP2[0] >= toAbsolveLaps:
+        elif lapcountP2[0] >= toAbsolveLaps:
             win_text = win_text2
             
         MAIN_FONT = pygame.font.SysFont("comicsans", 5 * font_scale)
@@ -337,7 +335,7 @@ def wonText():
             f"{win_text}", 1, (color))
         WIN.blit(level_text, (275 * scale_factor, HEIGHT - TRACK.get_height() +260 * scale_factor))
 
-    #blinking "won text" for player 1
+    #blinking "won text" for player 
     if lapcountP1[0] >= toAbsolveLaps or lapcountP2[0] >= toAbsolveLaps:
 
         won = True
@@ -345,6 +343,8 @@ def wonText():
             count_text += 1 
         else:
             count_text -= 140 
+
+    print("sigmabär")
 
 
 #countdown 
@@ -486,7 +486,7 @@ while  run:
     draw(WIN, images, player_car1, player_car2)
     displayLaptime(WIN, "P1", final_laptimeP1, 490)
     displayLapcount(WIN, "P1", lapcountP1, 490)
-    wonText();
+    wonText(win_text1, win_text2, count_text, won, lapcountP1, lapcountP2);
 
 
     # player Nr.1 control
