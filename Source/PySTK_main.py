@@ -313,8 +313,12 @@ def displayLapcount(win, player, playerLapcount, yAxis):
 
 
 
+win_text = 0
 
-def wonText(win_text1, win_text2, count_text, won, lapcountP1, lapcountP2):
+def wonText(win_text1, win_text2, lapcountP1, lapcountP2):
+
+    global won
+    global count_text 
 
     toAbsolveLaps = 6 
 
@@ -343,8 +347,6 @@ def wonText(win_text1, win_text2, count_text, won, lapcountP1, lapcountP2):
             count_text += 1 
         else:
             count_text -= 140 
-
-    print("sigmabär")
 
 
 #countdown 
@@ -478,7 +480,7 @@ images = [(TRACK, (0, 0))]
 run = True
 
 
-countdown()
+# countdown()
 # game loop
 while  run:
     clock.tick(fpsClock)
@@ -486,7 +488,7 @@ while  run:
     draw(WIN, images, player_car1, player_car2)
     displayLaptime(WIN, "P1", final_laptimeP1, 490)
     displayLapcount(WIN, "P1", lapcountP1, 490)
-    wonText(win_text1, win_text2, count_text, won, lapcountP1, lapcountP2);
+    wonText(win_text1, win_text2, lapcountP1, lapcountP2);
 
 
     # player Nr.1 control
