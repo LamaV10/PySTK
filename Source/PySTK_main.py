@@ -323,6 +323,13 @@ def wonText(win_text1, win_text2, lapcountP1, lapcountP2):
 
     toAbsolveLaps = 6 
 
+    # check if the players absolved the laps, that are needed for a win
+    if lapcountP1[0] >= toAbsolveLaps: 
+        wonP1 = True
+    elif lapcountP2[0] >= toAbsolveLaps:
+        wonP2 = True
+
+    # if one player has won
     if wonP1 == True or wonP2 == True:
         # red text if count_text is bigger then 0
         if count_text < 0:
@@ -349,11 +356,6 @@ def wonText(win_text1, win_text2, lapcountP1, lapcountP2):
             f"{win_text}", 1, (color))
         WIN.blit(level_text, (275 * scale_factor, HEIGHT - TRACK.get_height() +260 * scale_factor))
 
-    # check if the players absolved the laps, that are needed for a win
-    if lapcountP1[0] >= toAbsolveLaps: 
-        wonP1 = True
-    elif lapcountP2[0] >= toAbsolveLaps:
-        wonP2 = True
 
 #countdown 
 countdown_run = True
