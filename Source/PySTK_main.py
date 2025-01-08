@@ -139,7 +139,7 @@ lapcountP2 = [0]
 # Timer for the Lapcount-collision
 last_collision_timeP1 = [0]
 last_collision_timeP2 = [0]
-collision_delay = 1 # Sekunden
+collision_delay = 10 # Sekunden
 
 
 
@@ -317,7 +317,6 @@ def displayLapcount(win, player, playerLapcount, yAxis):
 win_text = 0
 
 def wonText(win_text1, win_text2, lapcountP1, lapcountP2):
-
     global wonP1
     global wonP2
     global count_text 
@@ -325,34 +324,36 @@ def wonText(win_text1, win_text2, lapcountP1, lapcountP2):
     toAbsolveLaps = 6 
 
     if wonP1 == True or wonP2 == True:
-        #won text
+        # red text if count_text is bigger then 0
         if count_text < 0:
             color = (255, 0, 0)
+        # green text if this is not the case 
         else:
             color = (0, 255, 0)
 
-        if lapcountP1[0] >= toAbsolveLaps and not wonP2 == True:
-            win_text = win_text1
-        elif lapcountP2[0] >= toAbsolveLaps:
-            win_text = win_text2
-            
-        MAIN_FONT = pygame.font.SysFont("comicsans", 5 * font_scale)
-        level_text = MAIN_FONT.render(
-            f"{win_text}", 1, (color))
-        WIN.blit(level_text, (275 * scale_factor, HEIGHT - TRACK.get_height() +260 * scale_factor))
-
-    #blinking "won text" for player 
-    if lapcountP1[0] >= toAbsolveLaps: 
-        wonP1 = True
-    elif lapcountP2[0] >= toAbsolveLaps:
-        wonP2 = True
-    
-    if wonP1 == True or wonP2 == True:
+        # loops through count_text -> used to change colors after a certain time 
         if count_text < 70:
             count_text += 1 
         else:
             count_text -= 140 
 
+        # sets which text is going to be displayed
+        if lapcountP1[0] >= toAbsolveLaps and not wonP2 == True:
+            win_text = win_text1
+        elif lapcountP2[0] >= toAbsolveLaps:
+            win_text = win_text2
+        
+        # display won text
+        MAIN_FONT = pygame.font.SysFont("comicsans", 5 * font_scale)
+        level_text = MAIN_FONT.render(
+            f"{win_text}", 1, (color))
+        WIN.blit(level_text, (275 * scale_factor, HEIGHT - TRACK.get_height() +260 * scale_factor))
+
+    # check if the players absolved the laps, that are needed for a win
+    if lapcountP1[0] >= toAbsolveLaps: 
+        wonP1 = True
+    elif lapcountP2[0] >= toAbsolveLaps:
+        wonP2 = True
 
 #countdown 
 countdown_run = True
@@ -485,7 +486,7 @@ images = [(TRACK, (0, 0))]
 run = True
 
 
-# countdown()
+countdown()
 # game loop
 while  run:
     clock.tick(fpsClock)
