@@ -84,7 +84,7 @@ racer1_mask = scale_image(pygame.image.load("imgs/Tux/ferrari-rossa-tux-mask.png
 
 #won utilities for player 1
 win_text1 = "Player 1 has won!!!"
-won = False
+wonP1 = False
 
 # variables necessary for multiplayer
 # start position if there is a second player
@@ -97,6 +97,7 @@ racer2_mask = scale_image(pygame.image.load("imgs/Yoshi/chevyss-yoshi-mask.png")
 
 # won utilities for player 2
 win_text2 = "Player 2 has won!!!"
+wonP2 = False
 
 count_text = 0
 
@@ -317,19 +318,20 @@ win_text = 0
 
 def wonText(win_text1, win_text2, lapcountP1, lapcountP2):
 
-    global won
+    global wonP1
+    global wonP2
     global count_text 
 
     toAbsolveLaps = 6 
 
-    if won == True:
+    if wonP1 == True or wonP2 == True:
         #won text
         if count_text < 0:
             color = (255, 0, 0)
         else:
             color = (0, 255, 0)
 
-        if lapcountP1[0] >= toAbsolveLaps:
+        if lapcountP1[0] >= toAbsolveLaps and not wonP2 == True:
             win_text = win_text1
         elif lapcountP2[0] >= toAbsolveLaps:
             win_text = win_text2
@@ -340,9 +342,12 @@ def wonText(win_text1, win_text2, lapcountP1, lapcountP2):
         WIN.blit(level_text, (275 * scale_factor, HEIGHT - TRACK.get_height() +260 * scale_factor))
 
     #blinking "won text" for player 
-    if lapcountP1[0] >= toAbsolveLaps or lapcountP2[0] >= toAbsolveLaps:
-
-        won = True
+    if lapcountP1[0] >= toAbsolveLaps: 
+        wonP1 = True
+    elif lapcountP2[0] >= toAbsolveLaps:
+        wonP2 = True
+    
+    if wonP1 == True or wonP2 == True:
         if count_text < 70:
             count_text += 1 
         else:
