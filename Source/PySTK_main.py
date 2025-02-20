@@ -254,7 +254,7 @@ def move_player(player_car, right, left, forward, backward):
     if keys[backward_key]:
         moved = True
         player_car.move_backward()
-    
+
     if not moved:
         player_car.reduce_speed()
 
@@ -415,6 +415,7 @@ def laptime(player_car, playerName, last_collision_time_laptime, lastTouch1, las
     if current_time - last_collision_time_laptime[0] >= collision_delay:
         computer_finish_poi_collide = player_car.collide(FINISH_MASK, *FINISH_POSITION)
         
+        # if player crosses finish line and lastTouch1 = 0 (for laptime lap 1,3,5 ...)
         if computer_finish_poi_collide is not None and lastTouch1[0] == 0:
             start1[0] = time.time()
             lastTouch1[0] = lastTouch1[0] + 1
@@ -427,6 +428,7 @@ def laptime(player_car, playerName, last_collision_time_laptime, lastTouch1, las
             last_collision_time_laptime[0] = current_time
             print(playerName, "Lap:", lapcount[0] - 1, ":", final_laptime[0])
 
+        # if player crosses finish line and lastTouch1 = 0 (for laptime lap 2,4,6 ...)
         if computer_finish_poi_collide is not None and lastTouch1[0] == 0:
             start2[0] = time.time()
             lastTouch2[0] = lastTouch2[0] + 1
@@ -488,7 +490,7 @@ images = [(TRACK, (0, 0))]
 run = True
 
 
-countdown()
+# countdown()
 # game loop
 while  run:
     clock.tick(fpsClock)
