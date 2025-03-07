@@ -1,3 +1,5 @@
+# script which is used to setup up the music.py file with your desiered music directory
+
 echo "Enter the location of your desiered music title (mp3):"
 read location
 
@@ -17,7 +19,4 @@ def music():
         
 
         mixer.music.set_volume(0.5)
-        mixer.music.play(-1)" > music.py
-
-
-
+        mixer.music.play(-1)" >music.py
