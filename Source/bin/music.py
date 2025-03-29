@@ -8,7 +8,7 @@ def music():
     if run == 1:
         # music import/play
         # change your path to your music here:
-        mixer.music.load('/home/marcel/Music/Jamiroquai - When You Gonna Learn?.mp3')
+        mixer.music.load('/home/fortnite')
         
 
         mixer.music.set_volume(0.5)

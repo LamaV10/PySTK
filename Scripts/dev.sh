@@ -1,5 +1,5 @@
 # This script compiles PySTK_main and overwrites the old binary in the Source/bin directory.
-# Then it executes the binary (should work on Linux and maybe MacOS) 
+# Then it executes the binary (should work on Linux and maybe MacOS)
 
 if [ -f /usr/bin/python3.13 ]; then
   pythonTyp=python3.13
@@ -12,8 +12,9 @@ fi
 
 tag="-m"
 
+cd ..
 cd Source/
 $pythonTyp $tag py_compile PySTK_main.py
 mv -f __pycache__/$file bin/
 cd bin/
-$pythonTyp $file 
+$pythonTyp $file

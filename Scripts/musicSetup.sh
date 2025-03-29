@@ -3,6 +3,7 @@
 echo "Enter the location of your desiered music title (mp3):"
 read location
 
+cd ..
 cd Source/bin/
 
 echo "import pygame
