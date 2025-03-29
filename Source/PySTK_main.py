@@ -4,15 +4,14 @@ import math
 import os
 
 import music
+from utils import scale_image, blit_rotate_center
+pygame.init()
 
 def clearTerminal():
     os.system('cls' if os.name == 'nt' else 'clear')
 
 clearTerminal()
 music.music()
-
-from utils import scale_image, blit_rotate_center
-pygame.init()
 
 # choose mode (single- or multiplayer) 
 clearTerminal()
