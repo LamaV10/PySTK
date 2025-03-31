@@ -13,8 +13,6 @@ fortnite()
 print(bruno[0])
 
 banani = 0
-def minecraft():
-    global banani
-    banani = 5 
+print(banani)
 minecraft()
 print(banani)
