@@ -14,5 +14,5 @@ print(bruno[0])
 
 banani = 0
 print(banani)
-minecraft()
+banani = minecraft()
 print(banani)

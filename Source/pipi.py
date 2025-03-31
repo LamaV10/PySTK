@@ -7,12 +7,10 @@ pygame.init()
 
 scale_factor = 0 
 def getScale_factor():
-    global scale_factor
-
     print("For 1440p ~ 2.3, for 1080p ~ 1.8, for 720p ~ 1.25 ")
-    scale_factor = float(input("Choose scale-factor: "))
-    print("scale factor:", scale_factor)
-    time.sleep(5)
+    return float(input("Choose scale-factor: "))
+
+scale_factor = getScale_factor()
 
 scale_player = 0.02 * scale_factor
 font_size = 32 * scale_factor

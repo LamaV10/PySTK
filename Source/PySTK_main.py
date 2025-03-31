@@ -20,7 +20,7 @@ player_mode = int(input("Singleplayer (1) or Multiplayer (2): "))
 
 # factors: help to adjust to different resolutions
 clearTerminal()
-getScale_factor()
+# scale_factor = getScale_factor()
 
 # choose if you want to play on 85 or 144
 # 85 FPS is easier to play and works great on smaller screens (like laptops)
