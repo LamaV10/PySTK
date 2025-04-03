@@ -183,28 +183,6 @@ def draw(win, images, player_car1, player_car2):
 
     # pygame.display.update()
    
-# measurment and display of the laptime
-def displayLaptime(win, player, playerLaptime, yAxis):
-    global MAIN_FONT
-    MAIN_FONT = pygame.font.SysFont("comicsans", font_scale)
-
-    # if playerLaptime[0] > 0:
-    if playerLaptime[0] > 0:
-        level_text = MAIN_FONT.render(
-            f"laptime (s) {player}: {math.trunc(playerLaptime[0])}", 1, (0, 0, 255))
-        win.blit(level_text, (1040 * text_scale_factor, HEIGHT - TRACK.get_height() + yAxis * scale_factor))
-    else:
-        level_text = MAIN_FONT.render(
-            f"laptime (s) {player}: /", 1, (0, 0, 255))
-        win.blit(level_text, (1040 * text_scale_factor, HEIGHT - TRACK.get_height() + yAxis * scale_factor))
-
-# lapcount from players 
-def displayLapcount(win, player, playerLapcount, yAxis):
-    level_text = MAIN_FONT.render(
-        f"lapcount {player}: {playerLapcount[0]}", 1, (0, 255, 0))
-    WIN.blit(level_text, (10, HEIGHT - TRACK.get_height() + yAxis * scale_factor))
-
-
 
 win_text = 0
 def wonText(win_text1, win_text2, lapcountP1, lapcountP2):
@@ -251,7 +229,6 @@ def wonText(win_text1, win_text2, lapcountP1, lapcountP2):
 #countdown 
 countdown_run = True
 def countdown():
-   
     global countdown_run
 
     image = countdown_bg
@@ -285,6 +262,29 @@ def countdown():
 ################
 #### Stats #####
 ################
+
+# measurment and display of the laptime
+def displayLaptime(win, player, playerLaptime, yAxis):
+    global MAIN_FONT
+    MAIN_FONT = pygame.font.SysFont("comicsans", font_scale)
+
+    # if playerLaptime[0] > 0:
+    if playerLaptime[0] > 0:
+        level_text = MAIN_FONT.render(
+            f"laptime (s) {player}: {math.trunc(playerLaptime[0])}", 1, (0, 0, 255))
+        win.blit(level_text, (1040 * text_scale_factor, HEIGHT - TRACK.get_height() + yAxis * scale_factor))
+    else:
+        level_text = MAIN_FONT.render(
+            f"laptime (s) {player}: /", 1, (0, 0, 255))
+        win.blit(level_text, (1040 * text_scale_factor, HEIGHT - TRACK.get_height() + yAxis * scale_factor))
+
+# lapcount from players 
+def displayLapcount(win, player, playerLapcount, yAxis):
+    level_text = MAIN_FONT.render(
+        f"lapcount {player}: {playerLapcount[0]}", 1, (0, 255, 0))
+    WIN.blit(level_text, (10, HEIGHT - TRACK.get_height() + yAxis * scale_factor))
+
+
 
 #lapcount
 def lapcount_collision(player_car, lapcount, last_collision_time):
