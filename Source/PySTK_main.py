@@ -24,7 +24,6 @@ clearTerminal()
 
 # choose if you want to play on 85 or 144
 # 85 FPS is easier to play and works great on smaller screens (like laptops)
-# FPS_input = input('(144) or (85) FPS:')
 clearTerminal()
 print("Choose 144 FPS if you put the scale size over 1.8")
 FPS = int(input("144 FPS (1) or 85 FPS (2): "))
@@ -42,7 +41,7 @@ print("scale factor:", scale_factor)
 #### Car ##### 
 ##############
 
-#car physics
+#car class -> physics 
 class AbstractCar:
     def __init__(self, max_vel, rotation_vel):
         self.img = self.IMG
@@ -95,7 +94,7 @@ class AbstractCar:
 #### Players ###### 
 ###################
 
-#player1
+#car class from AbstractCar for player 1
 class PlayerCar1(AbstractCar):
     IMG = racer1
     mask = racer1_mask
@@ -109,7 +108,7 @@ class PlayerCar1(AbstractCar):
         self.vel = -self.vel * 0.9
         self.move()
 
-#Player 2
+#car class from AbstractCar for player 2 
 class PlayerCar2(AbstractCar):
     IMG = racer2
     mask = racer2_mask
@@ -125,7 +124,7 @@ class PlayerCar2(AbstractCar):
 
 
 
-# keybinds player 
+# player keybinds 
 # takes in the player (for example player_car1 or player_car2)
 def move_player(player_car, right, left, forward, backward):
 
@@ -159,7 +158,7 @@ def move_player(player_car, right, left, forward, backward):
 #### Display ###### 
 ###################
 
-#display of text & players
+# draw the text & players
 def draw(win, images, player_car1, player_car2):
     for img, pos in images:
         win.blit(img, pos)
@@ -184,10 +183,9 @@ def draw(win, images, player_car1, player_car2):
 
     # pygame.display.update()
    
-# function to display laptime
+# measurment and display of the laptime
 def displayLaptime(win, player, playerLaptime, yAxis):
     global MAIN_FONT
-
     MAIN_FONT = pygame.font.SysFont("comicsans", font_scale)
 
     # if playerLaptime[0] > 0:
@@ -200,9 +198,8 @@ def displayLaptime(win, player, playerLaptime, yAxis):
             f"laptime (s) {player}: /", 1, (0, 0, 255))
         win.blit(level_text, (1040 * text_scale_factor, HEIGHT - TRACK.get_height() + yAxis * scale_factor))
 
-
+# lapcount from players 
 def displayLapcount(win, player, playerLapcount, yAxis):
-
     level_text = MAIN_FONT.render(
         f"lapcount {player}: {playerLapcount[0]}", 1, (0, 255, 0))
     WIN.blit(level_text, (10, HEIGHT - TRACK.get_height() + yAxis * scale_factor))
@@ -210,7 +207,6 @@ def displayLapcount(win, player, playerLapcount, yAxis):
 
 
 win_text = 0
-
 def wonText(win_text1, win_text2, lapcountP1, lapcountP2):
     global wonP1
     global wonP2
@@ -286,7 +282,6 @@ def countdown():
             countdown_run = False
 
 
-
 ################
 #### Stats #####
 ################
@@ -304,7 +299,6 @@ def lapcount_collision(player_car, lapcount, last_collision_time):
 
 # laptime
 def laptime(player_car, playerName, last_collision_time_laptime, lastTouch1, lastTouch2, lapcount, start1, start2, end1, end2, final_laptime):
-    # global last_collision_time_laptime, lastTouch1, lastTouch2, lapcount1, start1, start2, end1, end2, final_laptime
     current_time = time.time()
 
     if current_time - last_collision_time_laptime[0] >= collision_delay:
