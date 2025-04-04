@@ -14,6 +14,9 @@ def clearTerminal():
 clearTerminal()
 music.music()
 
+# clearTerminal()
+# scale_factor = getScale_factor()
+
 # choose mode (single- or multiplayer) 
 clearTerminal()
 player_mode = int(input("Singleplayer (1) or Multiplayer (2): "))

@@ -1,3 +1,4 @@
+import os
 import pygame
 import math
 import time
@@ -10,6 +11,7 @@ def getScale_factor():
     print("For 1440p ~ 2.3, for 1080p ~ 1.8, for 720p ~ 1.25 ")
     return float(input("Choose scale-factor: "))
 
+os.system('cls' if os.name == 'nt' else 'clear')
 scale_factor = getScale_factor()
 
 scale_player = 0.02 * scale_factor
