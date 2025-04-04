@@ -4,7 +4,7 @@ import math
 import os
 
 import music
-from pipi import *
+from setup import *
 from utils import scale_image, blit_rotate_center
 pygame.init()
 
