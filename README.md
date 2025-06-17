@@ -49,4 +49,4 @@ Example:
 mixer.music.load('/home/Bruno/Music/YOUR_TITEL.mp3')
 ```
 # Honorable Mentions 
-shout out to @CrazyPlayer7595 for starting this project
+shoutout to @CrazyPlayer7595 for starting this project (sending code back and forth over discord)
