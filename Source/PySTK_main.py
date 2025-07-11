@@ -41,7 +41,7 @@ print("scale factor:", scale_factor)
 
 
 ##############
-#### Car ##### 
+#### Car #####
 ##############
 
 # car class -> physics
@@ -300,7 +300,8 @@ def lapcount_collision(player_car, lapcount, last_collision_time):
 
 
 # laptime
-def laptime(player_car, playerName, last_collision_time_laptime, lastTouch1, lastTouch2, lapcount, start1, start2, end1, end2, final_laptime):
+def laptime(player_car, playerName, last_collision_time_laptime, lastTouch1,
+            lastTouch2, lapcount, start1, start2, end1, end2, final_laptime):
     current_time = time.time()
 
     if current_time - last_collision_time_laptime[0] >= collision_delay:
@@ -334,7 +335,7 @@ def laptime(player_car, playerName, last_collision_time_laptime, lastTouch1, las
 
 
 
-#changes the speed of the players and adjusts to the right start angle when the FPS count is choosen
+# changes the speed of the players and adjusts to the right start angle when the FPS count is choosen
 if FPS == 1:
     player_car1 = PlayerCar1(3, 5)
     player_car2 = PlayerCar2(3, 5)
@@ -359,14 +360,14 @@ elif FPS == 2:
     fpsClock = 85
 
     if player_mode == 2:
-    # adjusts players start angle
+        # adjusts players start angle
         count = 0
         while count < 40:
             player_car1.rotate(left=True)
             player_car2.rotate(left=True)
             count = count + 1
     else:
-    # adjusts players start angle
+        # adjusts players start angle
         count = 0
         while count < 40:
             player_car1.rotate(left=True)
@@ -403,7 +404,8 @@ while run:
     lapcount_collision(player_car1, lapcountP1, last_collision_timeP1)
 
     # laptime
-    laptime(player_car1, "Player 1", last_collision_time_laptimeP1, lastTouch1P1, lastTouch2P1, lapcountP1, start1P1, start2P1, end1P1, end2P1, final_laptimeP1)
+    laptime(player_car1, "Player 1", last_collision_time_laptimeP1, lastTouch1P1, lastTouch2P1,
+            lapcountP1, start1P1, start2P1, end1P1, end2P1, final_laptimeP1)
 
     # if player 2
     if player_mode == 2:
@@ -419,7 +421,8 @@ while run:
         # lapcount: collision with finishline for player 2
         lapcount_collision(player_car2, lapcountP2, last_collision_timeP2)
         # laptime player 2
-        laptime(player_car2, "Player 2", last_collision_time_laptimeP2, lastTouch1P2, lastTouch2P2, lapcountP2, start1P2, start2P2, end1P2, end2P2, final_laptimeP2)
+        laptime(player_car2, "Player 2", last_collision_time_laptimeP2, lastTouch1P2, lastTouch2P2,
+                lapcountP2, start1P2, start2P2, end1P2, end2P2, final_laptimeP2)
 
     # cloeses the windows if run = False
     for event in pygame.event.get():
