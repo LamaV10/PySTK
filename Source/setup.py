@@ -17,10 +17,6 @@ scale_player = 0.02 * scale_factor
 font_size = 32 * scale_factor
 
 
-Finish_POS_X = 305 * scale_factor  
-Finish_POS_Y = 460 * scale_factor
-
-
 # Track and Mask
 TRACK = scale_image(pygame.image.load("imgs/RaceTrack/rennstrecke.jpg"), scale_factor)
 TRACK_BORDER = scale_image(pygame.image.load("imgs/RaceTrack/rennstrecke_mask.xcf"), scale_factor)
@@ -29,7 +25,7 @@ TRACK_BORDER_MASK = pygame.mask.from_surface(TRACK_BORDER)
 # finish line Mask
 FINISH = pygame.image.load("imgs/RaceTrack/finish-line.png")
 FINISH_MASK = pygame.mask.from_surface(FINISH)
-FINISH_POSITION = (Finish_POS_X, Finish_POS_Y)
+FINISH_POSITION = (305 * scale_factor, 460 * scale_factor)
 
 # countdown background
 countdown_bg = scale_image(pygame.image.load("imgs/Background/Countdown_BG/countdown_bg.png"), scale_factor * 0.5)
