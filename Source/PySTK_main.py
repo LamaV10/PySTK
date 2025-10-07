@@ -46,13 +46,14 @@ print("scale factor:", scale_factor)
 
 # car class -> physics
 class AbstractCar:
-    def __init__(self, max_vel, rotation_vel, img, mask):
+    def __init__(self, max_vel, rotation_vel, img, mask, posX, posY):
         self.img = img
         self.max_vel = max_vel
         self.vel = 0
         self.rotation_vel = 0.25 * rotation_vel
         self.angle = 0
-        # self.x, self.y = self.START_POS_SCALE
+        self.x = posX
+        self.y = posY
         self.acceleration = 0.1
         self.mask = mask
 
@@ -87,10 +88,11 @@ class AbstractCar:
         poi = mask.overlap(car_mask, offset)
         return poi
 
-    def reset(self):
-        self.x, self.y = self.START_POS
-        self.angle = 0
-        self.vel = 0
+    # def reset(self):
+    #     self.x
+    #     self.y = self.START_POS
+    #     self.angle = 0
+    #     self.vel = 0
 
 
 ###################
@@ -99,11 +101,12 @@ class AbstractCar:
 
 # car class from AbstractCar for player 1
 class PlayerCar(AbstractCar):
+    # def __init__(self, max_vel, rotation_vel, img, mask, startPosScale, posX, posY):
     def __init__(self, max_vel, rotation_vel, img, mask, posX, posY):
-        super().__init__(max_vel, rotation_vel, img, mask)
-        self.posX = posX
-        self.posY = posY
-        # self.START_POS_SCALE = (posX, posY)
+        super().__init__(max_vel, rotation_vel, img, mask, posX, posY)
+        # self.posX = posX
+        # self.posY = posY
+        # self.startPosScale = (posX, posY)
 
 
     def reduce_speed(self):
@@ -114,20 +117,6 @@ class PlayerCar(AbstractCar):
         self.vel = -self.vel * 0.9
         self.move()
 
-# car class from AbstractCar for player 2
-# class PlayerCar2(AbstractCar):
-#     IMG = racer2
-#     mask = racer2_mask
-#     START_POS_SCALE = (START_POS_X2, START_POS_Y2)
-#
-#     def reduce_speed(self):
-#         self.vel = max(self.vel - self.acceleration / 2, 0)
-#         self.move()
-#
-#     def bounce(self):
-#         self.vel = -self.vel * 0.9
-#         self.move()
-#
 
 
 # player keybinds
@@ -341,10 +330,10 @@ def laptime(player_car, playerName, last_collision_time_laptime, lastTouch1,
 # changes the speed of the players and adjusts to the right start angle when the FPS count is choosen
 if FPS == 1:
     # player_car1 = PlayerCar1(3, 5)
-    player_car1 = PlayerCar(3, 5, racer1, racer1_mask, START_POS_X1, START_POS_Y1)
-    # def __init__(self, max_vel, rotation_vel, img, imageMask, posX, posY):
+    player_car1 = PlayerCar(3, 5, racer1, racer1_mask, 410 * scale_factor, 428 * scale_factor)
+    # def __init__(self, max_vel, rotation_vel, img, mask, posX, posY):
     # player_car2 = PlayerCar2(3, 5)
-    player_car2 = PlayerCar(3, 5, racer2, racer2_mask, START_POS_X2, START_POS_Y2)
+    player_car2 = PlayerCar(3, 5, racer2, racer2_mask, 345 * scale_factor, 478 * scale_factor)
     fpsClock = 144
 
     if player_mode == 2:
@@ -435,7 +424,7 @@ while run:
         if event.type == pygame.QUIT:
             run = False
 
-    pygamedisplay.update()
+    pygame.display.update()
 
 
 pygame.quit()

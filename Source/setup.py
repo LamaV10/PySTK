@@ -1,7 +1,6 @@
 import os
 import pygame
 import math
-import time
 
 from utils import scale_image, blit_rotate_center
 pygame.init()
@@ -17,13 +16,6 @@ scale_factor = getScale_factor()
 scale_player = 0.02 * scale_factor
 font_size = 32 * scale_factor
 
-# start position player 1
-START_POS_X1 = 410 * scale_factor
-START_POS_Y1 = 428 * scale_factor
-
-# start position player 2
-START_POS_X2 = 345 * scale_factor
-START_POS_Y2 = 478 * scale_factor
 
 Finish_POS_X = 305 * scale_factor  
 Finish_POS_Y = 460 * scale_factor
@@ -46,13 +38,6 @@ countdown_bg = scale_image(pygame.image.load("imgs/Background/Countdown_BG/count
 text_scale_factor = TRACK.get_width() * 0.00088
 font_scale = math.trunc(15 * scale_factor)
 
-
-# start position
-START_POS_X1 = 410 * scale_factor
-START_POS_Y1 = 428 * scale_factor
-
-Finish_POS_X = 305 * scale_factor  
-Finish_POS_Y = 460 * scale_factor
 
 #Racer Nr.1
 racer1 = scale_image(pygame.image.load("imgs/Tux/ferrari-rossa-tux.png"), scale_player)
