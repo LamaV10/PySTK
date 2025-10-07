@@ -104,10 +104,6 @@ class PlayerCar(AbstractCar):
     # def __init__(self, max_vel, rotation_vel, img, mask, startPosScale, posX, posY):
     def __init__(self, max_vel, rotation_vel, img, mask, posX, posY):
         super().__init__(max_vel, rotation_vel, img, mask, posX, posY)
-        # self.posX = posX
-        # self.posY = posY
-        # self.startPosScale = (posX, posY)
-
 
     def reduce_speed(self):
         self.vel = max(self.vel - self.acceleration / 2, 0)
@@ -329,10 +325,7 @@ def laptime(player_car, playerName, last_collision_time_laptime, lastTouch1,
 
 # changes the speed of the players and adjusts to the right start angle when the FPS count is choosen
 if FPS == 1:
-    # player_car1 = PlayerCar1(3, 5)
     player_car1 = PlayerCar(3, 5, racer1, racer1_mask, 410 * scale_factor, 428 * scale_factor)
-    # def __init__(self, max_vel, rotation_vel, img, mask, posX, posY):
-    # player_car2 = PlayerCar2(3, 5)
     player_car2 = PlayerCar(3, 5, racer2, racer2_mask, 345 * scale_factor, 478 * scale_factor)
     fpsClock = 144
 
@@ -350,8 +343,8 @@ if FPS == 1:
             count = count + 1
 
 elif FPS == 2:
-    player_car1 = PlayerCar1(3, 9)
-    player_car2 = PlayerCar2(3, 9)
+    player_car1 = PlayerCar(3, 9, racer1, racer1_mask, 410 * scale_factor, 428 * scale_factor)
+    player_car2 = PlayerCar(3, 9, racer2, racer2_mask, 345 * scale_factor, 478 * scale_factor)
     fpsClock = 85
 
     if player_mode == 2:
