@@ -298,28 +298,26 @@ def laptime(player_car, playerName, last_collision_time_laptime, lastTouch1,
         # if player crosses finish line and lastTouch1 = 0 (for laptime lap 1,3,5 ...)
         if computer_finish_poi_collide is not None and lastTouch1[0] == 0:
             start1[0] = time.time()
-            lastTouch1[0] = lastTouch1[0] + 1
+            lastTouch1[0] =  1
             last_collision_time_laptime[0] = time.time()
 
         elif computer_finish_poi_collide is not None and lastTouch1[0] == 1:
             end1[0] = time.time()
-            final_laptime[0] = (end1[0] - start1[0])
-            lastTouch1[0] = lastTouch1[0] - 1
+            lastTouch1[0] = 1
             last_collision_time_laptime[0] = current_time
-            print(playerName, "Lap:", lapcount[0] - 1, ":", final_laptime[0])
+            print(playerName, "Lap:", lapcount[0] - 1, ":", end1[0] - start1[0])
 
         # if player crosses finish line and lastTouch1 = 0 (for laptime lap 2,4,6 ...)
         if computer_finish_poi_collide is not None and lastTouch1[0] == 0:
             start2[0] = time.time()
-            lastTouch2[0] = lastTouch2[0] + 1
+            lastTouch2[0] = 1
             last_collision_time_laptime[0] = current_time
 
         elif computer_finish_poi_collide is not None and lastTouch1[0] == 1 and lastTouch2[0] == 1:
             end2[0] = time.time()
-            final_laptime[0] = (end2[0] - start2[0])
-            lastTouch2[0] = lastTouch2[0] - 1
+            lastTouch2[0] = 1
             last_collision_time_laptime[0] = current_time
-            print(playerName, "Lap:", lapcount[0] - 1, ":", final_laptime[0])
+            print(playerName, "Lap:", lapcount[0] - 1, ":", end2[0] - start2[0])
 
 
 
