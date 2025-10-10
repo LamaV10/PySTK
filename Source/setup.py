@@ -56,33 +56,10 @@ count_text = 0
 
 # variables for displayLaptime function player 1 
 last_collision_time_laptimeP1 = [0]
-
-lastTouch1P1 = [0]
-lastTouch2P1 = [0]
-
-start1P1 = [0]
-start2P1 = [0]
-
-end1P1 = [0]
-end2P1 = [0]
-
-
-final_laptimeP1 = [0] 
 lapcountP1 = [0]
 
 # variables for displayLaptime function player 2 
 last_collision_time_laptimeP2 = [0]
-
-lastTouch1P2 = [0]
-lastTouch2P2 = [0]
-
-start1P2 = [0]
-start2P2 = [0]
-
-end1P2 = [0]
-end2P2 = [0]
-
-final_laptimeP2 = [0] 
 lapcountP2 = [0]
 
 # Timer for the Lapcount-collision
