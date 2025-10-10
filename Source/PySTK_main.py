@@ -105,6 +105,7 @@ class PlayerCar(AbstractCar):
         self.name = name
         self.lastTouch = lastTouch if lastTouch is not None else [0, 0]
         self.laptime = laptime if laptime is not None else [0, 0, 0, 0]
+        self.finalLaptime = [0]
 
     def reduce_speed(self):
         self.vel = max(self.vel - self.acceleration / 2, 0)
@@ -255,18 +256,17 @@ def countdown():
 ################
 
 # measurment and display of the laptime
-def displayLaptime(win, player, playerLaptime, yAxis):
+def displayLaptime(win, pPlayerCar, name, yAxis):
     global MAIN_FONT
     MAIN_FONT = pygame.font.SysFont("comicsans", font_scale)
 
-    # if playerLaptime[0] > 0:
-    if playerLaptime[0] > 0:
+    if pPlayerCar.finalLaptime[0] > 0:
         level_text = MAIN_FONT.render(
-            f"laptime (s) {player}: {math.trunc(playerLaptime[0])}", 1, (0, 0, 255))
+            f"laptime (s) {name}: {math.trunc(pPlayerCar.finalLaptime[0])}", 1, (0, 0, 255))
         win.blit(level_text, (1040 * text_scale_factor, HEIGHT - TRACK.get_height() + yAxis * scale_factor))
     else:
         level_text = MAIN_FONT.render(
-            f"laptime (s) {player}: /", 1, (0, 0, 255))
+            f"laptime (s) {name}: /", 1, (0, 0, 255))
         win.blit(level_text, (1040 * text_scale_factor, HEIGHT - TRACK.get_height() + yAxis * scale_factor))
 
 # lapcount from players
@@ -305,7 +305,8 @@ def laptime(pPlayerCar, last_collision_time_laptime, lapcount):
             pPlayerCar.laptime[1] = time.time()
             pPlayerCar.lastTouch[0] =  0
             last_collision_time_laptime[0] = current_time
-            print(pPlayerCar.name, "Lap:", lapcount[0] - 1, ":", pPlayerCar.laptime[1] - pPlayerCar.laptime[0])
+            pPlayerCar.finalLaptime[0] = pPlayerCar.laptime[1] - pPlayerCar.laptime[0]
+            print(pPlayerCar.name, "Lap:", lapcount[0] - 1, ":", pPlayerCar.finalLaptime)
 
         # if player crosses finish line and lastTouch1 = 0 (for laptime lap 2,4,6 ...)
         if computer_finish_poi_collide is not None and pPlayerCar.lastTouch[0] == 0:
@@ -317,7 +318,8 @@ def laptime(pPlayerCar, last_collision_time_laptime, lapcount):
             pPlayerCar.laptime[3] = time.time()
             pPlayerCar.lastTouch[1] = 0
             last_collision_time_laptime[0] = current_time
-            print(pPlayerCar.name, "Lap:", lapcount[0] - 1, ":", pPlayerCar.laptime[3] - pPlayerCar.laptime[2])
+            pPlayerCar.finalLaptime[0] = pPlayerCar.laptime[3] - pPlayerCar.laptime[2]
+            print(pPlayerCar.name, "Lap:", lapcount[0] - 1, ":", pPlayerCar.finalLaptime)
 
 
 
@@ -375,7 +377,7 @@ while run:
     clock.tick(fpsClock)
 
     draw(WIN, images, player_car1, player_car2)
-    displayLaptime(WIN, "P1", final_laptimeP1, 490)
+    displayLaptime(WIN, player_car1, "P1", 490)
     displayLapcount(WIN, "P1", lapcountP1, 490)
     wonText(win_text1, win_text2, lapcountP1, lapcountP2);
 
@@ -393,7 +395,7 @@ while run:
     # if player 2
     if player_mode == 2:
         # laptime & lapcount
-        displayLaptime(WIN, "P2", final_laptimeP2, 510)
+        displayLaptime(WIN, player_car2, "P2", 510)
         displayLapcount(WIN, "P2", lapcountP2, 510)
 
         # movement player 2
