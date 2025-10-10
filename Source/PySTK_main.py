@@ -306,7 +306,7 @@ def laptime(pPlayerCar, last_collision_time_laptime, lapcount):
             pPlayerCar.lastTouch[0] =  0
             last_collision_time_laptime[0] = current_time
             pPlayerCar.finalLaptime[0] = pPlayerCar.laptime[1] - pPlayerCar.laptime[0]
-            print(pPlayerCar.name, "Lap:", lapcount[0] - 1, ":", pPlayerCar.finalLaptime)
+            print(pPlayerCar.name, "Lap:", lapcount[0] - 1, ":", pPlayerCar.finalLaptime[0])
 
         # if player crosses finish line and lastTouch1 = 0 (for laptime lap 2,4,6 ...)
         if computer_finish_poi_collide is not None and pPlayerCar.lastTouch[0] == 0:
@@ -319,7 +319,7 @@ def laptime(pPlayerCar, last_collision_time_laptime, lapcount):
             pPlayerCar.lastTouch[1] = 0
             last_collision_time_laptime[0] = current_time
             pPlayerCar.finalLaptime[0] = pPlayerCar.laptime[3] - pPlayerCar.laptime[2]
-            print(pPlayerCar.name, "Lap:", lapcount[0] - 1, ":", pPlayerCar.finalLaptime)
+            print(pPlayerCar.name, "Lap:", lapcount[0] - 1, ":", pPlayerCar.finalLaptime[0])
 
 
 
