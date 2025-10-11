@@ -19,7 +19,6 @@ clear_terminal()
 player_mode = int(input("Singleplayer (1) or Multiplayer (2): "))
 clear_terminal()
 
-# choose if you want to play on 85 or 144
 # 85 FPS is easier to play and works great on smaller screens (like laptops)
 clear_terminal()
 print("Choose 144 FPS if you put the scale size over 1.8")
@@ -34,11 +33,7 @@ MAIN_FONT = pygame.font.SysFont("comicsans", 32)
 print("scale factor:", scale_factor)
 
 
-##############
-#### Car #####
-##############
-
-# car class -> physics
+# car class
 class AbstractCar:
     def __init__(self, max_vel, rotation_vel, img, mask, pos_x, pos_y):
         self.img = img
@@ -89,10 +84,7 @@ class AbstractCar:
     #     self.vel = 0
 
 
-###################
-#### Players ######
-###################
-
+# Players
 class PlayerCar(AbstractCar):
     def __init__(self, max_vel, rotation_vel, img, mask, pos_x, pos_y, name, last_touch=None, laptime=None):
         super().__init__(max_vel, rotation_vel, img, mask, pos_x, pos_y)
@@ -112,7 +104,6 @@ class PlayerCar(AbstractCar):
 
 
 # player keybinds
-# takes in the player (for example playerCar1 or playerCar2)
 def move_player(player_car, right, left, forward, backward):
     # Convert string key names to pygame key constants
     left_key = getattr(pygame, left)
@@ -140,10 +131,7 @@ def move_player(player_car, right, left, forward, backward):
 
 
 
-###################
-#### Display ######
-###################
-
+# display
 # draw the text & players
 def draw(win, images, playerCar1, playerCar2):
     for img, pos in images:
@@ -166,8 +154,6 @@ def draw(win, images, playerCar1, playerCar2):
     # display player 2
     if player_mode == 2:
         playerCar2.draw(win)
-
-    # pygame.display.update()
 
 
 win_text = 0
@@ -245,10 +231,7 @@ def countdown():
             countdown_run = False
 
 
-################
-#### Stats #####
-################
-
+# Stats
 # measurment and display of the laptime
 def display_laptime(win, pPlayerCar, name, y_axis):
     global MAIN_FONT
@@ -271,7 +254,7 @@ def display_lapcount(win, player, player_lapcount, y_axis):
 
 
 
-# lapcount
+# lapcount 
 def lapcount_collision(pPlayerCar, lapcount, last_collision_time):
     current_time = time.time()
     if current_time - last_collision_time[0] >= collision_delay:
@@ -281,8 +264,6 @@ def lapcount_collision(pPlayerCar, lapcount, last_collision_time):
             last_collision_time[0] = current_time
 
 
-
-# laptime
 def laptime(pPlayerCar, last_collision_time_laptime, lapcount):
     current_time = time.time()
 
@@ -377,7 +358,6 @@ while run:
 
 
     # player Nr.1 control
-    # move_player1(playerCar1)
     move_player(playerCar1, "K_d", "K_a", "K_w", "K_s")
     if playerCar1.collide(TRACK_BORDER_MASK) != None:
         playerCar1.bounce()
