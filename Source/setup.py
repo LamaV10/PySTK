@@ -41,7 +41,7 @@ racer1_mask = scale_image(pygame.image.load("imgs/Tux/ferrari-rossa-tux-mask.png
 
 # won utilities for player 1
 win_text1 = "Player 1 has won!!!"
-wonP1 = False
+won_P1 = False
 
 
 # Racer Nr.2
@@ -50,17 +50,17 @@ racer2_mask = scale_image(pygame.image.load("imgs/Yoshi/chevyss-yoshi-mask.png")
 
 # won utilities for player 2
 win_text2 = "Player 2 has won!!!"
-wonP2 = False
+won_P2 = False
 
 count_text = 0
 
-# variables for displayLaptime function player 1 
+# variables for display_laptime function player 1 
 last_collision_time_laptimeP1 = [0]
-lapcountP1 = [0]
+lapcount_P1 = [0]
 
-# variables for displayLaptime function player 2 
+# variables for display_laptime function player 2 
 last_collision_time_laptimeP2 = [0]
-lapcountP2 = [0]
+lapcount_P2 = [0]
 
 # Timer for the Lapcount-collision
 last_collision_timeP1 = [0]
