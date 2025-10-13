@@ -40,7 +40,7 @@ class AbstractCar:
         self.max_vel = max_vel
         self.vel = 0
         self.rotation_vel = 0.25 * rotation_vel
-        self.angle = 0
+        self.angle = 90
         self.x = pos_x
         self.y = pos_y
         self.acceleration = 0.1
@@ -304,40 +304,13 @@ if FPS == 1:
     playerCar2 = PlayerCar(3, 5, racer2, racer2_mask, 345 * scale_factor, 478 * scale_factor, "Player 2")
     fpsClock = 144
 
-    if player_mode == 2:
-        # adjusts players start angle
-        count = 0
-        while count < 72:
-            playerCar1.rotate(left=True)
-            playerCar2.rotate(left=True)
-            count = count + 1
-    else:
-        count = 0
-        while count < 72:
-            playerCar1.rotate(left=True)
-            count = count + 1
-
 elif FPS == 2:
     playerCar1 = PlayerCar(3, 9, racer1, racer1_mask, 410 * scale_factor, 428 * scale_factor, "Player 1")
     playerCar2 = PlayerCar(3, 9, racer2, racer2_mask, 345 * scale_factor, 478 * scale_factor, "Player 2")
     fpsClock = 85
 
-    if player_mode == 2:
-        # adjusts players start angle
-        count = 0
-        while count < 40:
-            playerCar1.rotate(left=True)
-            playerCar2.rotate(left=True)
-            count = count + 1
-    else:
-        # adjusts players start angle
-        count = 0
-        while count < 40:
-            playerCar1.rotate(left=True)
-            count = count + 1
 else:
     print("ERROR: Please enter a valid FPS number!")
-
 
 
 
