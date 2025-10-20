@@ -30,7 +30,6 @@ WIN = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("PySTK")
 MAIN_FONT = pygame.font.SysFont("comicsans", 32)
 
-print("scale factor:", scale_factor)
 
 
 # car class
@@ -318,8 +317,13 @@ clock = pygame.time.Clock()
 images = [(TRACK, (0, 0))]
 run = True
 
-print(fpsClock)
-# countdown()
+
+# stats
+print("scale factor:", scale_factor)
+print("res:", round(1067*scale_factor),"x", round(533*scale_factor))
+print("FPS:", fpsClock)
+
+countdown()
 # game loop
 while run:
     clock.tick(fpsClock)
