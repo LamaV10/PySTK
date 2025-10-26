@@ -7,7 +7,8 @@ pygame.init()
 
 scale_factor = 0 
 def getScale_factor():
-    print("For 1440p ~ 2.3, for 1080p ~ 1.8, for 720p ~ 1.25 ")
+    print("> Scale-factor 1 = 1067 × 533")
+    print("> For 1440p ~ 2.3, for 1080p ~ 1.8, for 720p ~ 1.25 ")
     return float(input("Choose scale-factor: "))
 
 os.system('cls' if os.name == 'nt' else 'clear')
