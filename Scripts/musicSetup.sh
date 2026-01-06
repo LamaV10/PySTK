@@ -3,8 +3,7 @@
 echo "Enter the location of your desiered music title (mp3):"
 read location
 
-cd ..
-cd Source/bin/
+cd ../Source/
 
 echo "import pygame
 from pygame import mixer
